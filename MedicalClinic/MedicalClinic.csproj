@@ -15,10 +15,5 @@
   </ItemGroup>
 
   
-      <packageSources>
-        <add key="NuGet official package source" value="https://api.nuget.org/v3/index.json" />
-        <add key="MyRepo - ES" value="https://MyRepo/ES/nuget" />
-    </packageSources>
-  
   
 </Project>
