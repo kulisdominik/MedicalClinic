@@ -1,33 +1,16 @@
-language: csharp  
-sudo: required  
-dist: trusty  
-env:  
-  - CLI_VERSION=latest
-addons:  
+language: csharp
+mono: none
+dotnet: 2.0.0
+dist: trusty
+
+addons:
   apt:
+    sources:
+    - sourceline: 'deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-trusty-prod trusty main'
+      key_url: 'https://packages.microsoft.com/keys/microsoft.asc'
     packages:
-    - gettext
-    - libcurl4-openssl-dev
-    - libicu-dev
-    - libssl-dev
-    - libunwind8
-    - zlib1g
-mono:  
-  - latest
-  - 4.2.3
-os:  
-  - linux
-  - osx
-osx_image: xcode7.1  
-branches:  
-  only:
-    - master
-before_install:  
-  - if test "$TRAVIS_OS_NAME" == "osx"; then brew update; brew install openssl; brew link --force openssl; fi
-  - chmod +x ./build.sh
-install:  
-  - export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
-  - curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
-  - export PATH="$DOTNET_INSTALL_DIR:$PATH"  
-script:  
-  - ./build.sh
+    - dotnet-hostfxr-1.0.1
+    - dotnet-sharedframework-microsoft.netcore.app-1.0.5
+
+script:
+  - build/travis.sh
