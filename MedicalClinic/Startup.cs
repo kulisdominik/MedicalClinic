@@ -27,6 +27,7 @@ namespace MedicalClinic
             }
             else
             {
+                throw new Exception();
                 // DODAC OBSLUGE BŁĘDóW STRONY ~DK
                 //app.UseExceptionHandler("/Home/Error");
             }
