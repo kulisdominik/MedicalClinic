@@ -13,4 +13,5 @@ addons:
     - dotnet-sharedframework-microsoft.netcore.app-1.0.5
 
 script:
+- chmod +x ./build.sh
   - ./build.sh
