@@ -13,7 +13,7 @@ dotnet restore
 
 dotnet test ./test/MedicalClinic -c Release -f netcoreapp1.0
 
-dotnet build ./test/MedicalClinic-c Release -f net451
+dotnet build ./test/MedicalClinic -c Release -f net451
 
 revision=${TRAVIS_JOB_ID:=1}  
 revision=$(printf "%04d" $revision) 
