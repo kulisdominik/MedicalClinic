@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #exit if any command fails
-set -e
+# set -e
 
 artifactsFolder="./artifacts"
 
