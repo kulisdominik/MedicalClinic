@@ -17,4 +17,4 @@ dotnet build ./test/MedicalClinic -c Release -f net451
 revision=${TRAVIS_JOB_ID:=1}  
 revision=$(printf "%04d" $revision) 
 
-dotnet pack ./src/PROJECT_NAME -c Release -o ./artifacts --version-suffix=$revision  
+dotnet pack ./src/MedicalClinic -c Release -o ./artifacts --version-suffix=$revision  
