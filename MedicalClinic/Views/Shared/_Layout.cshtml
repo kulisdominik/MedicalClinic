@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <ul>
+            <li>@Html.ActionLink("Index", "Index", "Home")</li>
+            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+            @await Html.PartialAsync("_LoginPartial")
+        </ul>
+    </div>
+
+    @RenderBody()
+
+</body>
+</html>

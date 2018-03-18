@@ -6,14 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalClinic.Controllers
 {
-    public class HomeController : Controller
+    [Route("[controller]/[action]")]
+    public class AccountController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
         {
             return View();
         }
