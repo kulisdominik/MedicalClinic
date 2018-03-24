@@ -20,4 +20,5 @@ before_install:
  - chmod +x ./build.sh
  
 script:
-- ./build.sh
+  - ./build.sh
+
