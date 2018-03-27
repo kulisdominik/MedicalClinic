@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MedicalClinic.Models
 {
-    public class ApplicationIdentityDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationIdentityDbContext : IdentityDbContext<ClinicUser>
     {
         public ApplicationIdentityDbContext(DbContextOptions<ApplicationIdentityDbContext> options)
             : base(options)
