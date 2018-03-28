@@ -1,10 +1,10 @@
 ﻿<!doctype html>
 <html lang="pl_PL">
 <head runat="server">
-    <title>Przychodnia</title>
+    <title>@ViewBag.Title</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="~/Content/Style.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Style.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     @RenderSection("Styles", false)
 
@@ -53,6 +53,8 @@
         label > span {
             padding: 10px;
             font-weight: 500;
+            font-size: 1.2em;
+            width: 200px;
         }
 
         input {
@@ -146,7 +148,7 @@
             <div class="col-md-2 align-self-center">
                 <ul class="list-inline">
                     <li class="list-inline-item"> @Html.ActionLink("Zaloguj", "SignIn", "Home")</li>
-                    <li class="list-inline-item"> @Html.ActionLink("Rejestracja", "Index", "Home")</li>
+                    <li class="list-inline-item"> @Html.ActionLink("Rejestracja", "SignUp", "Home")</li>
                 </ul>
             </div>
         </div>
