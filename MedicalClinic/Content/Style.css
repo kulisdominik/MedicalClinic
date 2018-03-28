@@ -1,0 +1,126 @@
+﻿body {
+    background-color: white;
+    color: black;
+    text-align: center;
+}
+
+span {
+    font-size: 1.5em;
+    display: inline-block;
+}
+
+a {
+    font-size: 1em;
+    color: #0f5e6a;
+}
+
+    a:hover {
+        color: #6d6d6d;
+        text-decoration: none;
+    }
+
+.menu-lista a {
+    color: white;
+    font-size: 1.2em;
+}
+
+    .menu-lista a:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+.menu-lista > li:hover {
+    box-shadow: 0 0 15px 1px #0f3d44 inset;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+label > span {
+    padding: 10px;
+    font-weight: 500;
+}
+
+input {
+    margin: auto;
+    width: auto;
+    padding: 0 5px;
+    height: 50px;
+    font-size: 1.2em;
+    border: 1px solid #CCC;
+}
+
+
+.header {
+    height: 18%;
+    font-size: 1.5em;
+    text-align: left;
+    padding: 25px;
+}
+
+    .header a {
+        font-size: 0.7em;
+        color: #0f5e6a;
+    }
+
+    .header span {
+        color: #0f5e6a;
+        font-weight: 700;
+        text-shadow: 1px 0px 1px black;
+    }
+
+    .header li {
+        margin: 20px;
+    }
+
+.content {
+    border-bottom: 1px solid #DDD;
+}
+
+    .content > div {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        text-align: left;
+    }
+
+.menu {
+    background-color: #0f5e6a;
+    color: white;
+}
+
+.footer {
+    background-color: #0f5e6a;
+    color: white;
+    padding: 15px;
+}
+
+.btn {
+    width: 120px;
+    margin: auto;
+}
+
+    .btn:focus {
+        box-shadow: none;
+    }
+
+.form-header {
+    font-size: 1.5em;
+    text-align: center;
+    padding: 25px;
+    color: #0f5e6a;
+    font-weight: 700;
+    border-bottom: 1px solid #DDD;
+}
+
+.form-content > div {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+input[type="submit"] {
+    margin: 20px 0;
+}

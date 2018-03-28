@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<form name="signin" action="" method="get">
+    <div class="row justify-content-center form-header">
+        <div class="col-lg-12 align-self-center">
+            <span>Zaloguj się</span>
+        </div>
+    </div>
+    <div class="row justify-content-center form-content">
+        <div class="col-lg-12 align-self-center">
+            <label><span>Login </span><input type="text" name="login"></label>
+        </div>
+    </div>
+    <div class="row justify-content-center form-content">
+        <div class="col-lg-12 align-self-center">
+            <label><span>Hasło </span><input type="password" name="password"></label>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div>
+            <input type="submit" class="btn btn-secondary" value="Zaloguj">
+        </div>
+    </div>
+</form>
+<div class="row justify-content-center form-content">
+    <div class="col-lg-12 align-self-center">
+        @Html.ActionLink("Przypomnij hasło", "SignIn", "Home")
+    </div>
+</div>
+
