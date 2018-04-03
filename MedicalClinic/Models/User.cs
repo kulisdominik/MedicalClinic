@@ -1,4 +1,8 @@
-﻿using System;
+/*Michał Dyrcz Base #1
+    Model encji User przejął cechy ApplicationUser - który został wyrzucony
+    Podstawowe pola + klucz z tabeli residence
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
