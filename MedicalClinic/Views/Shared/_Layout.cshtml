@@ -1,4 +1,4 @@
-/* Michał Dyrcz Base #1
+﻿/* Michał Dyrcz Base #1
     Usunalem <br/> ze stopki
 */
 
@@ -52,6 +52,14 @@
             list-style-type: none;
             padding: 0;
             margin: 0;
+        }
+        
+        .services{
+            list-style-type: circle;
+        }
+
+        #invite{
+            font-size: 15pt;
         }
 
         label > span {
@@ -141,6 +149,10 @@
         input[type="submit"] {
             margin: 20px 0;
         }
+
+        .pin{
+        }
+
     </style>
 </head>
 <body>
@@ -151,7 +163,7 @@
             </div>
             <div class="col-md-2 align-self-center">
                 <ul class="list-inline">
-                    <li class="list-inline-item"> @Html.ActionLink("Zaloguj", "SignIn", "Home")</li>
+                    <li class="list-inline-item"> @Html.ActionLink("Logowanie", "SignIn", "Home")</li>
                     <li class="list-inline-item"> @Html.ActionLink("Rejestracja", "SignUp", "Home")</li>
                 </ul>
             </div>
@@ -159,7 +171,7 @@
         <div class="row menu justify-content-center">
             <div class="col-md-12">
                 <ul class="list-inline menu-lista">
-                    <li class="list-inline-item btn" role="button">@Html.ActionLink("O nas", "Index", "Home")</li>
+                    <li class="list-inline-item btn" role="button">@Html.ActionLink("Start", "Index", "Home")</li>
                     <li class="list-inline-item"><a href="#service" class="btn" role="button">Usługi</a></li>
                     <li class="list-inline-item"><a href="#contact" class="btn" role="button">Kontakt</a></li>
                     <li class="list-inline-item"><a href="#" class="btn" role="button">Tytuł</a></li>
