@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+/* Michał Dyrcz Base #1
+    1. Podmienienie ApplicationUser na User
+    2. Dodanie Database.EnsureCreated();
+    3. Konfiguracja polaczen oraz przy pomocy buildera tabel zignorowanie autogenerowanych tabel przez aspnet i pol w tabeli User
+    4. Stworzenie DbSet
+*/
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System;
