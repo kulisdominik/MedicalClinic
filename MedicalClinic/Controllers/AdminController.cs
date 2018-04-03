@@ -1,4 +1,8 @@
-﻿using System;
+/* Michał Dyrcz Base #1
+    1. Zamiana ApplicationUser na User
+    2. Przy stworzniu obiektu user zamiana user.username na user.LastName
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
