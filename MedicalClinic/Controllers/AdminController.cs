@@ -10,9 +10,9 @@ namespace MedicalClinic.Controllers
 {
     public class AdminController : Controller
     {
-        private UserManager<ApplicationUser> userManager;
+        private UserManager<User> userManager;
 
-        public AdminController(UserManager<ApplicationUser> _userManager)
+        public AdminController(UserManager<User> _userManager)
         {
             userManager = _userManager;
         }
@@ -31,14 +31,14 @@ namespace MedicalClinic.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(RegisterModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser();
-                user.UserName = model.UserName;
+                User user = new User();
+                user.LastName = model.UserName;
                 user.Email = model.Email;
 
                 var result = await userManager.CreateAsync(user, model.Password);
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
                 }
