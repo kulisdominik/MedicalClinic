@@ -1,4 +1,7 @@
-﻿using System;
+/* Michał Dyrcz Base #1
+    Encja Residence podstawowe pola
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
