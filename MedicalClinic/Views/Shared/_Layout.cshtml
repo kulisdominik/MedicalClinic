@@ -30,9 +30,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Strona główna</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="ForPatient">Dla pacjenta</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="ForEmployee">Dla pracownika</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -40,11 +41,12 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - MedicalClinic</p>
-        </footer>
     </div>
+    <footer class="navbar navbar-fixed-bottom">
+        <div class="container">
+            <p class="navbar-text">&copy; 2018 - MedicalClinic</p>
+        </div>
+    </footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

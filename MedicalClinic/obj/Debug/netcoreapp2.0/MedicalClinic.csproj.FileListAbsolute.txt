@@ -20,3 +20,14 @@ C:\Users\kulis95\Desktop\Projekt\GitClone\MedicalClinic\MedicalClinic\obj\Debug\
 C:\Users\kulis95\Desktop\Projekt\GitClone\MedicalClinic\MedicalClinic\obj\Debug\netcoreapp2.0\MedicalClinic.AssemblyInfo.cs
 C:\Users\kulis95\Desktop\Projekt\GitClone\MedicalClinic\MedicalClinic\obj\Debug\netcoreapp2.0\MedicalClinic.dll
 C:\Users\kulis95\Desktop\Projekt\GitClone\MedicalClinic\MedicalClinic\obj\Debug\netcoreapp2.0\MedicalClinic.pdb
+C:\studia\Inżynieria Systemów Informacyjnych (ISI)\Projekt Przychodnia\MedicalClinic\bin\Debug\netcoreapp2.0\MedicalClinic.deps.json
+C:\studia\Inżynieria Systemów Informacyjnych (ISI)\Projekt Przychodnia\MedicalClinic\bin\Debug\netcoreapp2.0\MedicalClinic.runtimeconfig.json
+C:\studia\Inżynieria Systemów Informacyjnych (ISI)\Projekt Przychodnia\MedicalClinic\bin\Debug\netcoreapp2.0\MedicalClinic.runtimeconfig.dev.json
+C:\studia\Inżynieria Systemów Informacyjnych (ISI)\Projekt Przychodnia\MedicalClinic\bin\Debug\netcoreapp2.0\MedicalClinic.dll
+C:\studia\Inżynieria Systemów Informacyjnych (ISI)\Projekt Przychodnia\MedicalClinic\bin\Debug\netcoreapp2.0\MedicalClinic.pdb
+C:\studia\Inżynieria Systemów Informacyjnych (ISI)\Projekt Przychodnia\MedicalClinic\obj\Debug\netcoreapp2.0\MedicalClinic.csprojResolveAssemblyReference.cache
+C:\studia\Inżynieria Systemów Informacyjnych (ISI)\Projekt Przychodnia\MedicalClinic\obj\Debug\netcoreapp2.0\MedicalClinic.csproj.CoreCompileInputs.cache
+C:\studia\Inżynieria Systemów Informacyjnych (ISI)\Projekt Przychodnia\MedicalClinic\obj\Debug\netcoreapp2.0\MedicalClinic.AssemblyInfoInputs.cache
+C:\studia\Inżynieria Systemów Informacyjnych (ISI)\Projekt Przychodnia\MedicalClinic\obj\Debug\netcoreapp2.0\MedicalClinic.AssemblyInfo.cs
+C:\studia\Inżynieria Systemów Informacyjnych (ISI)\Projekt Przychodnia\MedicalClinic\obj\Debug\netcoreapp2.0\MedicalClinic.dll
+C:\studia\Inżynieria Systemów Informacyjnych (ISI)\Projekt Przychodnia\MedicalClinic\obj\Debug\netcoreapp2.0\MedicalClinic.pdb
