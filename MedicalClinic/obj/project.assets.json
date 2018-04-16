@@ -13125,24 +13125,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\theo\\.nuget\\packages\\": {},
+    "C:\\Users\\DELL\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\studia\\Inżynieria Systemów Informacyjnych (ISI)\\Projekt Przychodnia\\MedicalClinic\\MedicalClinic.csproj",
+      "projectUniqueName": "C:\\Users\\DELL\\Source\\Repos\\MedicalClinic2\\MedicalClinic\\MedicalClinic.csproj",
       "projectName": "MedicalClinic",
-      "projectPath": "C:\\studia\\Inżynieria Systemów Informacyjnych (ISI)\\Projekt Przychodnia\\MedicalClinic\\MedicalClinic.csproj",
-      "packagesPath": "C:\\Users\\theo\\.nuget\\packages\\",
-      "outputPath": "C:\\studia\\Inżynieria Systemów Informacyjnych (ISI)\\Projekt Przychodnia\\MedicalClinic\\obj\\",
+      "projectPath": "C:\\Users\\DELL\\Source\\Repos\\MedicalClinic2\\MedicalClinic\\MedicalClinic.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\DELL\\Source\\Repos\\MedicalClinic2\\MedicalClinic\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\theo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
