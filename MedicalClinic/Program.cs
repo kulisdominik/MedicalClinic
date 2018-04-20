@@ -16,6 +16,7 @@ namespace MedicalClinic
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
+
             host.Run();
         }
 
