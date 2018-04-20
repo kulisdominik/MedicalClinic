@@ -37,9 +37,20 @@ namespace MedicalClinic.Controllers
             return View();
         }
 
+<<<<<<< HEAD
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+=======
+        public IActionResult SignIn()
+        {
+            return View();
+        }
+
+        public IActionResult SignUp()
+        {
+            return View();
+>>>>>>> origin/master
         }
     }
 }

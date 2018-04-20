@@ -5,8 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Remove="Migrations\20180420170016_UsersRoles.cs" />
     <Compile Remove="Migrations\20180420170016_UsersRoles.Designer.cs" />
+=======
+    <Compile Remove="Migrations\20180402224408_MedicalClinic.cs" />
+    <Compile Remove="Migrations\20180402224408_MedicalClinic.Designer.cs" />
+    <Compile Remove="Migrations\20180403103930_MedicalClinic.cs" />
+    <Compile Remove="Migrations\20180403103930_MedicalClinic.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="wwwroot\" />
+>>>>>>> origin/master
   </ItemGroup>
 
   <ItemGroup>

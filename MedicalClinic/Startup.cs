@@ -1,4 +1,10 @@
-﻿using System;
+/*Michał Drycz - Base #1 Update
+    W public void ConfigureServices(IServiceCollection services) zamieniłem 'ApplicationUser' na 'User'
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                na
+            services.AddIdentity<User, IdentityRole>()
+        }*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,8 +34,13 @@ namespace MedicalClinic
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+<<<<<<< HEAD
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+=======
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
+>>>>>>> origin/master
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
