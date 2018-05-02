@@ -17,3 +17,53 @@ footer {
 #invite {
     font-size: 15pt;
 }
+
+.navbar-custom {
+    background-color: #0f5e6a;
+}
+
+    .navbar-custom .navbar-toggle .icon-bar {
+        background-color: white;
+    }
+
+    .navbar-custom .navbar-brand,
+    .navbar-custom .navbar-text {
+        color: white;
+    }
+
+    .navbar-custom .navbar-nav a {
+        background: #0f5e6a;
+        color: white;
+    }
+
+    .navbar-custom a:active,
+    .navbar-custom a:hover {
+        color: white;
+    }
+
+    .navbar-custom .navbar-nav > li > a:hover,
+    .navbar-custom .navbar-nav > li > a:focus {
+        background: #0f5e6a;
+        box-shadow: inset 0 0 20px #10393f;
+    }
+
+    .navbar-custom .navbar-nav > li > button{
+        margin-left: 15px;
+    }
+
+.nav-pills a {
+    color: #0f5e6a !important;
+    background-color: white !important;
+}
+
+.nav-pills a:active,
+.nav-pills a:hover {
+    color: #AAA !important;
+}
+
+@media (min-width: 992px) {
+    .acc {
+        padding-left: 30px;
+        border-left: 1px solid #EEE;
+    }
+}

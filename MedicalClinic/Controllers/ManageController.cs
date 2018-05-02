@@ -85,7 +85,7 @@ namespace MedicalClinic.Controllers
                 }
             }
 
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Twoje dane zostały zaktualizowane.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -132,7 +132,7 @@ namespace MedicalClinic.Controllers
 
             await _signInManager.SignInAsync(user, isPersistent: false);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            StatusMessage = "Twoje hasło zostało zmienione.";
 
             return RedirectToAction(nameof(ChangePassword));
         }
