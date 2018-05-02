@@ -13,13 +13,12 @@ namespace MedicalClinic.Data
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            string[] roleNames = { "Admin", "Member" };
+            string[] roleNames = { "Admin", "Manager", "Member" };
             IdentityResult roleResult;
 
             foreach (var roleName in roleNames)
             {
                 var roleExist = await RoleManager.RoleExistsAsync(roleName);
-
                 if (!roleExist)
                 {
                     roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
@@ -31,6 +30,7 @@ namespace MedicalClinic.Data
                 UserName = Configuration.GetSection("AppSettings")["UserEmail"],
                 Email = Configuration.GetSection("AppSettings")["UserEmail"]
             };
+
             string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
             var user = await UserManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserEmail"]);
 
