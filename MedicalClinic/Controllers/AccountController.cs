@@ -72,7 +72,7 @@ namespace MedicalClinic.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Nieudana próba logowania.");
                     return View(model);
                 }
             }

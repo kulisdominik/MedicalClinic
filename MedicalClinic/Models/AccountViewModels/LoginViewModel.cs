@@ -8,11 +8,11 @@ namespace MedicalClinic.Models.AccountViewModels
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Wymagany adres e-mail.")]
         [EmailAddress(ErrorMessage = "Podano nieprawidłowy adres e-mail.")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Wymagane hasło.")]
         [DataType(DataType.Password)]
         [Display(Name = "Hasło")]
         public string Password { get; set; }
