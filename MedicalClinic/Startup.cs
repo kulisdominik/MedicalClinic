@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MedicalClinic.Data;
 using MedicalClinic.Data.Migrations;
 using MedicalClinic.Models;
+using MedicalClinic.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -32,7 +33,11 @@ namespace MedicalClinic
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddMvc();
+
             services.AddScoped<IDbInitializer, DbInitializer>();
         }
 
