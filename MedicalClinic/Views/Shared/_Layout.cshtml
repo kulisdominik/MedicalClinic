@@ -17,35 +17,28 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-custom navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">MedicalClinic</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Start</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="ForPatient">Dla pacjenta</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="ForEmployee">Dla pracownika</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
-        </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
+    <header>
+        <a asp-area="" asp-controller="Home" asp-action="Index">MedicalClinic</a>
+    </header>
+    <div class="menu-right">
+        <button type="button" class="btn-menu-slide">MENU</button>
+        <ul class="menu-list menu-home">
+            <li><a asp-area="" asp-controller="Home" asp-action="Index">Start</a></li>
+            <li>@await Html.PartialAsync("_LoginPartial")</li>
+            <li><a asp-area="" asp-controller="Home" asp-action="ForPatient">Dla pacjenta</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="ForEmployee">Dla pracownika</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
+        </ul>
     </div>
-    <footer class="navbar navbar-fixed-bottom">
-        <div class="container">
-            <p class="navbar-text">&copy; 2018 - MedicalClinic</p>
+    <div class="container content">
+        <div class="row">
+            <article class="col-md-10">
+                @RenderBody()
+            </article>
         </div>
+    </div>
+    <footer>
+        <span>&copy; 2018 - MedicalClinic</span>
     </footer>
 
     <environment include="Development">
