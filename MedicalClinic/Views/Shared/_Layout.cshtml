@@ -19,20 +19,16 @@
 <body>
     <header>
         <a asp-area="" asp-controller="Home" asp-action="Index">MedicalClinic</a>
+        <button type="button" class="btn-menu-slide"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
     </header>
-    <div class="menu-right">
-        <button type="button" class="btn-menu-slide">MENU</button>
-        <ul class="menu-list menu-home">
-            <li><a asp-area="" asp-controller="Home" asp-action="Index">Start</a></li>
-            <li>@await Html.PartialAsync("_LoginPartial")</li>
-            <li><a asp-area="" asp-controller="Home" asp-action="ForPatient">Dla pacjenta</a></li>
-            <li><a asp-area="" asp-controller="Home" asp-action="ForEmployee">Dla pracownika</a></li>
-            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
-        </ul>
-    </div>
-    <div class="container content">
+    <div class="container-fluid">
         <div class="row">
-            <article class="col-md-10">
+            <div class="col-md-2 menu-container">
+                <div class="menu">
+                    @await Html.PartialAsync("_LoginPartial")
+                </div>
+            </div>
+            <article class="col-md-8 content">
                 @RenderBody()
             </article>
         </div>
