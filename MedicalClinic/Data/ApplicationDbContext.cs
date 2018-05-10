@@ -18,11 +18,44 @@ namespace MedicalClinic.Data.Migrations
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
+            
+            /* Residence |- - -< User */
+            builder.Entity<ResidenceModel>()
+                .HasMany<ApplicationUser>(g => g.ApplicationUsers)
+                .WithOne(s => s.residenceModel)
+                .HasForeignKey(s => s.ResidenceId);
+
+            /* User |---| Doctor*/
+            builder.Entity<DoctorModel>()
+                .HasOne(u => u.ApplicationUser)
+                .WithOne(d => d.Doctor)
+                .HasForeignKey<DoctorModel>(u => u.UserId);
+
+            /* User |---| Admin*/
+            builder.Entity<AdminModel>()
+                .HasOne(u => u.ApplicationUser)
+                .WithOne(d => d.Admin)
+                .HasForeignKey<AdminModel>(u => u.UserId);
+
+            /* User |---| Patient*/
+            builder.Entity<PatientModel>()
+                .HasOne(u => u.ApplicationUser)
+                .WithOne(d => d.Patient)
+                .HasForeignKey<PatientModel>(u => u.UserId);
+
+            /* User |---| Clerk*/
+            builder.Entity<ClerkModel>()
+                .HasOne(u => u.ApplicationUser)
+                .WithOne(d => d.Clerk)
+                .HasForeignKey<ClerkModel>(u => u.UserId);
+
         }
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<ResidenceModel> ResidenceModel { get; set; }
+        public DbSet<DoctorModel> DoctorModel { get; set; }
+        public DbSet<AdminModel> AdminModel { get; set; }
+        public DbSet<PatientModel> PatientModel { get; set; }
+        public DbSet<ClerkModel> ClerkModel { get; set; }
     }
 }

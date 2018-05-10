@@ -39,14 +39,23 @@ namespace MedicalClinic.Data
 
             // Create admin account
             var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+
             var userAdmin = new ApplicationUser
             {
                 UserName = "test@admin.pl",
                 Email = "test@admin.pl",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                FirstName = "Tester",
+                LastName = "Manualny",
+                PIN = "12345678934",
+                PhoneNum = "997998999",
+                Sex = "Male",
+                ResidenceId = 1
             };
+
             string userPassword = "P@ssw0rd";
 
+            
             if(await userManager.FindByEmailAsync("test@admin.pl") == null)
             {
                 var success = await userManager.CreateAsync(userAdmin, userPassword);

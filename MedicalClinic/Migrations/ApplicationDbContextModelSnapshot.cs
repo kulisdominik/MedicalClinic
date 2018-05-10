@@ -20,6 +20,22 @@ namespace MedicalClinic.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("MedicalClinic.Models.AdminModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Admin");
+                });
+
             modelBuilder.Entity("MedicalClinic.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -55,9 +71,16 @@ namespace MedicalClinic.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired();
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -69,13 +92,24 @@ namespace MedicalClinic.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("PIN")
+                        .IsRequired();
+
                     b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNum")
+                        .IsRequired();
 
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<int>("ResidenceId");
+
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Sex")
+                        .IsRequired();
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -92,7 +126,86 @@ namespace MedicalClinic.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("ResidenceId");
+
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.ClerkModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Receptionist");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.DoctorModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Specialization")
+                        .IsRequired();
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Doctor");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.PatientModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Patient");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.ResidenceModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BuildingNum")
+                        .IsRequired();
+
+                    b.Property<string>("City")
+                        .IsRequired();
+
+                    b.Property<string>("Country")
+                        .IsRequired();
+
+                    b.Property<string>("FlatNum");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired();
+
+                    b.Property<string>("Street");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Residence");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -177,6 +290,42 @@ namespace MedicalClinic.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.AdminModel", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("Admin")
+                        .HasForeignKey("MedicalClinic.Models.AdminModel", "UserId");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.ResidenceModel", "residenceModel")
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("ResidenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.ClerkModel", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("Clerk")
+                        .HasForeignKey("MedicalClinic.Models.ClerkModel", "UserId");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.DoctorModel", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("Doctor")
+                        .HasForeignKey("MedicalClinic.Models.DoctorModel", "UserId");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.PatientModel", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("Patient")
+                        .HasForeignKey("MedicalClinic.Models.PatientModel", "UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
