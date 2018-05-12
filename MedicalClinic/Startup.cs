@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BotDetect.Web;
 using MedicalClinic.Data;
 using MedicalClinic.Data.Migrations;
 using MedicalClinic.Models;
 using MedicalClinic.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -36,8 +38,12 @@ namespace MedicalClinic
 
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddMvc();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddMemoryCache();
+            
+            services.AddMvc();
+            
             services.AddScoped<IDbInitializer, DbInitializer>();
         }
 
@@ -55,6 +61,7 @@ namespace MedicalClinic
             }
 
             app.UseStaticFiles();
+            
 
             app.UseAuthentication();
             dbInitializer.Initialize(Configuration);
