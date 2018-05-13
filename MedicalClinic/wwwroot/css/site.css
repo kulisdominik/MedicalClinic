@@ -140,7 +140,7 @@ footer {
 
 @media (min-width: 992px) {
     .form-group {
-        width: 40%;
+        width: 60%;
     }
 
     .content {
@@ -181,12 +181,13 @@ footer {
     }
 
     .table{
-        font-size: 70%;
+        font-size: 80%;
+        overflow-x: scroll;
     }
 }
 
 #contact_form {
-    width: 70%;
+    max-width: 500px;
     padding: 10px;
     background: linear-gradient(#fff -10%, #b4e9f0 150%);
     border: 1px solid #808080;
@@ -194,7 +195,12 @@ footer {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-.send_button {
+.table a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.send_button{
     background: #6799a0;
     font-size: 12pt;
     padding: 5px 10px;
@@ -210,7 +216,7 @@ footer {
     .send_button:hover {
         background: #fff;
         font-size: 12pt;
-        color: #0f2a2e;
+        color: #6799a0;
         border: 2px solid #4c878f;
         border-radius: 5px;
     }
@@ -240,7 +246,7 @@ footer {
         transform: translateY(5px);
     }
 
-#sender_data{
+#sender_data {
     width: 50%;
 }
 
@@ -257,3 +263,29 @@ footer {
     min-width: 50%;
 }
 
+.contact{
+    max-width: 500px;
+}
+
+.contact_img_div{
+    float:left;
+    padding: 8px;
+    margin-right: 2px;
+}
+
+.contact_img{
+    width: 30pt;
+    height: 30pt;
+}
+
+#contact_text{
+    font-size: 15pt;
+}
+#contact_text2{
+    font-size: 15pt;
+    padding-top: 11pt;
+}
+
+#testtable{
+    overflow: hidden;
+}
