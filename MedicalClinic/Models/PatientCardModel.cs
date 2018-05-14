@@ -7,17 +7,18 @@ using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedicalClinic.Models
-{
-    [Table("Doctor")]
-    public class DoctorModel
+{   [Table("PatientCard")]
+    public class PatientCardModel
     {
         [Required] public string Id { get; set; }
-        [Required] public string Specialization { get; set; }
+        public string Date { get; set; }
 
-        public string UserId { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public string PatientId { get; set; }
+        public virtual PatientModel Patient { get; set; }
 
-        public ICollection<WorkHoursModel> WorkHours { get; set; }
+        public string ClerkId { get; set; }
+        public ClerkModel ClerkModel { get; set; }
+
         public ICollection<AppointmentModel> AppointmentModel { get; set; }
     }
 }

@@ -48,6 +48,66 @@ namespace MedicalClinic.Data.Migrations
                 .HasOne(u => u.ApplicationUser)
                 .WithOne(d => d.Clerk)
                 .HasForeignKey<ClerkModel>(u => u.UserId);
+            
+            /*Doctor |---< WorkHours*/
+            builder.Entity<DoctorModel>()
+                .HasMany<WorkHoursModel>(g => g.WorkHours)
+                .WithOne(s => s.DoctorModel)
+                .HasForeignKey(s => s.DoctorId);
+
+            /*Clerk |---< PatientCard*/
+            builder.Entity<ClerkModel>()
+                .HasMany<PatientCardModel>(g => g.PatientCards)
+                .WithOne(s => s.ClerkModel)
+                .HasForeignKey(s => s.ClerkId);
+
+            /*Patient | --- | PatientCard*/
+            builder.Entity<PatientCardModel>()
+                .HasOne(u => u.Patient)
+                .WithOne(d => d.PatientCard)
+                .HasForeignKey<PatientCardModel>(u => u.PatientId);
+
+            /*Appointment >---| Doctor*/
+            builder.Entity<DoctorModel>()
+                .HasMany<AppointmentModel>(g => g.AppointmentModel)
+                .WithOne(s => s.DoctorModel)
+                .HasForeignKey(s => s.DoctorId);
+
+            /*Appoinment >---| PatientCard*/
+            builder.Entity<PatientCardModel>()
+                .HasMany<AppointmentModel>(g => g.AppointmentModel)
+                .WithOne(s => s.PatientCardModel)
+                .HasForeignKey(s => s.PatientCardId);
+
+            /* Appointment |---| Diagnosis */
+            builder.Entity<AppointmentModel>()
+                .HasOne(u => u.DiagnosisModel)
+                .WithOne(d => d.AppointmentModel)
+                .HasForeignKey<AppointmentModel>(u => u.DiagnosisId);
+
+            /* Appointment |---< Referral */
+            builder.Entity<AppointmentModel>()
+                .HasMany<ReferralModel>(g => g.ReferralModel)
+                .WithOne(s => s.Appointment)
+                .HasForeignKey(s => s.AppointmentId);
+
+            /* Referral |---| Examination*/
+            builder.Entity<ReferralModel>()
+                .HasOne(u => u.ExaminationModel)
+                .WithOne(d => d.ReferralModel)
+                .HasForeignKey<ReferralModel>(s => s.ExaminationId);
+
+            /* Appointment |---| Recipe*/
+            builder.Entity<AppointmentModel>()
+                .HasOne(u => u.RecipeModel)
+                .WithOne(d => d.AppointmentModel)
+                .HasForeignKey<AppointmentModel>(s => s.RecipeId);
+
+            /* Medicine >---| Recipe */
+            builder.Entity<RecipeModel>()
+                .HasMany<MedicineModel>(g => g.MedicineModel)
+                .WithOne(s => s.RecipeModel)
+                .HasForeignKey(s => s.RecipeId);
 
         }
 
@@ -57,5 +117,12 @@ namespace MedicalClinic.Data.Migrations
         public DbSet<AdminModel> AdminModel { get; set; }
         public DbSet<PatientModel> PatientModel { get; set; }
         public DbSet<ClerkModel> ClerkModel { get; set; }
+        public DbSet<WorkHoursModel> WorkHours { get; set; }
+        public DbSet<PatientCardModel> PatientCardModel { get; set; }
+        public DbSet<AppointmentModel> AppointmentModel { get; set; }
+        public DbSet<ReferralModel> ReferralModel { get; set; }
+        public DbSet<ExaminationModel> ExaminationModel { get; set; }
+        public DbSet<RecipeModel> RecipeModel { get; set; }
+        public DbSet<MedicineModel> MedicineModel { get; set; }
     }
 }

@@ -8,15 +8,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedicalClinic.Models
 {
-    [Table("WorkHours")]
-    public class WorkHoursModel
+    [Table("Diagnosis")]
+    public class DiagnosisModel
     {
         [Required] public string Id { get; set; }
-        public string DayofWeek { get; set; }
-        public string StartHour { get; set; }
-        public string EndHour { get; set; }
+        public string Synopsis { get; set; }
+        public string Symptoms { get; set; }
+        public string DeseaseName { get; set; }
 
-        public string DoctorId { get; set; }
-        public DoctorModel DoctorModel { get; set; }
+        public virtual AppointmentModel AppointmentModel { get; set; }
     }
 }

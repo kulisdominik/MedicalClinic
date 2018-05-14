@@ -14,6 +14,8 @@ namespace MedicalClinic.Models
         [Required] public string Id { get; set; }
 
         public string UserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public ICollection<PatientCardModel> PatientCards { get; set; }
     }
 }

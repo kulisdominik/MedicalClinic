@@ -24,6 +24,45 @@ namespace MedicalClinic.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Diagnosis",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    DeseaseName = table.Column<string>(nullable: true),
+                    Symptoms = table.Column<string>(nullable: true),
+                    Synopsis = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Diagnosis", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Examination",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    NameOfExamination = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Examination", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Recipe",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Descrpition = table.Column<string>(nullable: true),
+                    ExpDate = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recipe", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Residence",
                 columns: table => new
                 {
@@ -60,6 +99,25 @@ namespace MedicalClinic.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Medicine",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    RecipeId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Medicine", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Medicine_Recipe_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipe",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -261,11 +319,9 @@ namespace MedicalClinic.Migrations
                 name: "WorkHours",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(nullable: false),
                     DayofWeek = table.Column<string>(nullable: true),
-                    DoctorId = table.Column<int>(nullable: false),
-                    DoctorModelId = table.Column<string>(nullable: true),
+                    DoctorId = table.Column<string>(nullable: true),
                     EndHour = table.Column<string>(nullable: true),
                     StartHour = table.Column<string>(nullable: true)
                 },
@@ -273,9 +329,102 @@ namespace MedicalClinic.Migrations
                 {
                     table.PrimaryKey("PK_WorkHours", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WorkHours_Doctor_DoctorModelId",
-                        column: x => x.DoctorModelId,
+                        name: "FK_WorkHours_Doctor_DoctorId",
+                        column: x => x.DoctorId,
                         principalTable: "Doctor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PatientCard",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    ClerkId = table.Column<string>(nullable: true),
+                    Date = table.Column<string>(nullable: true),
+                    PatientId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PatientCard", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PatientCard_Receptionist_ClerkId",
+                        column: x => x.ClerkId,
+                        principalTable: "Receptionist",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PatientCard_Patient_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Patient",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Appointment",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    DateOfApp = table.Column<string>(nullable: true),
+                    DiagnosisId = table.Column<string>(nullable: true),
+                    DoctorId = table.Column<string>(nullable: true),
+                    Notes = table.Column<string>(nullable: true),
+                    PatientCardId = table.Column<string>(nullable: true),
+                    RecipeId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Appointment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Appointment_Diagnosis_DiagnosisId",
+                        column: x => x.DiagnosisId,
+                        principalTable: "Diagnosis",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Appointment_Doctor_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Appointment_PatientCard_PatientCardId",
+                        column: x => x.PatientCardId,
+                        principalTable: "PatientCard",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Appointment_Recipe_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipe",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Referral",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    AppointmentId = table.Column<string>(nullable: true),
+                    DateOfIssuance = table.Column<string>(nullable: true),
+                    ExaminationId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Referral", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Referral_Appointment_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Referral_Examination_ExaminationId",
+                        column: x => x.ExaminationId,
+                        principalTable: "Examination",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -286,6 +435,30 @@ namespace MedicalClinic.Migrations
                 column: "UserId",
                 unique: true,
                 filter: "[UserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointment_DiagnosisId",
+                table: "Appointment",
+                column: "DiagnosisId",
+                unique: true,
+                filter: "[DiagnosisId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointment_DoctorId",
+                table: "Appointment",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointment_PatientCardId",
+                table: "Appointment",
+                column: "PatientCardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointment_RecipeId",
+                table: "Appointment",
+                column: "RecipeId",
+                unique: true,
+                filter: "[RecipeId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -339,11 +512,28 @@ namespace MedicalClinic.Migrations
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Medicine_RecipeId",
+                table: "Medicine",
+                column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Patient_UserId",
                 table: "Patient",
                 column: "UserId",
                 unique: true,
                 filter: "[UserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientCard_ClerkId",
+                table: "PatientCard",
+                column: "ClerkId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientCard_PatientId",
+                table: "PatientCard",
+                column: "PatientId",
+                unique: true,
+                filter: "[PatientId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Receptionist_UserId",
@@ -353,9 +543,21 @@ namespace MedicalClinic.Migrations
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkHours_DoctorModelId",
+                name: "IX_Referral_AppointmentId",
+                table: "Referral",
+                column: "AppointmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Referral_ExaminationId",
+                table: "Referral",
+                column: "ExaminationId",
+                unique: true,
+                filter: "[ExaminationId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkHours_DoctorId",
                 table: "WorkHours",
-                column: "DoctorModelId");
+                column: "DoctorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -379,10 +581,10 @@ namespace MedicalClinic.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Patient");
+                name: "Medicine");
 
             migrationBuilder.DropTable(
-                name: "Receptionist");
+                name: "Referral");
 
             migrationBuilder.DropTable(
                 name: "WorkHours");
@@ -391,7 +593,28 @@ namespace MedicalClinic.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Appointment");
+
+            migrationBuilder.DropTable(
+                name: "Examination");
+
+            migrationBuilder.DropTable(
+                name: "Diagnosis");
+
+            migrationBuilder.DropTable(
                 name: "Doctor");
+
+            migrationBuilder.DropTable(
+                name: "PatientCard");
+
+            migrationBuilder.DropTable(
+                name: "Recipe");
+
+            migrationBuilder.DropTable(
+                name: "Receptionist");
+
+            migrationBuilder.DropTable(
+                name: "Patient");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

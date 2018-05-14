@@ -11,7 +11,7 @@ using System;
 namespace MedicalClinic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180514183424_MedicalClinic")]
+    [Migration("20180514230150_MedicalClinic")]
     partial class MedicalClinic
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,6 +127,40 @@ namespace MedicalClinic.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("MedicalClinic.Models.AppointmentModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DateOfApp");
+
+                    b.Property<string>("DiagnosisId");
+
+                    b.Property<string>("DoctorId");
+
+                    b.Property<string>("Notes");
+
+                    b.Property<string>("PatientCardId");
+
+                    b.Property<string>("RecipeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DiagnosisId")
+                        .IsUnique()
+                        .HasFilter("[DiagnosisId] IS NOT NULL");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientCardId");
+
+                    b.HasIndex("RecipeId")
+                        .IsUnique()
+                        .HasFilter("[RecipeId] IS NOT NULL");
+
+                    b.ToTable("Appointment");
+                });
+
             modelBuilder.Entity("MedicalClinic.Models.ClerkModel", b =>
                 {
                     b.Property<string>("Id")
@@ -141,6 +175,22 @@ namespace MedicalClinic.Migrations
                         .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Receptionist");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.DiagnosisModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DeseaseName");
+
+                    b.Property<string>("Symptoms");
+
+                    b.Property<string>("Synopsis");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Diagnosis");
                 });
 
             modelBuilder.Entity("MedicalClinic.Models.DoctorModel", b =>
@@ -162,6 +212,56 @@ namespace MedicalClinic.Migrations
                     b.ToTable("Doctor");
                 });
 
+            modelBuilder.Entity("MedicalClinic.Models.ExaminationModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("NameOfExamination");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Examination");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.MedicineModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("RecipeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Medicine");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.PatientCardModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClerkId");
+
+                    b.Property<string>("Date");
+
+                    b.Property<string>("PatientId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClerkId");
+
+                    b.HasIndex("PatientId")
+                        .IsUnique()
+                        .HasFilter("[PatientId] IS NOT NULL");
+
+                    b.ToTable("PatientCard");
+                });
+
             modelBuilder.Entity("MedicalClinic.Models.PatientModel", b =>
                 {
                     b.Property<string>("Id")
@@ -176,6 +276,42 @@ namespace MedicalClinic.Migrations
                         .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Patient");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.RecipeModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descrpition");
+
+                    b.Property<string>("ExpDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Recipe");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.ReferralModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppointmentId");
+
+                    b.Property<string>("DateOfIssuance");
+
+                    b.Property<string>("ExaminationId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.HasIndex("ExaminationId")
+                        .IsUnique()
+                        .HasFilter("[ExaminationId] IS NOT NULL");
+
+                    b.ToTable("Referral");
                 });
 
             modelBuilder.Entity("MedicalClinic.Models.ResidenceModel", b =>
@@ -202,14 +338,12 @@ namespace MedicalClinic.Migrations
 
             modelBuilder.Entity("MedicalClinic.Models.WorkHoursModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("DayofWeek");
 
-                    b.Property<int>("DoctorId");
-
-                    b.Property<string>("DoctorModelId");
+                    b.Property<string>("DoctorId");
 
                     b.Property<string>("EndHour");
 
@@ -217,7 +351,7 @@ namespace MedicalClinic.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DoctorModelId");
+                    b.HasIndex("DoctorId");
 
                     b.ToTable("WorkHours");
                 });
@@ -321,6 +455,25 @@ namespace MedicalClinic.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("MedicalClinic.Models.AppointmentModel", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.DiagnosisModel", "DiagnosisModel")
+                        .WithOne("AppointmentModel")
+                        .HasForeignKey("MedicalClinic.Models.AppointmentModel", "DiagnosisId");
+
+                    b.HasOne("MedicalClinic.Models.DoctorModel", "DoctorModel")
+                        .WithMany("AppointmentModel")
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("MedicalClinic.Models.PatientCardModel", "PatientCardModel")
+                        .WithMany("AppointmentModel")
+                        .HasForeignKey("PatientCardId");
+
+                    b.HasOne("MedicalClinic.Models.RecipeModel", "RecipeModel")
+                        .WithOne("AppointmentModel")
+                        .HasForeignKey("MedicalClinic.Models.AppointmentModel", "RecipeId");
+                });
+
             modelBuilder.Entity("MedicalClinic.Models.ClerkModel", b =>
                 {
                     b.HasOne("MedicalClinic.Models.ApplicationUser", "ApplicationUser")
@@ -335,6 +488,24 @@ namespace MedicalClinic.Migrations
                         .HasForeignKey("MedicalClinic.Models.DoctorModel", "UserId");
                 });
 
+            modelBuilder.Entity("MedicalClinic.Models.MedicineModel", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.RecipeModel", "RecipeModel")
+                        .WithMany("MedicineModel")
+                        .HasForeignKey("RecipeId");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.PatientCardModel", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.ClerkModel", "ClerkModel")
+                        .WithMany("PatientCards")
+                        .HasForeignKey("ClerkId");
+
+                    b.HasOne("MedicalClinic.Models.PatientModel", "Patient")
+                        .WithOne("PatientCard")
+                        .HasForeignKey("MedicalClinic.Models.PatientCardModel", "PatientId");
+                });
+
             modelBuilder.Entity("MedicalClinic.Models.PatientModel", b =>
                 {
                     b.HasOne("MedicalClinic.Models.ApplicationUser", "ApplicationUser")
@@ -342,11 +513,22 @@ namespace MedicalClinic.Migrations
                         .HasForeignKey("MedicalClinic.Models.PatientModel", "UserId");
                 });
 
+            modelBuilder.Entity("MedicalClinic.Models.ReferralModel", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.AppointmentModel", "Appointment")
+                        .WithMany("ReferralModel")
+                        .HasForeignKey("AppointmentId");
+
+                    b.HasOne("MedicalClinic.Models.ExaminationModel", "ExaminationModel")
+                        .WithOne("ReferralModel")
+                        .HasForeignKey("MedicalClinic.Models.ReferralModel", "ExaminationId");
+                });
+
             modelBuilder.Entity("MedicalClinic.Models.WorkHoursModel", b =>
                 {
                     b.HasOne("MedicalClinic.Models.DoctorModel", "DoctorModel")
                         .WithMany("WorkHours")
-                        .HasForeignKey("DoctorModelId");
+                        .HasForeignKey("DoctorId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

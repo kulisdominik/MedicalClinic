@@ -8,15 +8,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedicalClinic.Models
 {
-    [Table("WorkHours")]
-    public class WorkHoursModel
+    [Table("Medicine")]
+    public class MedicineModel
     {
         [Required] public string Id { get; set; }
-        public string DayofWeek { get; set; }
-        public string StartHour { get; set; }
-        public string EndHour { get; set; }
+        public string Name { get; set; }
 
-        public string DoctorId { get; set; }
-        public DoctorModel DoctorModel { get; set; }
+        public string RecipeId { get; set; }
+        public RecipeModel RecipeModel { get; set; }
     }
 }

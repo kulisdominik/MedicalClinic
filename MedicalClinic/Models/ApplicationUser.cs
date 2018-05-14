@@ -23,9 +23,9 @@ namespace MedicalClinic.Models
         public int ResidenceId { get; set; }
         public ResidenceModel residenceModel { get; set; }
         
-        public DoctorModel Doctor { get; set; }
-        public AdminModel Admin { get; set; }
-        public PatientModel Patient { get; set; }
-        public ClerkModel Clerk { get; set; }
+        public virtual DoctorModel Doctor { get; set; }
+        public virtual AdminModel Admin { get; set; }
+        public virtual PatientModel Patient { get; set; }
+        public virtual ClerkModel Clerk { get; set; }
     }
 }
