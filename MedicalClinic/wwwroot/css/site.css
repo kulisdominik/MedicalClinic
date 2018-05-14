@@ -195,11 +195,6 @@ footer {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-.table a{
-    text-decoration: none;
-    color: #fff;
-}
-
 .send_button{
     background: #6799a0;
     font-size: 12pt;
@@ -286,6 +281,14 @@ footer {
     padding-top: 11pt;
 }
 
-#testtable{
+#edituser_table {
     overflow: hidden;
+}
+
+.change_password_a:active{
+    background: green;
+}
+
+.your_account_a:focus{
+    background-color: #6799a0;
 }

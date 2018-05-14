@@ -8,7 +8,7 @@
 <h2>Szczegóły</h2>
 
 <div>
-    <h4>ApplicationUser</h4>
+    <h4>Informacje o użytkowniku</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -98,6 +98,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="EditUser">Back to List</a>
+    <a class="send_button" asp-action="EditUser" style="text-decoration: none; float: left;">Powrót do listy</a>
+    <a class="send_button" asp-action="Edit" asp-route-id="@Model.Id" style="text-decoration: none; float: left;">Edytuj użytkownika</a>
+    
 </div>

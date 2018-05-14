@@ -5,7 +5,7 @@
 }
 
 <h2>Edytuj użytkownika</h2>
-<div id="testtable">
+<div id="edituser_table">
 <table class="table">
     <thead>
         <tr>
@@ -35,9 +35,9 @@
             </td>
 
             <td>
-                <button class="send_button" type="submit"><a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a></button>
-                <button class="send_button" type="submit"><a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a></button>
-                <button class="send_button" type="submit"><a asp-action="Delete" asp-route-id="@item.Id">Usuń</a></button>
+                <a class="send_button" asp-action="Edit" asp-route-id="@item.Id" style="text-decoration:none;">Edytuj</a>
+                <a class="send_button" asp-action="Details" asp-route-id="@item.Id" style="text-decoration:none;">Szczegóły</a>
+                <a class="send_button" asp-action="Delete" asp-route-id="@item.Id" style="text-decoration:none;">Usuń</a>
             </td>
         </tr>
 }
