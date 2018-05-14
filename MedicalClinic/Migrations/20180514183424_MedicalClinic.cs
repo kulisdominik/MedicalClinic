@@ -29,11 +29,11 @@ namespace MedicalClinic.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BuildingNum = table.Column<string>(nullable: false),
-                    City = table.Column<string>(nullable: false),
-                    Country = table.Column<string>(nullable: false),
+                    BuildingNum = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Country = table.Column<string>(nullable: true),
                     FlatNum = table.Column<string>(nullable: true),
-                    PostalCode = table.Column<string>(nullable: false),
+                    PostalCode = table.Column<string>(nullable: true),
                     Street = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -71,20 +71,20 @@ namespace MedicalClinic.Migrations
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: false),
                     EmailConfirmed = table.Column<bool>(nullable: false),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    PIN = table.Column<string>(nullable: false),
+                    PIN = table.Column<string>(nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
-                    PhoneNum = table.Column<string>(nullable: false),
+                    PhoneNum = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     ResidenceId = table.Column<int>(nullable: false),
                     SecurityStamp = table.Column<string>(nullable: true),
-                    Sex = table.Column<string>(nullable: false),
+                    Sex = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true)
                 },
@@ -257,6 +257,29 @@ namespace MedicalClinic.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "WorkHours",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DayofWeek = table.Column<string>(nullable: true),
+                    DoctorId = table.Column<int>(nullable: false),
+                    DoctorModelId = table.Column<string>(nullable: true),
+                    EndHour = table.Column<string>(nullable: true),
+                    StartHour = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkHours", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkHours_Doctor_DoctorModelId",
+                        column: x => x.DoctorModelId,
+                        principalTable: "Doctor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Admin_UserId",
                 table: "Admin",
@@ -328,6 +351,11 @@ namespace MedicalClinic.Migrations
                 column: "UserId",
                 unique: true,
                 filter: "[UserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkHours_DoctorModelId",
+                table: "WorkHours",
+                column: "DoctorModelId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -351,16 +379,19 @@ namespace MedicalClinic.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Doctor");
-
-            migrationBuilder.DropTable(
                 name: "Patient");
 
             migrationBuilder.DropTable(
                 name: "Receptionist");
 
             migrationBuilder.DropTable(
+                name: "WorkHours");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Doctor");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

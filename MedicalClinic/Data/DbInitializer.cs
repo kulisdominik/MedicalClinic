@@ -45,16 +45,15 @@ namespace MedicalClinic.Data
                 UserName = "test@admin.pl",
                 Email = "test@admin.pl",
                 EmailConfirmed = true,
-                FirstName = "Tester",
-                LastName = "Manualny",
-                PIN = "12345678934",
-                PhoneNum = "997998999",
-                Sex = "Male",
+                //FirstName = "Tester",
+                //LastName = "Manualny",
+                //PIN = "12345678934",
+                //PhoneNum = "997998999",
+                //Sex = "Male",
                 ResidenceId = 1
             };
-
+            
             string userPassword = "P@ssw0rd";
-
             
             if(await userManager.FindByEmailAsync("test@admin.pl") == null)
             {

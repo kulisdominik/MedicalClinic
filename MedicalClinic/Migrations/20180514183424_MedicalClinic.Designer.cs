@@ -11,7 +11,7 @@ using System;
 namespace MedicalClinic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180510094524_MedicalClinic")]
+    [Migration("20180514183424_MedicalClinic")]
     partial class MedicalClinic
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,11 +77,9 @@ namespace MedicalClinic.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired();
+                    b.Property<string>("FirstName");
 
-                    b.Property<string>("LastName")
-                        .IsRequired();
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -93,13 +91,11 @@ namespace MedicalClinic.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
-                    b.Property<string>("PIN")
-                        .IsRequired();
+                    b.Property<string>("PIN");
 
                     b.Property<string>("PasswordHash");
 
-                    b.Property<string>("PhoneNum")
-                        .IsRequired();
+                    b.Property<string>("PhoneNum");
 
                     b.Property<string>("PhoneNumber");
 
@@ -109,8 +105,7 @@ namespace MedicalClinic.Migrations
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<string>("Sex")
-                        .IsRequired();
+                    b.Property<string>("Sex");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -188,25 +183,43 @@ namespace MedicalClinic.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("BuildingNum")
-                        .IsRequired();
+                    b.Property<string>("BuildingNum");
 
-                    b.Property<string>("City")
-                        .IsRequired();
+                    b.Property<string>("City");
 
-                    b.Property<string>("Country")
-                        .IsRequired();
+                    b.Property<string>("Country");
 
                     b.Property<string>("FlatNum");
 
-                    b.Property<string>("PostalCode")
-                        .IsRequired();
+                    b.Property<string>("PostalCode");
 
                     b.Property<string>("Street");
 
                     b.HasKey("Id");
 
                     b.ToTable("Residence");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.WorkHoursModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DayofWeek");
+
+                    b.Property<int>("DoctorId");
+
+                    b.Property<string>("DoctorModelId");
+
+                    b.Property<string>("EndHour");
+
+                    b.Property<string>("StartHour");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorModelId");
+
+                    b.ToTable("WorkHours");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -327,6 +340,13 @@ namespace MedicalClinic.Migrations
                     b.HasOne("MedicalClinic.Models.ApplicationUser", "ApplicationUser")
                         .WithOne("Patient")
                         .HasForeignKey("MedicalClinic.Models.PatientModel", "UserId");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.WorkHoursModel", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.DoctorModel", "DoctorModel")
+                        .WithMany("WorkHours")
+                        .HasForeignKey("DoctorModelId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
