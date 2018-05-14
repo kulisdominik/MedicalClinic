@@ -8,16 +8,20 @@ namespace ClinicTest
     public class ClinicTests
     {
         [TestMethod]
-        public void TestSomething()
+        public void TestAdmin()
         {
             //arrange
-            //declare variables to test
-
-            //act
-            //run testing method
+            var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+            var testUser = new ApplicationUser
+            {
+                UserName = "example@lol.com",
+                Email = "example@lol.com",
+                EmailConfirmed = true
+            };
+            String userPassword = "pass";
 
             //assert
-            //check if values are proper
+            Assert.isTrue(userManager.FindByEmailAsync("example@lol.com") != null);
         }
     }
 }
