@@ -9,14 +9,14 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
                 <th>
-                    Nazwa użytkownika
-                </th>
-                <th>
-                    Email
-                </th>
-                <th>
-                    Potw.
+                   @Html.DisplayNameFor(model => model.EmailConfirmed)
                 </th>
             <th></th>
         </tr>
@@ -35,9 +35,9 @@
             </td>
 
             <td>
-                <button class="send_button" type="submit"><a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a></button>
-                <button class="send_button" type="submit"><a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a></button>
-                <button class="send_button" type="submit"><a asp-action="Delete" asp-route-id="@item.Id">Usuń</a></button>
+                <a class="send_button" asp-action="Edit" asp-route-id="@item.Id">Edytuj</a>
+                <a class="send_button" asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
+                <a class="send_button" asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
             </td>
         </tr>
 }
