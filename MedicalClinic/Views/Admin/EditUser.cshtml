@@ -5,6 +5,7 @@
 }
 
 <h2>Edytuj użytkownika</h2>
+<div id="edituser_table">
 <table class="table">
     <thead>
         <tr>
@@ -39,6 +40,9 @@
                 <a class="send_button" asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
                 <a class="send_button" asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
 =======
+                <a class="send_button" asp-action="Edit" asp-route-id="@item.Id" style="text-decoration:none;">Edytuj</a>
+                <a class="send_button" asp-action="Details" asp-route-id="@item.Id" style="text-decoration:none;">Szczegóły</a>
+                <a class="send_button" asp-action="Delete" asp-route-id="@item.Id" style="text-decoration:none;">Usuń</a>
 >>>>>>> origin/Weronika
             </td>
         </tr>
