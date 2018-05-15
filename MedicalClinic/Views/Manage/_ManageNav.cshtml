@@ -5,6 +5,6 @@
 }
 
 <ul class="nav nav-pills nav-stacked">
-    <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a class="your_account_a" asp-action="Index">Twoje dane</a></li>
-    <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a class="your_account_a" asp-action="ChangePassword">Zmiana hasła</a></li>
+    <li class="@ManageNavPages.IndexNavClass(ViewContext)" id="your_account_li"><a asp-action="Index">Edycja profilu</a></li>
+    <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)" id="your_account_li"><a asp-action="ChangePassword">Zmiana hasła</a></li>
 </ul>

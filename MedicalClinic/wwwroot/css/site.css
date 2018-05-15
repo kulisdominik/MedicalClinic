@@ -289,6 +289,32 @@ footer {
     background: green;
 }
 
-.your_account_a:focus{
-    background-color: #6799a0;
+#your_account_li a{
+    color: #0f5e6a;
+    font-size: 12pt;
+    border: 1px groove;
+}
+    #your_account_li a:hover{
+        background: #6799a0;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 8px;
+        transition: 0.5s;
+    }
+    #your_account_li.active > a{
+        background: #0f5e6a;
+        color: #fff;
+    }
+
+#edituser_buttons a{
+    text-decoration: none;
+    float: right;
+    width: 100px;
+    text-align: center;
+    padding: 1px 1px;
+    margin-top: 0;
+}
+
+.wordbreak{
+    word-break: break-all;
 }

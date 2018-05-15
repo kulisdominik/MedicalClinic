@@ -34,10 +34,10 @@
                 @Html.DisplayFor(modelItem => item.EmailConfirmed)
             </td>
 
-            <td>
-                <a class="send_button" asp-action="Edit" asp-route-id="@item.Id" style="text-decoration:none;">Edytuj</a>
-                <a class="send_button" asp-action="Details" asp-route-id="@item.Id" style="text-decoration:none;">Szczegóły</a>
-                <a class="send_button" asp-action="Delete" asp-route-id="@item.Id" style="text-decoration:none;">Usuń</a>
+            <td id="edituser_buttons">
+                <a class="send_button" asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                <a class="send_button" asp-action="Edit" asp-route-id="@item.Id">Edytuj</a>                
+                <a class="send_button" asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
             </td>
         </tr>
 }
