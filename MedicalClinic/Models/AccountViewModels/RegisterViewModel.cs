@@ -24,8 +24,5 @@ namespace MedicalClinic.Models
         [Compare("Password", ErrorMessage = "Podane hasła się nie zgadzają.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
-        public string ResidenceId { get; set; }
-
     }
 }

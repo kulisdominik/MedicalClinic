@@ -40,11 +40,6 @@ namespace MedicalClinic.Data
             // Create admin account
             var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
-            var adminResidence = new ResidenceModel
-            {
-                Id = 1
-            };
-
             var userAdmin = new ApplicationUser
             {
                 UserName = "test@admin.pl",
@@ -58,14 +53,13 @@ namespace MedicalClinic.Data
                 ResidenceId = 1
             };
 
-            //context.Database.
-            //context.ResidenceModel.Add(adminResidence);
-            //context.SaveChanges();
-
             string userPassword = "P@ssw0rd";
             
             if(await userManager.FindByEmailAsync("test@admin.pl") == null)
             {
+                context.ResidenceModel.Add(new ResidenceModel { });
+                context.SaveChanges();
+
                 var success = await userManager.CreateAsync(userAdmin, userPassword);
                 if (success.Succeeded)
                 {

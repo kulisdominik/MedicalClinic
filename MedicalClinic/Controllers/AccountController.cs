@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MedicalClinic.Data.Migrations;
 using MedicalClinic.Models;
 using MedicalClinic.Models.AccountViewModels;
 using MedicalClinic.Services;
@@ -20,16 +21,20 @@ namespace MedicalClinic.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
+        private readonly ApplicationDbContext _context;
+
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         [HttpGet]
@@ -99,10 +104,15 @@ namespace MedicalClinic.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                var userResidence = new ResidenceModel { };
+                _context.ResidenceModel.Add(userResidence);
+                _context.SaveChanges();
+
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
                     Email = model.Email,
+                    ResidenceId = userResidence.Id
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
