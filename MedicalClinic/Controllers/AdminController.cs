@@ -89,7 +89,14 @@ namespace MedicalClinic.Controllers
                                     IdentityResult newRoleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
                                     if (newRoleResult.Succeeded)
                                     {
-                                        return RedirectToAction("Index");
+
+                                        model.ApplicationRoles = _roleManager.Roles.Select(role => new SelectListItem
+                                        {
+                                            Text = role.Name,
+                                            Value = role.Id
+                                        }).ToList();
+
+                                        return View(model);
                                     }
                                 }
                             }

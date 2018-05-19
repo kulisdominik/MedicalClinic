@@ -20,6 +20,22 @@ namespace MedicalClinic.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("MedicalClinic.Models.AdminViewModels.EditViewModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationRoleId");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EditViewModel");
+                });
+
             modelBuilder.Entity("MedicalClinic.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")

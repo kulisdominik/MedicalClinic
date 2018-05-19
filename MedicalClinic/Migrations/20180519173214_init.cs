@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MedicalClinic.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,20 @@ namespace MedicalClinic.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EditViewModel",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    ApplicationRoleId = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EditViewModel", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -210,6 +224,9 @@ namespace MedicalClinic.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "EditViewModel");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
