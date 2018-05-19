@@ -11,7 +11,7 @@
             <li><a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Profil</a></li>
             @if (User.IsInRole("Admin"))
             {
-                <li><a asp-area="" asp-controller="Admin" asp-action="EditUser" title="">Panel administratora</a></li>
+                <li><a asp-area="" asp-controller="Admin" asp-action="Index" title="">Panel administratora</a></li>
             }
             <li><button type="submit" class="btn-custom">Wyloguj</button></li>
         </ul>

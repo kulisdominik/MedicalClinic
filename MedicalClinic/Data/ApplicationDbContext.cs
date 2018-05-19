@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MedicalClinic.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MedicalClinic.Models.AdminViewModels;
 
 namespace MedicalClinic.Data.Migrations
 {
@@ -24,5 +25,7 @@ namespace MedicalClinic.Data.Migrations
         }
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+
+        public DbSet<MedicalClinic.Models.AdminViewModels.EditViewModel> EditViewModel { get; set; }
     }
 }
