@@ -74,7 +74,7 @@ namespace MedicalClinic.Data
                     LastName = "Kowalski",
                     PIN = "66071496752",
                     PhoneNum = "345663874",
-                    Sex = "Male",
+                    Sex = "Mężczyzna",
                     ResidenceId = 2
                 },
 
@@ -87,7 +87,7 @@ namespace MedicalClinic.Data
                     LastName = "Nowak",
                     PIN = "72062607345",
                     PhoneNum = "796256840",
-                    Sex = "Female",
+                    Sex = "Kobieta",
                     ResidenceId = 3
                 }
             };
@@ -139,7 +139,7 @@ namespace MedicalClinic.Data
                 LastName = "Adamski",
                 PIN = "79022405942",
                 PhoneNum = "819458234",
-                Sex = "Male",
+                Sex = "Mężczyzna",
                 ResidenceId = 4
             };
 
@@ -147,7 +147,17 @@ namespace MedicalClinic.Data
 
             if (!context.ApplicationUser.Any(o => o.UserName == userPatient.UserName))
             {
-                context.ResidenceModel.Add(new ResidenceModel { });
+                var residence = new ResidenceModel
+                {
+                    Country = "Polska",
+                    Street = "Krakowska",
+                    City = "Kraków",
+                    PostalCode = "31-066",
+                    BuildingNum = "30",
+                    FlatNum = "4"
+                };
+
+                context.ResidenceModel.Add(residence);
                 context.SaveChanges();
 
                 var success = await userManager.CreateAsync(userPatient, patientPassword);
@@ -162,6 +172,48 @@ namespace MedicalClinic.Data
                 };
 
                 context.PatientModel.Add(patient);
+                context.SaveChanges();
+
+                var patientCard = new PatientCardModel
+                {
+                    Date = "17/05/2018",
+                    PatientId = patient.Id
+                };
+
+                context.PatientCardModel.Add(patientCard);
+                context.SaveChanges();
+            }
+
+            var userClerk = new ApplicationUser
+            {
+                UserName = "clerk@test.pl",
+                Email = "clerk@test.pl",
+                EmailConfirmed = true,
+                FirstName = "Edyta",
+                LastName = "Kotarska",
+                PIN = "86062702842",
+                PhoneNum = "850904195",
+                Sex = "Kobieta",
+                ResidenceId = 5
+            };
+
+            if (!context.ApplicationUser.Any(o => o.UserName == userClerk.UserName))
+            {
+                context.ResidenceModel.Add(new ResidenceModel { });
+                context.SaveChanges();
+
+                var success = await userManager.CreateAsync(userClerk, userPassword);
+                if (success.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(userClerk, "Clerk");
+                }
+
+                var clerk = new ClerkModel
+                {
+                    UserId = userClerk.Id
+                };
+
+                context.ClerkModel.Add(clerk);
                 context.SaveChanges();
             }
 
@@ -187,6 +239,60 @@ namespace MedicalClinic.Data
                 if (!context.WorkHours.Any(o => o.DayofWeek == workHour.DayofWeek && o.StartHour == workHour.StartHour))
                 {
                     context.WorkHours.Add(workHour);
+                    context.SaveChanges();
+                }
+            }
+
+            var visits = new AppointmentModel[]
+            {
+                new AppointmentModel
+                {
+                    DateOfApp = "8/05/2018",
+                    DoctorId = doctors[0].Id
+                },
+
+                new AppointmentModel
+                {
+                    DateOfApp = "15/05/2018",
+                    DoctorId = doctors[0].Id
+                },
+
+                new AppointmentModel
+                {
+                    DateOfApp = "22/05/2018",
+                    DoctorId = doctors[0].Id
+                },
+
+                new AppointmentModel
+                {
+                    DateOfApp = "05/06/2018",
+                    DoctorId = doctors[0].Id
+                },
+
+                new AppointmentModel
+                {
+                    DateOfApp = "24/05/2018",
+                    DoctorId = doctors[1].Id
+                },
+
+                new AppointmentModel
+                {
+                    DateOfApp = "07/06/2018",
+                    DoctorId = doctors[1].Id
+                },
+
+                new AppointmentModel
+                {
+                    DateOfApp = "14/06/2018",
+                    DoctorId = doctors[1].Id
+                }
+            };
+
+            foreach (AppointmentModel app in visits)
+            {
+                if (!context.AppointmentModel.Any(o => o.DateOfApp == app.DateOfApp))
+                {
+                    context.AppointmentModel.Add(app);
                     context.SaveChanges();
                 }
             }

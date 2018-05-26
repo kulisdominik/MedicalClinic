@@ -15,11 +15,12 @@
             }
             @if (User.IsInRole("Doctor"))
             {
-                 <li><a asp-area="" asp-controller="" asp-action="" title="">Panel lekarza</a></li>
+                 <li><a asp-area="" asp-controller="Doctor" asp-action="Index" title="">Panel lekarza</a></li>
             }
             @if (User.IsInRole("Patient"))
             {
-                <li><a asp-area="" asp-controller="Patient" asp-action="VisitRegistration" title="">Panel pacjenta</a></li>
+                <li><a asp-area="" asp-controller="PatientCard" asp-action="PatientCard" title="">Karta pacjenta</a></li>
+                <li><a asp-area="" asp-controller="Patient" asp-action="VisitRegistration" title="">Wizyta</a></li>
             }
             @if (User.IsInRole("Clerk"))
             {
