@@ -13,6 +13,18 @@
             {
                 <li><a asp-area="" asp-controller="Admin" asp-action="EditUser" title="">Panel administratora</a></li>
             }
+            @if (User.IsInRole("Doctor"))
+            {
+                 <li><a asp-area="" asp-controller="" asp-action="" title="">Panel lekarza</a></li>
+            }
+            @if (User.IsInRole("Patient"))
+            {
+                <li><a asp-area="" asp-controller="Patient" asp-action="VisitRegistration" title="">Panel pacjenta</a></li>
+            }
+            @if (User.IsInRole("Clerk"))
+            {
+                <li><a asp-area="" asp-controller="" asp-action="" title="">Panel recepcjonisty</a></li>
+            }
             <li><button type="submit" class="btn-custom">Wyloguj</button></li>
         </ul>
     </form>

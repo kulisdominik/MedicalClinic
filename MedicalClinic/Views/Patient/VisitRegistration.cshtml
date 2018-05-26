@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MedicalClinic.Models.PatientViewModels.VisitRegistrationViewModel>
+
+@{
+    ViewData["Title"] = "Rejestracja na wizytę";
+}
+
+<h2>Zapisz się na wizytę</h2>
+
+<h3><b>Dostępni lekarze</b></h3>
+<ul>
+    @foreach (var item in Model)
+    {
+    <li><b><a asp-action="SelectHour" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a></b>: @Html.DisplayFor(modelItem => item.DayofWeek) @Html.DisplayFor(modelItem => item.StartHour) - @Html.DisplayFor(modelItem => item.EndHour)</li>        
+    }
+</ul>

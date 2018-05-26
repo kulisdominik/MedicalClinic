@@ -125,7 +125,7 @@ namespace MedicalClinic.Controllers
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
 
-                    await _userManager.AddToRoleAsync(user, "Member");
+                    await _userManager.AddToRoleAsync(user, "Patient");
                     await _signInManager.SignInAsync(user, false);
 
                     _logger.LogInformation("User created a new account with password.");
