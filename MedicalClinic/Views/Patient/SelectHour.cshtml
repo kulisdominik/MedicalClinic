@@ -20,17 +20,28 @@
         </div>
         <script type="text/javascript">
             var date = new Date();
-                var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-                var available_day = "@Html.DisplayFor(model => model.DayofWeek)";
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
+            var available_day = "@Html.DisplayFor(model => model.DayofWeek)";
+                        
+            var startHour = parseInt("@Html.DisplayFor(model => model.StartHour)");
+            
+            var endHour = parseInt("@Html.DisplayFor(model => model.EndHour)");
+            
+            var availableHours = [];
+            for (var i = startHour; i < endHour; ++i) {
+                availableHours.push(i);
+            }
                 if (available_day == "poniedziałek") {
                     $(function () {
                         $('#datetimepicker1').datetimepicker({
-                            daysOfWeekDisabled: [0,2,3,4,5,6],
+                            daysOfWeekDisabled: [0, 2, 3, 4, 5, 6],
                             minDate: today,
                             locale: 'pl',
                             inline: true,
-                            sideBySide: true
+                            sideBySide: true,
+                            stepping: 30,
+                            enabledHours: availableHours
                         });
                     });
                 }
@@ -41,7 +52,9 @@
                             minDate: today,
                             locale: 'pl',
                             inline: true,
-                            sideBySide: true
+                            sideBySide: true,
+                            stepping: 30,
+                            enabledHours: availableHours
                         });
                     });
                 }
@@ -52,18 +65,22 @@
                             minDate: today,
                             locale: 'pl',
                             inline: true,
-                            sideBySide: true
+                            sideBySide: true,
+                            stepping: 30,
+                            enabledHours: availableHours
                         });
                     });
                 }
                 if (available_day == "czwartek") {
                     $(function () {
                         $('#datetimepicker1').datetimepicker({
-                            daysOfWeekDisabled: [0,1,2,3,5,6],
+                            daysOfWeekDisabled: [0, 1, 2, 3, 5, 6],
                             minDate: today,
                             locale: 'pl',
                             inline: true,
-                            sideBySide: true
+                            sideBySide: true,
+                            stepping: 30,
+                            enabledHours: availableHours
                         });
                     });
                 }
@@ -74,7 +91,9 @@
                             minDate: today,
                             locale: 'pl',
                             inline: true,
-                            sideBySide: true
+                            sideBySide: true,
+                            stepping: 30,
+                            enabledHours: availableHours
                         });
                     });
                 }
@@ -85,7 +104,9 @@
                             minDate: today,
                             locale: 'pl',
                             inline: true,
-                            sideBySide: true
+                            sideBySide: true,
+                            stepping: 30,
+                            enabledHours: availableHours
                         });
                     });
                 }
@@ -96,7 +117,9 @@
                             minDate: today,
                             locale: 'pl',
                             inline: true,
-                            sideBySide: true
+                            sideBySide: true,
+                            stepping: 30,
+                            enabledHours: availableHours
                         });
                     });
                 }                
