@@ -6,6 +6,4 @@
     $('.dropdown').on('click', function () {
         $(this).next().slideToggle();
     });
-
-    $('#datetimepicker1').datetimepicker();
 })
