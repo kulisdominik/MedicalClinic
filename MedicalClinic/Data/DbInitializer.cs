@@ -205,7 +205,8 @@ namespace MedicalClinic.Data
                     context.PatientModel.Add(patient);
                     context.SaveChanges();
 
-                    var patientCard = new PatientCardModel
+                    /*
+                     * var patientCard = new PatientCardModel
                     {
                         Date = "17/05/2018",
                         PatientId = patient.Id
@@ -213,6 +214,7 @@ namespace MedicalClinic.Data
 
                     context.PatientCardModel.Add(patientCard);
                     context.SaveChanges();
+                    */
                 }
             }
 

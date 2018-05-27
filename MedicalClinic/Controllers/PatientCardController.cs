@@ -71,7 +71,12 @@ namespace MedicalClinic.Controllers
                                     FlatNum = pat.app.residence.FlatNum
                                 }
                             )
-                            .First();
+                            .FirstOrDefault();
+
+            if (patientCard == null)
+            {
+                patientCard = new PatientCardViewModel { };
+            }
 
             return View(patientCard);
         }

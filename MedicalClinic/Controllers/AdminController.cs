@@ -74,8 +74,8 @@ namespace MedicalClinic.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var movie = await _context.Users.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Users.Remove(movie);
+            var user = await _context.Users.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction("EditUser");
         }

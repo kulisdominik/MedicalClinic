@@ -10,6 +10,8 @@ namespace MedicalClinic.Models.PatientViewModels
     {
         public string Id { get; set; }
 
+        public string PatientId { get; set; }
+
         [Display(Name = "Data założenia")]
         public string Date { get; set; }
 
