@@ -15,21 +15,6 @@ namespace MedicalClinic.Controllers
             return View();
         }
 
-        public IActionResult About()
-        {
-            return View();
-        }
-
-        public IActionResult ForEmployee()
-        {
-            return View();
-        }
-
-        public IActionResult ForPatient()
-        {
-            return View();
-        }
-
         public IActionResult Contact()
         {
             return View();

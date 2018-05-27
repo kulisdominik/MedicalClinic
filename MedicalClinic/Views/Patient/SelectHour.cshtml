@@ -1,0 +1,115 @@
+﻿@model MedicalClinic.Models.PatientViewModels.VisitRegistrationViewModel
+
+@{
+    ViewData["Title"] = "Rejestracja na wizytę";
+}
+
+<h2>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
+
+<h3><b>Dostępne godziny - @Html.DisplayFor(model => model.DayofWeek)</b></h3>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<form asp-action="VisitRegistration">
+    <div style="overflow:hidden;">
+        <div>
+             <div>
+                  <div class="col-md-8">
+                    <div class="datetimepicker" id='datetimepicker1'></div>
+                  </div>
+             </div>
+        </div>
+        <script type="text/javascript">
+            var date = new Date();
+                var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+                var available_day = "@Html.DisplayFor(model => model.DayofWeek)";
+
+                if (available_day == "poniedziałek") {
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker({
+                            daysOfWeekDisabled: [0,2,3,4,5,6],
+                            minDate: today,
+                            locale: 'pl',
+                            inline: true,
+                            sideBySide: true
+                        });
+                    });
+                }
+                if (available_day == "wtorek") {
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker({
+                            daysOfWeekDisabled: [0,1,3,4,5,6],
+                            minDate: today,
+                            locale: 'pl',
+                            inline: true,
+                            sideBySide: true
+                        });
+                    });
+                }
+                if (available_day == "środa") {
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker({
+                            daysOfWeekDisabled: [0,1,2,4,5,6],
+                            minDate: today,
+                            locale: 'pl',
+                            inline: true,
+                            sideBySide: true
+                        });
+                    });
+                }
+                if (available_day == "czwartek") {
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker({
+                            daysOfWeekDisabled: [0,1,2,3,5,6],
+                            minDate: today,
+                            locale: 'pl',
+                            inline: true,
+                            sideBySide: true
+                        });
+                    });
+                }
+                if (available_day == "piątek") {
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker({
+                            daysOfWeekDisabled: [0,1,2,3,4,6],
+                            minDate: today,
+                            locale: 'pl',
+                            inline: true,
+                            sideBySide: true
+                        });
+                    });
+                }
+                if (available_day == "sobota") {
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker({
+                            daysOfWeekDisabled: [0,1,2,3,4,5],
+                            minDate: today,
+                            locale: 'pl',
+                            inline: true,
+                            sideBySide: true
+                        });
+                    });
+                }
+                if (available_day == "niedziela") {
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker({
+                            daysOfWeekDisabled: [1,2,3,4,5,6],
+                            minDate: today,
+                            locale: 'pl',
+                            inline: true,
+                            sideBySide: true
+                        });
+                    });
+                }                
+            </script>
+    </div>
+    <div class="btn-group form-group">
+        @foreach (string hour in Model.Hours)
+        {
+
+            <input type="button" class="btn btn-default" value="@Html.DisplayFor(model => hour)">
+        }
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Zapisz się" class="btn btn-default" />
+    </div>
+</form>

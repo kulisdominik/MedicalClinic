@@ -140,7 +140,11 @@ footer {
 
 @media (min-width: 992px) {
     .form-group {
+<<<<<<< HEAD
         width: 60%;
+=======
+        width: 50%;
+>>>>>>> Michał
     }
 
     .content {
@@ -184,6 +188,7 @@ footer {
         font-size: 80%;
         overflow-x: scroll;
     }
+<<<<<<< HEAD
 }
 
 #contact_form {
@@ -291,4 +296,6 @@ footer {
 
 .your_account_a:focus{
     background-color: #6799a0;
+=======
+>>>>>>> Michał
 }

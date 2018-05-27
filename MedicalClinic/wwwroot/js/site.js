@@ -1,4 +1,4 @@
-﻿$(function () {
+﻿$(document).ready(function () {
     $('.btn-menu-slide').on('click', function () {
      $('.menu').slideToggle();
     });

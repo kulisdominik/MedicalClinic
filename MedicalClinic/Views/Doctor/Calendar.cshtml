@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MedicalClinic.Models.DoctorViewModels.CalendarViewModel>
+
+@{
+    ViewData["Title"] = "Kalendarz wizyt";
+}
+
+<h2>Panel lekarza</h2>
+
+<h3><b>Twoje wizyty</b> <br /><span style="font-size: 70%; color:lightseagreen;"> -- tu kiedyś będzie kalendarz jak się uda zrobić :v -- <br/> no i czekam na zmianę typu w bazie...</span></h3>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li><a asp-action="Calendar" asp-route-id="">@Html.DisplayFor(modelItem => item.DateOfApp)</a></li>
+    }
+</ul>
