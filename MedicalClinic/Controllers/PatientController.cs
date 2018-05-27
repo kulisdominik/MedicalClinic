@@ -5,16 +5,21 @@ using System.Threading.Tasks;
 using MedicalClinic.Data.Migrations;
 using MedicalClinic.Models;
 using MedicalClinic.Models.PatientViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalClinic.Controllers
 {
     public class PatientController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private ApplicationDbContext _context;
 
-        public PatientController(ApplicationDbContext context)
+        public PatientController(
+            UserManager<ApplicationUser> userManager,
+            ApplicationDbContext context)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -23,7 +28,7 @@ namespace MedicalClinic.Controllers
             return View();
         }
 
-        public IActionResult VisitRegistration(VisitRegistrationViewModel model)
+        public IActionResult VisitRegistration()
         {
             var doctors = _context.ApplicationUser
                             .Join(
@@ -112,3 +117,4 @@ namespace MedicalClinic.Controllers
         }
     }
 }
+ 
