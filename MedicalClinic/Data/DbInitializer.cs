@@ -130,58 +130,90 @@ namespace MedicalClinic.Data
                 }
             }
 
-            var userPatient = new ApplicationUser
+            var userPatients = new ApplicationUser[]
             {
-                UserName = "patient@test.pl",
-                Email = "patient@test.pl",
-                EmailConfirmed = true,
-                FirstName = "Tomasz",
-                LastName = "Adamski",
-                PIN = "79022405942",
-                PhoneNum = "819458234",
-                Sex = "Mężczyzna",
-                ResidenceId = 4
+                new ApplicationUser
+                {
+                    UserName = "patient@test.pl",
+                    Email = "patient@test.pl",
+                    EmailConfirmed = true,
+                    FirstName = "Tomasz",
+                    LastName = "Adamski",
+                    PIN = "79022405942",
+                    PhoneNum = "819458234",
+                    Sex = "Mężczyzna",
+                    ResidenceId = 4
+                },
+
+                 new ApplicationUser
+                {
+                    UserName = "patient2@test.pl",
+                    Email = "patient2@test.pl",
+                    EmailConfirmed = true,
+                    FirstName = "Agata",
+                    LastName = "Walczyk",
+                    PIN = "69091295041",
+                    PhoneNum = "758399405",
+                    Sex = "Kobieta",
+                    ResidenceId = 5
+                },
+
+                new ApplicationUser
+                {
+                    UserName = "patient3@test.pl",
+                    Email = "patient3@test.pl",
+                    EmailConfirmed = true,
+                    FirstName = "Tobiasz",
+                    LastName = "Adamski",
+                    PIN = "78031895332",
+                    PhoneNum = "199405394",
+                    Sex = "Mężczyzna",
+                    ResidenceId = 6
+                },
             };
 
             string patientPassword = "H@sl01";
 
-            if (!context.ApplicationUser.Any(o => o.UserName == userPatient.UserName))
+            foreach (ApplicationUser userPatient in userPatients)
             {
-                var residence = new ResidenceModel
+                if (!context.ApplicationUser.Any(o => o.UserName == userPatient.UserName))
                 {
-                    Country = "Polska",
-                    Street = "Krakowska",
-                    City = "Kraków",
-                    PostalCode = "31-066",
-                    BuildingNum = "30",
-                    FlatNum = "4"
-                };
+                    var residence = new ResidenceModel
+                    {
+                        Country = "Polska",
+                        Street = "Krakowska",
+                        City = "Kraków",
+                        PostalCode = "31-066",
+                        BuildingNum = "30",
+                        FlatNum = "4"
+                    };
 
-                context.ResidenceModel.Add(residence);
-                context.SaveChanges();
+                    context.ResidenceModel.Add(residence);
+                    context.SaveChanges();
 
-                var success = await userManager.CreateAsync(userPatient, patientPassword);
-                if (success.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(userPatient, "Patient");
+                    var success = await userManager.CreateAsync(userPatient, patientPassword);
+                    if (success.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(userPatient, "Patient");
+                    }
+
+                    var patient = new PatientModel
+                    {
+                        UserId = userPatient.Id
+                    };
+
+                    context.PatientModel.Add(patient);
+                    context.SaveChanges();
+
+                    var patientCard = new PatientCardModel
+                    {
+                        Date = "17/05/2018",
+                        PatientId = patient.Id
+                    };
+
+                    context.PatientCardModel.Add(patientCard);
+                    context.SaveChanges();
                 }
-
-                var patient = new PatientModel
-                {
-                    UserId = userPatient.Id
-                };
-
-                context.PatientModel.Add(patient);
-                context.SaveChanges();
-
-                var patientCard = new PatientCardModel
-                {
-                    Date = "17/05/2018",
-                    PatientId = patient.Id
-                };
-
-                context.PatientCardModel.Add(patientCard);
-                context.SaveChanges();
             }
 
             var userClerk = new ApplicationUser
@@ -194,7 +226,7 @@ namespace MedicalClinic.Data
                 PIN = "86062702842",
                 PhoneNum = "850904195",
                 Sex = "Kobieta",
-                ResidenceId = 5
+                ResidenceId = 7
             };
 
             if (!context.ApplicationUser.Any(o => o.UserName == userClerk.UserName))

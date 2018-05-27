@@ -15,7 +15,7 @@
             }
             @if (User.IsInRole("Doctor"))
             {
-                 <li><a asp-area="" asp-controller="Doctor" asp-action="Index" title="">Panel lekarza</a></li>
+                 <li><a asp-area="" asp-controller="Doctor" asp-action="Calendar" title="">Panel lekarza</a></li>
             }
             @if (User.IsInRole("Patient"))
             {
@@ -24,7 +24,7 @@
             }
             @if (User.IsInRole("Clerk"))
             {
-                <li><a asp-area="" asp-controller="" asp-action="" title="">Panel recepcjonisty</a></li>
+                <li><a asp-area="" asp-controller="Clerk" asp-action="Patients" title="">Pacjenci</a></li>
             }
             <li><button type="submit" class="btn-custom">Wyloguj</button></li>
         </ul>

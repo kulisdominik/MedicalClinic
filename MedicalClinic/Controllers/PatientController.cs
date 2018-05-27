@@ -28,7 +28,7 @@ namespace MedicalClinic.Controllers
             return View();
         }
 
-            public IActionResult VisitRegistration(VisitRegistrationViewModel model)
+        public IActionResult VisitRegistration()
         {
             var doctors = _context.ApplicationUser
                             .Join(

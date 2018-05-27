@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MedicalClinic.Models.ClerkViewModels.PatientInfoViewModel>
+
+@{
+    ViewData["Title"] = "Kalendarz wizyt";
+}
+
+<h2>Panel lekarza</h2>
+
+<h3><b>Pacjenci</b></h3>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li><a asp-action="PatientCardInfo" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a></li>
+    }
+</ul>
