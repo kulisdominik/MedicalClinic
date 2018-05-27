@@ -48,7 +48,7 @@ namespace MedicalClinic.Controllers
                 Value = role.Id
             }).ToList();
 
-            if(user != null)
+            if (user != null)
             {
                 model.UserName = user.UserName;
                 model.Email = user.Email;
@@ -65,8 +65,8 @@ namespace MedicalClinic.Controllers
             if (ModelState.IsValid)
             {
                 ApplicationUser user = await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
-            
-                if(user != null)
+
+                if (user != null)
                 {
                     user.UserName = model.UserName;
                     user.Email = model.Email;
@@ -75,30 +75,32 @@ namespace MedicalClinic.Controllers
                     string userRoleId = _roleManager.Roles.Single(r => r.Name == roles).Id;
 
                     IdentityResult result = await _userManager.UpdateAsync(user);
-                    if(result.Succeeded)
+                    if (result.Succeeded)
                     {
-                        if(userRoleId != model.ApplicationRoleId)
+                        if (userRoleId != model.ApplicationRoleId)
                         {
                             IdentityResult roleResult = await _userManager.RemoveFromRoleAsync(user, roles);
 
-                            if(roleResult.Succeeded)
+                            if (roleResult.Succeeded)
                             {
                                 ApplicationRole applicationRole = await _roleManager.FindByIdAsync(model.ApplicationRoleId);
-                                if (applicationRole != null)
+                                if (applicationRole == null)
                                 {
-                                    IdentityResult newRoleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
-                                    if (newRoleResult.Succeeded)
-                                    {
-
-                                        model.ApplicationRoles = _roleManager.Roles.Select(role => new SelectListItem
-                                        {
-                                            Text = role.Name,
-                                            Value = role.Id
-                                        }).ToList();
-
-                                        return View(model);
-                                    }
+                                    return View(); // change 
                                 }
+                                IdentityResult newRoleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
+                                if (newRoleResult.Succeeded)
+                                {
+
+                                    model.ApplicationRoles = _roleManager.Roles.Select(role => new SelectListItem
+                                    {
+                                        Text = role.Name,
+                                        Value = role.Id
+                                    }).ToList();
+
+                                    return View(model);
+                                }
+
                             }
                         }
                     }
