@@ -37,6 +37,11 @@ namespace MedicalClinic.Data
                 }
             }
 
+            Random random = new Random();
+            string[] Towns = { "Kraków", "Warszawa", "Gdańsk", "Wrocław", "Lublin" };
+            string[] Streets = { "Długa", "Krótka", "Warszawska", "Armii Krajowej", "Clepardia", "Ave 5", "Merry",
+                                    "Marquette", "Algoma", "Dawn", "Basil"};
+
             // Create admin account
             var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
@@ -52,7 +57,18 @@ namespace MedicalClinic.Data
 
             if (await userManager.FindByEmailAsync("test@admin.pl") == null)
             {
-                context.ResidenceModel.Add(new ResidenceModel { });
+
+                var residence = new ResidenceModel
+                {
+                    Country = "Polska",
+                    Street = Streets[random.Next(0, Streets.Length)].ToString(),
+                    City = Towns[random.Next(0, Towns.Length)].ToString(),
+                    PostalCode = random.Next(10, 34).ToString() + "-" + random.Next(100, 456).ToString(),
+                    BuildingNum = random.Next(1, 400).ToString(),
+                    FlatNum = random.Next(1, 120).ToString()
+                };
+
+                context.ResidenceModel.Add(residence);
                 context.SaveChanges();
 
                 var success = await userManager.CreateAsync(userAdmin, userPassword);
@@ -89,6 +105,19 @@ namespace MedicalClinic.Data
                     PhoneNum = "796256840",
                     Sex = "Kobieta",
                     ResidenceId = 3
+                },
+
+                 new ApplicationUser
+                 {
+                    UserName = "doctor@przychodnia.pl",
+                    Email = "doctor@przychodnia.pl",
+                    EmailConfirmed = true,
+                    FirstName = "Zygmunt",
+                    LastName = "Rojekt",
+                    PIN = "56022323123",
+                    PhoneNum = "796256840",
+                    Sex = "Mężczyzna",
+                    ResidenceId = 4
                 }
             };
 
@@ -96,7 +125,18 @@ namespace MedicalClinic.Data
             {
                 if (!context.ApplicationUser.Any(o => o.UserName == user.UserName))
                 {
-                    context.ResidenceModel.Add(new ResidenceModel { });
+
+                    var residence = new ResidenceModel
+                    {
+                        Country = "Polska",
+                        Street = Streets[random.Next(0, Streets.Length)].ToString(),
+                        City = Towns[random.Next(0, Towns.Length)].ToString(),
+                        PostalCode = random.Next(10, 34).ToString() + "-" + random.Next(100, 456).ToString(),
+                        BuildingNum = random.Next(1, 400).ToString(),
+                        FlatNum = random.Next(1, 120).ToString()
+                    };
+
+                    context.ResidenceModel.Add(residence);
                     context.SaveChanges();
 
                     var success = await userManager.CreateAsync(user, userPassword);
@@ -118,6 +158,11 @@ namespace MedicalClinic.Data
                 new DoctorModel{
                     Specialization = "Alergologia",
                     UserId = userDoctors[1].Id
+                },
+
+                new DoctorModel{
+                    Specialization = "---",
+                    UserId = userDoctors[2].Id
                 }
             };
 
@@ -128,6 +173,50 @@ namespace MedicalClinic.Data
                     context.DoctorModel.Add(doctor);
                     context.SaveChanges();
                 }
+            }
+
+            var userClerk = new ApplicationUser
+            {
+                UserName = "clerk@test.pl",
+                Email = "clerk@test.pl",
+                EmailConfirmed = true,
+                FirstName = "Edyta",
+                LastName = "Kotarska",
+                PIN = "86062702842",
+                PhoneNum = "850904195",
+                Sex = "Kobieta",
+                ResidenceId = 5
+            };
+
+            if (!context.ApplicationUser.Any(o => o.UserName == userClerk.UserName))
+            {
+
+                var residence = new ResidenceModel
+                {
+                    Country = "Polska",
+                    Street = Streets[random.Next(0, Streets.Length)].ToString(),
+                    City = Towns[random.Next(0, Towns.Length)].ToString(),
+                    PostalCode = random.Next(10, 34).ToString() + "-" + random.Next(100, 456).ToString(),
+                    BuildingNum = random.Next(1, 400).ToString(),
+                    FlatNum = random.Next(1, 120).ToString()
+                };
+
+                context.ResidenceModel.Add(residence);
+                context.SaveChanges();
+
+                var success = await userManager.CreateAsync(userClerk, userPassword);
+                if (success.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(userClerk, "Clerk");
+                }
+
+                var clerk = new ClerkModel
+                {
+                    UserId = userClerk.Id
+                };
+
+                context.ClerkModel.Add(clerk);
+                context.SaveChanges();
             }
 
             var userPatients = new ApplicationUser[]
@@ -142,7 +231,7 @@ namespace MedicalClinic.Data
                     PIN = "79022405942",
                     PhoneNum = "819458234",
                     Sex = "Mężczyzna",
-                    ResidenceId = 4
+                    ResidenceId = 6
                 },
 
                  new ApplicationUser
@@ -155,7 +244,7 @@ namespace MedicalClinic.Data
                     PIN = "69091295041",
                     PhoneNum = "758399405",
                     Sex = "Kobieta",
-                    ResidenceId = 5
+                    ResidenceId = 7
                 },
 
                 new ApplicationUser
@@ -168,28 +257,187 @@ namespace MedicalClinic.Data
                     PIN = "78031895332",
                     PhoneNum = "199405394",
                     Sex = "Mężczyzna",
-                    ResidenceId = 6
+                    ResidenceId = 8
                 },
+
+                new ApplicationUser
+                {
+                    UserName = "patient3@test.pl",
+                    Email = "patient3@test.pl",
+                    EmailConfirmed = true,
+                    FirstName = "Tobiasz",
+                    LastName = "Adamski",
+                    PIN = "78031895332",
+                    PhoneNum = "199405394",
+                    Sex = "Mężczyzna",
+                    ResidenceId = 9
+                },
+                               
+                new ApplicationUser
+                {
+                    UserName = "bglaister0@ifeng.com",
+                    Email = "bglaister0@ifeng.com",
+                    EmailConfirmed = true,
+                    FirstName = "Bryanty",
+                    LastName = "Glaister",
+                    PIN = "68782448145",
+                    PhoneNum = "633453498",
+                    Sex = "Kobieta",
+                    ResidenceId = 10
+                },
+
+                new ApplicationUser
+                {
+                    UserName = "cbrattan1@oaic.gov.au",
+                    Email = "cbrattan1@oaic.gov.au",
+                    EmailConfirmed = true,
+                    FirstName = "Cammie",
+                    LastName = "Brattan",
+                    PIN = "185943649",
+                    PhoneNum = "060450344",
+                    Sex = "Kobieta",
+                    ResidenceId = 11
+                },
+
+                new ApplicationUser
+                {
+                    UserName = "rconnichie2@yellowpages.com",
+                    Email = "rconnichie2@yellowpages.com",
+                    EmailConfirmed = true,
+                    FirstName = "Rebeka",
+                    LastName = "Connichie",
+                    PIN = "926412148",
+                    PhoneNum = "354250585",
+                    Sex = "Kobieta",
+                    ResidenceId = 12
+                },
+
+                new ApplicationUser
+                {
+                    UserName = "bbowstead3@paginegialle.it",
+                    Email = "bbowstead3@paginegialle.it",
+                    EmailConfirmed = true,
+                    FirstName = "Brigham",
+                    LastName = "Bowstead",
+                    PIN = "947661095",
+                    PhoneNum = "491760050",
+                    Sex = "Mężczyzna",
+                    ResidenceId = 13
+                },
+
+                new ApplicationUser
+                {
+                    UserName = "enornasell4@mysql.com",
+                    Email = "enornasell4@mysql.com",
+                    EmailConfirmed = true,
+                    FirstName = "Egor",
+                    LastName = "Nornasell",
+                    PIN = "007033489",
+                    PhoneNum = "501810177",
+                    Sex = "Mężczyzna",
+                    ResidenceId = 14
+                },
+
+                new ApplicationUser
+                {
+                    UserName = "zbuessen5@harvard.edu",
+                    Email = "zbuessen5@harvard.edu",
+                    EmailConfirmed = true,
+                    FirstName = "Zonnya",
+                    LastName = "Buessen",
+                    PIN = "611879490",
+                    PhoneNum = "639866398",
+                    Sex = "Kobieta",
+                    ResidenceId = 15
+                },
+
+                new ApplicationUser
+                {
+                    UserName = "rleconte6@ycombinator.com",
+                    Email = "rleconte6@ycombinator.com",
+                    EmailConfirmed = true,
+                    FirstName = "Rooney",
+                    LastName = "LeCante",
+                    PIN = "477777552",
+                    PhoneNum = "358855814",
+                    Sex = "Mężczyzna",
+                    ResidenceId = 16
+                },
+
+                new ApplicationUser
+                {
+                    UserName = "srodolico7@opensource.org",
+                    Email = "srodolico7@opensource.org",
+                    EmailConfirmed = true,
+                    FirstName = "Steffen",
+                    LastName = "Rodolico",
+                    PIN = "929720491",
+                    PhoneNum = "358209817",
+                    Sex = "Mężczyzna",
+                    ResidenceId = 17
+                },
+
+                new ApplicationUser
+                {
+                    UserName = "kbarthorpe8@examiner.com",
+                    Email = "kbarthorpe8@examiner.com",
+                    EmailConfirmed = true,
+                    FirstName = "Kerri",
+                    LastName = "Barthor",
+                    PIN = "083013242",
+                    PhoneNum = "354233141",
+                    Sex = "Kobieta",
+                    ResidenceId = 18
+                },
+
+                new ApplicationUser
+                {
+                    UserName = "fsculley9@technorati.com",
+                    Email = "fsculley9@technorati.com",
+                    EmailConfirmed = true,
+                    FirstName = "Francisca",
+                    LastName = "Sculley",
+                    PIN = "543349067",
+                    PhoneNum = "561099340",
+                    Sex = "Kobieta",
+                    ResidenceId = 19
+                },
+
+                new ApplicationUser
+                {
+                    UserName = "achallacea@vinaora.com",
+                    Email = "achallacea@vinaora.com",
+                    EmailConfirmed = true,
+                    FirstName = "Alexio",
+                    LastName = "Challace",
+                    PIN = "663290857",
+                    PhoneNum = "417500104",
+                    Sex = "Kobieta",
+                    ResidenceId = 20
+                }
             };
 
             string patientPassword = "H@sl01";
 
             foreach (ApplicationUser userPatient in userPatients)
             {
+             
                 if (!context.ApplicationUser.Any(o => o.UserName == userPatient.UserName))
                 {
                     var residence = new ResidenceModel
                     {
                         Country = "Polska",
-                        Street = "Krakowska",
-                        City = "Kraków",
-                        PostalCode = "31-066",
-                        BuildingNum = "30",
-                        FlatNum = "4"
+                        Street = Streets[random.Next(0,Streets.Length)].ToString(),
+                        City = Towns[random.Next(0,Towns.Length)].ToString(),
+                        PostalCode = random.Next(10, 34).ToString()+ "-" +random.Next(100, 456).ToString(),
+                        BuildingNum = random.Next(1, 400).ToString(),
+                        FlatNum = random.Next(1, 120).ToString()
                     };
 
                     context.ResidenceModel.Add(residence);
                     context.SaveChanges();
+                  
+
 
                     var success = await userManager.CreateAsync(userPatient, patientPassword);
                     if (success.Succeeded)
@@ -217,40 +465,7 @@ namespace MedicalClinic.Data
                     */
                 }
             }
-
-            var userClerk = new ApplicationUser
-            {
-                UserName = "clerk@test.pl",
-                Email = "clerk@test.pl",
-                EmailConfirmed = true,
-                FirstName = "Edyta",
-                LastName = "Kotarska",
-                PIN = "86062702842",
-                PhoneNum = "850904195",
-                Sex = "Kobieta",
-                ResidenceId = 7
-            };
-
-            if (!context.ApplicationUser.Any(o => o.UserName == userClerk.UserName))
-            {
-                context.ResidenceModel.Add(new ResidenceModel { });
-                context.SaveChanges();
-
-                var success = await userManager.CreateAsync(userClerk, userPassword);
-                if (success.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(userClerk, "Clerk");
-                }
-
-                var clerk = new ClerkModel
-                {
-                    UserId = userClerk.Id
-                };
-
-                context.ClerkModel.Add(clerk);
-                context.SaveChanges();
-            }
-
+            
             var workHours = new WorkHoursModel[]
             {
                 new WorkHoursModel{
