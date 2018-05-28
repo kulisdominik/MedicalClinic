@@ -184,3 +184,22 @@ footer {
         font-size: 70%;
     }
 }
+
+#your_account_li a {
+    color: #0f5e6a;
+    font-size: 12pt;
+    border: 1px groove;
+}
+
+    #your_account_li a:hover {
+        background: #6799a0;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 8px;
+        transition: 0.5s;
+    }
+
+#your_account_li.active > a {
+    background: #0f5e6a;
+    color: #fff;
+}

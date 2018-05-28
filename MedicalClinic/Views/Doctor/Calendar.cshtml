@@ -6,10 +6,57 @@
 
 <h2>Panel lekarza</h2>
 
-<h3><b>Twoje wizyty</b> <br /><span style="font-size: 70%; color:lightseagreen;"> -- tu kiedyś będzie kalendarz jak się uda zrobić :v -- <br/> no i czekam na zmianę typu w bazie...</span></h3>
-<ul>
-    @foreach (var item in Model)
-    {
-        <li><a asp-action="Calendar" asp-route-id="">@Html.DisplayFor(modelItem => item.DateOfApp)</a></li>
-    }
-</ul>
+<h3><b>Twoje wizyty w dniu:</b> <br /></h3>
+   
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://momentjs.com/downloads/moment.js"></script>
+    <form asp-action="Calendar">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <div class="input-group date" id='datetimepicker12'>
+                            <input id="selectedDate" type="text" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    var daysWithVisits = [];
+                </script>
+                @foreach (var item in Model)
+                {
+            <script>
+                    daysWithVisits.push('@Html.DisplayFor(modelItem => item.DateOfApp)');
+            </script>
+}
+                <script type="text/javascript">
+
+                    var enabledDaysWithVisits = [];
+                    daysWithVisits.forEach(function (element) {
+                        enabledDaysWithVisits.push(moment(element, 'DD/MM/YYYY'));
+                    });
+
+                    var temp;
+
+                    $(function () {
+                        $('#datetimepicker12').datetimepicker({
+                            locale: 'pl',
+                            showTodayButton: true,
+                            format: 'DD/MM/YYYY',
+                            enabledDates: enabledDaysWithVisits,
+                        });
+                        temp = $('#datetimepicker12').data('DateTimePicker').date();
+                    });
+
+                    console.log(temp);
+                </script>
+            </div>
+        </div>
+
+
+        <h3><span style="font-size: 70%; color:lightseagreen;"><br />czekam na zmianę typu w bazie...</span></h3>
+    </form>
