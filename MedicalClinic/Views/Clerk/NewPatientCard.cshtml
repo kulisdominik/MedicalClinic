@@ -35,11 +35,8 @@
                 <input asp-for="PhoneNum" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Sex"></label><br/>
-                <select asp-for="Sex" class="form-control">
-                    <option>Kobieta</option>
-                    <option>Mężczyzna</option>
-                </select>
+                <label asp-for="Sex"></label>
+                <input asp-for="Sex" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Country"></label>
@@ -48,7 +45,11 @@
             <div class="form-group">
                 <label asp-for="City"></label>
                 <input asp-for="City" class="form-control" />
-            </div>            
+            </div>
+            <div class="form-group">
+                <label asp-for="PostalCode"></label>
+                <input asp-for="PostalCode" class="form-control" />
+            </div>
             <div class="form-group">
                 <label asp-for="Street"></label>
                 <input asp-for="Street" class="form-control" />
@@ -61,12 +62,10 @@
                 <label asp-for="FlatNum"></label>
                 <input asp-for="FlatNum" class="form-control" />
             </div>
-            <div class="form-group">
-                <label asp-for="PostalCode"></label>
-                <input asp-for="PostalCode" class="form-control" />
-            </div>
             <button type="submit" class="btn btn-default">Załóż nową kartę</button>
         </form>
+        <br />
+        <a asp-area="" asp-controller="Clerk" asp-action="PatientCardInfo" asp-route-id="@Model.PatientId">Powrót</a>
     </div>
 </div>
 
