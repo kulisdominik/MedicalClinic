@@ -73,12 +73,100 @@ namespace MedicalClinic.Controllers
                             )
                             .FirstOrDefault();
 
-            if (patientCard == null)
-            {
-                patientCard = new PatientCardViewModel { };
-            }
-
             return View(patientCard);
+        }
+
+        public IActionResult VisitHistory(string id)
+        {
+            var userVisits = _context.PatientCardModel
+                            .Join(
+                                _context.AppointmentModel,
+                                card => card.Id,
+                                visit => visit.PatientCardId,
+                                (card, visit) => new { card, visit }
+                            )
+                            .Where(d => d.card.Id == id)
+                            .Join(
+                                _context.DoctorModel,
+                                cardVisit => cardVisit.visit.DoctorId,
+                                doctor => doctor.Id,
+                                (cardVisit, doctor) => new { cardVisit, doctor }
+                            )
+                            .Join(
+                                _context.ApplicationUser,
+                                cardVisitDoctor => cardVisitDoctor.doctor.UserId,
+                                applicationUser => applicationUser.Id,
+                                (cardVisitDoctor, applicationUser) =>  new VisitHistoryViewModel
+                                {
+                                    Id = cardVisitDoctor.cardVisit.visit.Id,
+                                    DateOfApp = cardVisitDoctor.cardVisit.visit.DateOfApp,
+                                    DoctorFirstName = applicationUser.FirstName,
+                                    DoctorLastName = applicationUser.LastName,
+                                    Specialization = cardVisitDoctor.doctor.Specialization
+                                }
+                            )
+                            .ToList();
+
+            return View(userVisits);
+        }
+
+        public IActionResult SeeDetails(string id)
+        {
+            /*
+           var recipeInfo = _context.AppointmentModel
+                           .Join(
+                               _context.RecipeModel,
+                               visit => visit.RecipeId,
+                               recipe => recipe.Id,
+                               (visit, recipe) => new { visit, recipe }
+                           )
+                           .Where(d => d.visit.Id == userVisit.Id)
+                           .SingleOrDefault();
+
+
+           var medicineInfo = _context.RecipeModel
+                                   .Join(
+                                       _context.MedicineModel,
+                                       recipe => recipe.Id,
+                                       medicine => medicine.RecipeId,
+                                       (recipe, medicine) => new { recipe, medicine }
+                                   )
+                                   .Where(d => d.recipe.Id == recipeInfo.recipe.Id)
+                                   .ToList();
+
+
+           var referralInfo = _context.AppointmentModel
+                           .Join(
+                               _context.ReferralModel,
+                               visit => visit.Id,
+                               referral => referral.AppointmentId,
+                               (visit, referral) => new { visit, referral }
+                           )
+                           .Join(
+                               _context.ExaminationModel,
+                               visRef => visRef.referral.ExaminationId,
+                               examination => examination.Id,
+                               (visRef, examination) => new { visRef, examination }
+                           )
+                           .SingleOrDefault();
+
+           var visits = new VisitHistoryViewModel[] { };
+
+           foreach
+
+           visits.Id = 
+               Id = userVisit.Id,
+               DateOfApp = userVisit.DateOfApp,
+               DoctorFirstName = userVisit.DoctorFirstName,
+               DoctorLastName = userVisit.DoctorLastName,
+               Notes = recipeInfo.recipe.Descrpition,
+               Specialization = userVisit.Specialization,
+               DateOfIssuance = visRef.referral.DateOfIssuance,
+               NameOfExamination = examination.NameOfExamination
+           }
+       */
+            return View();
         }
     }
 }
+ 

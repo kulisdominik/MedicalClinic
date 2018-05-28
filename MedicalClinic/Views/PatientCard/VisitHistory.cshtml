@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MedicalClinic.Models.PatientViewModels.VisitHistoryViewModel>
+
+@{
+    ViewData["Title"] = "Historia wizyt";
+}
+
+<h2>Historia wizyt</h2>
+
+<h3><b>Wizyty</b></h3>
+<br />
+<a asp-area="" asp-controller="PatientCard" asp-action="PatientCard">Powrót</a>
+<br /><br />
+@if (!Model.Any())
+{
+    <span>Brak wizyt.</span>
+}
+else
+{
+    <div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-md-5" style="border: 1px solid #CCC; margin: 20px; padding: 20px;">
+                <b>Data wizyty:</b> @Html.DisplayFor(modelItem => item.DateOfApp)<br />
+                <b>Lekarz:</b> @Html.DisplayFor(modelItem => item.DoctorFirstName) @Html.DisplayFor(modelItem => item.DoctorLastName)<br />
+                <b>Specjalizacja:</b> @Html.DisplayFor(modelItem => item.Specialization)<br />
+                <a asp-area="" asp-controller="" asp-action="" asp-route-id="@item.Id">Zobacz szczegóły</a>
+            </div>
+        </div>
+    }
+    </div>
+}
