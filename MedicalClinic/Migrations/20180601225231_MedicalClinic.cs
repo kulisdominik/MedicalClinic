@@ -404,6 +404,26 @@ namespace MedicalClinic.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Grade",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    AppointmentId = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(nullable: true),
+                    Grade = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Grade", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Grade_Appointment_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Referral",
                 columns: table => new
                 {
@@ -512,6 +532,13 @@ namespace MedicalClinic.Migrations
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Grade_AppointmentId",
+                table: "Grade",
+                column: "AppointmentId",
+                unique: true,
+                filter: "[AppointmentId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Medicine_RecipeId",
                 table: "Medicine",
                 column: "RecipeId");
@@ -579,6 +606,9 @@ namespace MedicalClinic.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Grade");
 
             migrationBuilder.DropTable(
                 name: "Medicine");

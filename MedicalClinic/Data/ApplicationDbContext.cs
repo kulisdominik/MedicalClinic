@@ -109,6 +109,12 @@ namespace MedicalClinic.Data.Migrations
                 .WithOne(s => s.RecipeModel)
                 .HasForeignKey(s => s.RecipeId);
 
+            /* Appointment |---| Grade*/
+            builder.Entity<GradeModel>()
+                .HasOne(u => u.AppointmentModel)
+                .WithOne(d => d.GradeModel)
+                .HasForeignKey<GradeModel>(s => s.AppointmentId);
+
         }
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
@@ -124,5 +130,6 @@ namespace MedicalClinic.Data.Migrations
         public DbSet<ExaminationModel> ExaminationModel { get; set; }
         public DbSet<RecipeModel> RecipeModel { get; set; }
         public DbSet<MedicineModel> MedicineModel { get; set; }
+        public DbSet<GradeModel> GradeModel { get; set; }
     }
 }

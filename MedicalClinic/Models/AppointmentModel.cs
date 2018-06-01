@@ -28,5 +28,7 @@ namespace MedicalClinic.Models
 
         public string RecipeId { get; set; }
         public virtual RecipeModel RecipeModel { get; set; }
+
+        public virtual GradeModel GradeModel { get; set; }
     }
 }

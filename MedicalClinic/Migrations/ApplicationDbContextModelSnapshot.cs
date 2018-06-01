@@ -17,7 +17,7 @@ namespace MedicalClinic.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
+                .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("MedicalClinic.Models.AdminModel", b =>
@@ -221,6 +221,26 @@ namespace MedicalClinic.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Examination");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.GradeModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppointmentId");
+
+                    b.Property<string>("Comment");
+
+                    b.Property<int>("Grade");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId")
+                        .IsUnique()
+                        .HasFilter("[AppointmentId] IS NOT NULL");
+
+                    b.ToTable("Grade");
                 });
 
             modelBuilder.Entity("MedicalClinic.Models.MedicineModel", b =>
@@ -485,6 +505,13 @@ namespace MedicalClinic.Migrations
                     b.HasOne("MedicalClinic.Models.ApplicationUser", "ApplicationUser")
                         .WithOne("Doctor")
                         .HasForeignKey("MedicalClinic.Models.DoctorModel", "UserId");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.GradeModel", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.AppointmentModel", "AppointmentModel")
+                        .WithOne("GradeModel")
+                        .HasForeignKey("MedicalClinic.Models.GradeModel", "AppointmentId");
                 });
 
             modelBuilder.Entity("MedicalClinic.Models.MedicineModel", b =>
