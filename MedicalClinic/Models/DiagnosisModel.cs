@@ -16,6 +16,7 @@ namespace MedicalClinic.Models
         public string Symptoms { get; set; }
         public string DeseaseName { get; set; }
 
+        public string AppointmentId { get; set; }
         public virtual AppointmentModel AppointmentModel { get; set; }
     }
 }

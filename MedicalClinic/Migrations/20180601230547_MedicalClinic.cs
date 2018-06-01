@@ -24,20 +24,6 @@ namespace MedicalClinic.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Diagnosis",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    DeseaseName = table.Column<string>(nullable: true),
-                    Symptoms = table.Column<string>(nullable: true),
-                    Synopsis = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Diagnosis", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Examination",
                 columns: table => new
                 {
@@ -368,7 +354,6 @@ namespace MedicalClinic.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     DateOfApp = table.Column<string>(nullable: true),
-                    DiagnosisId = table.Column<string>(nullable: true),
                     DoctorId = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
                     PatientCardId = table.Column<string>(nullable: true),
@@ -377,12 +362,6 @@ namespace MedicalClinic.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Appointment", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Appointment_Diagnosis_DiagnosisId",
-                        column: x => x.DiagnosisId,
-                        principalTable: "Diagnosis",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Appointment_Doctor_DoctorId",
                         column: x => x.DoctorId,
@@ -399,6 +378,27 @@ namespace MedicalClinic.Migrations
                         name: "FK_Appointment_Recipe_RecipeId",
                         column: x => x.RecipeId,
                         principalTable: "Recipe",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Diagnosis",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    AppointmentId = table.Column<string>(nullable: true),
+                    DeseaseName = table.Column<string>(nullable: true),
+                    Symptoms = table.Column<string>(nullable: true),
+                    Synopsis = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Diagnosis", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Diagnosis_Appointment_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -455,13 +455,6 @@ namespace MedicalClinic.Migrations
                 column: "UserId",
                 unique: true,
                 filter: "[UserId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Appointment_DiagnosisId",
-                table: "Appointment",
-                column: "DiagnosisId",
-                unique: true,
-                filter: "[DiagnosisId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointment_DoctorId",
@@ -523,6 +516,13 @@ namespace MedicalClinic.Migrations
                 name: "IX_AspNetUsers_ResidenceId",
                 table: "AspNetUsers",
                 column: "ResidenceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Diagnosis_AppointmentId",
+                table: "Diagnosis",
+                column: "AppointmentId",
+                unique: true,
+                filter: "[AppointmentId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Doctor_UserId",
@@ -608,6 +608,9 @@ namespace MedicalClinic.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Diagnosis");
+
+            migrationBuilder.DropTable(
                 name: "Grade");
 
             migrationBuilder.DropTable(
@@ -627,9 +630,6 @@ namespace MedicalClinic.Migrations
 
             migrationBuilder.DropTable(
                 name: "Examination");
-
-            migrationBuilder.DropTable(
-                name: "Diagnosis");
 
             migrationBuilder.DropTable(
                 name: "Doctor");

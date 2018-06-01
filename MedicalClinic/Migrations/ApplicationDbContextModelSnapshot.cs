@@ -133,8 +133,6 @@ namespace MedicalClinic.Migrations
 
                     b.Property<string>("DateOfApp");
 
-                    b.Property<string>("DiagnosisId");
-
                     b.Property<string>("DoctorId");
 
                     b.Property<string>("Notes");
@@ -144,10 +142,6 @@ namespace MedicalClinic.Migrations
                     b.Property<string>("RecipeId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DiagnosisId")
-                        .IsUnique()
-                        .HasFilter("[DiagnosisId] IS NOT NULL");
 
                     b.HasIndex("DoctorId");
 
@@ -181,6 +175,8 @@ namespace MedicalClinic.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("AppointmentId");
+
                     b.Property<string>("DeseaseName");
 
                     b.Property<string>("Symptoms");
@@ -188,6 +184,10 @@ namespace MedicalClinic.Migrations
                     b.Property<string>("Synopsis");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId")
+                        .IsUnique()
+                        .HasFilter("[AppointmentId] IS NOT NULL");
 
                     b.ToTable("Diagnosis");
                 });
@@ -476,10 +476,6 @@ namespace MedicalClinic.Migrations
 
             modelBuilder.Entity("MedicalClinic.Models.AppointmentModel", b =>
                 {
-                    b.HasOne("MedicalClinic.Models.DiagnosisModel", "DiagnosisModel")
-                        .WithOne("AppointmentModel")
-                        .HasForeignKey("MedicalClinic.Models.AppointmentModel", "DiagnosisId");
-
                     b.HasOne("MedicalClinic.Models.DoctorModel", "DoctorModel")
                         .WithMany("AppointmentModel")
                         .HasForeignKey("DoctorId");
@@ -498,6 +494,13 @@ namespace MedicalClinic.Migrations
                     b.HasOne("MedicalClinic.Models.ApplicationUser", "ApplicationUser")
                         .WithOne("Clerk")
                         .HasForeignKey("MedicalClinic.Models.ClerkModel", "UserId");
+                });
+
+            modelBuilder.Entity("MedicalClinic.Models.DiagnosisModel", b =>
+                {
+                    b.HasOne("MedicalClinic.Models.AppointmentModel", "AppointmentModel")
+                        .WithOne("DiagnosisModel")
+                        .HasForeignKey("MedicalClinic.Models.DiagnosisModel", "AppointmentId");
                 });
 
             modelBuilder.Entity("MedicalClinic.Models.DoctorModel", b =>

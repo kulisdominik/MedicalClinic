@@ -80,10 +80,10 @@ namespace MedicalClinic.Data.Migrations
                 .HasForeignKey(s => s.PatientCardId);
 
             /* Appointment |---| Diagnosis */
-            builder.Entity<AppointmentModel>()
-                .HasOne(u => u.DiagnosisModel)
-                .WithOne(d => d.AppointmentModel)
-                .HasForeignKey<AppointmentModel>(u => u.DiagnosisId);
+            builder.Entity<DiagnosisModel>()
+                .HasOne(u => u.AppointmentModel)
+                .WithOne(d => d.DiagnosisModel)
+                .HasForeignKey<DiagnosisModel>(u => u.AppointmentId);
 
             /* Appointment |---< Referral */
             builder.Entity<AppointmentModel>()

@@ -21,7 +21,6 @@ namespace MedicalClinic.Models
         public string PatientCardId { get; set; }
         public PatientCardModel PatientCardModel { get; set; }
 
-        public string DiagnosisId { get; set; }
         public virtual DiagnosisModel DiagnosisModel { get; set; }
 
         public ICollection<ReferralModel> ReferralModel { get; set; }
