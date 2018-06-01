@@ -185,7 +185,7 @@ namespace MedicalClinic.Controllers
                                 (pat, residence) => new PatientCardViewModel
                                 {
                                     PatientId = id,
-                                    Date = DateTime.Now.ToString(),
+                                    Date = DateTime.Now.ToString("dd/MM/yyyy"),
                                     FirstName = pat.applicationUser.FirstName,
                                     LastName = pat.applicationUser.LastName,
                                     PIN = pat.applicationUser.PIN,
@@ -225,7 +225,7 @@ namespace MedicalClinic.Controllers
 
             var newCard = new PatientCardModel
             {
-                Date = DateTime.Now.ToString(),
+                Date = DateTime.Now.ToString("dd/MM/yyyy"),
                 PatientId = model.PatientId,
                 ClerkId = clerkUser.clerk.Id
             };

@@ -262,14 +262,14 @@ namespace MedicalClinic.Data
 
                 new ApplicationUser
                 {
-                    UserName = "patient3@test.pl",
-                    Email = "patient3@test.pl",
+                    UserName = "patient4@test.pl",
+                    Email = "patient4@test.pl",
                     EmailConfirmed = true,
-                    FirstName = "Tobiasz",
-                    LastName = "Adamski",
-                    PIN = "78031895332",
-                    PhoneNum = "199405394",
-                    Sex = "Mężczyzna",
+                    FirstName = "Kornelia",
+                    LastName = "Ostrowska",
+                    PIN = "75071253969",
+                    PhoneNum = "516810946",
+                    Sex = "Kobieta",
                     ResidenceId = 9
                 },
                                

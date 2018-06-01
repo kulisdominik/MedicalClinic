@@ -1,0 +1,61 @@
+﻿@model MedicalClinic.Models.PatientViewModels.VisitDetailsViewModel
+
+@{
+    ViewData["Title"] = "Historia wizyt";
+}
+
+<h2>Historia wizyt</h2>
+
+<h3><b>Wizyty</b></h3>
+<br />
+<a asp-area="" asp-controller="PatientCard" asp-action="PatientCard">Powrót</a>
+<br /><br />
+    <div class="container">
+            <div class="row">
+                <div class="col-md-5" style="border: 1px solid #CCC; margin: 20px; padding: 20px;">
+                    <b>Data wizyty:</b> @Html.DisplayFor(model => model.DateOfApp)<br />
+                    <b>Lekarz:</b> @Html.DisplayFor(model => model.DoctorFirstName) @Html.DisplayFor(model => model.DoctorLastName)<br />
+                    <b>Specjalizacja:</b> @Html.DisplayFor(model => model.Specialization)<br />
+
+                    @if(Model.DeseaseName != null)
+                    {
+                        <h4>Diagnoza</h4>
+                        <b>Choroba:</b> @Html.DisplayFor(model => model.DeseaseName)<br />
+                        <b>Opis:</b> @Html.DisplayFor(model => model.Synopsis)<br />
+                        <b>Objawy:</b> @Html.DisplayFor(model => model.Symptoms)<br />
+                        <hr />
+                    }
+
+                    @if(Model.ExpDate != null)
+                    {
+                        <div class="col-md-12" padding-right: 5px;">
+                            <hr />
+                            <h4>Recepta</h4>
+                            <b>Data ważności:</b> @Html.DisplayFor(model => model.ExpDate)<br />
+                            <b>Leki:</b> 
+                            <ul>
+                            @foreach(var med in Model.NameofMedicine)
+                            {
+                                <li>@med</li>
+                            }
+                            </ul>
+                            <br />
+                            <b>Opis:</b> @Html.DisplayFor(model => model.Descrpition)<br />
+                        </div>
+                    }
+
+                    @if(Model.Referral != null)
+                    {
+                        foreach(var item in Model.Referral)
+                        {
+                            <div class="col-md-12">
+                                <hr />
+                                <h4>Skierowanie</h4>
+                                <b>Data wystawienia:</b> @Html.DisplayFor(modelItem => item.DateOfIssuance)<br />
+                                <b>Badanie:</b> @Html.DisplayFor(modelItem => item.NameOfExamination)<br />
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+    </div>

@@ -110,62 +110,94 @@ namespace MedicalClinic.Controllers
             return View(userVisits);
         }
 
-        public IActionResult SeeDetails(string id)
+        public IActionResult ShowDetails(string id)
         {
-            /*
+            var visit = _context.AppointmentModel
+                            .Where(d => d.Id == id)
+                            .Join(
+                               _context.DoctorModel,
+                               app => app.DoctorId,
+                               doctor => doctor.Id,
+                               (app, doctor) => new { app, doctor }
+                            )
+                            .Join(
+                               _context.ApplicationUser,
+                               appDoc => appDoc.doctor.UserId,
+                               user => user.Id,
+                               (appDoc, user) => new { appDoc, user }
+                            )
+                            .Single();
+
            var recipeInfo = _context.AppointmentModel
                            .Join(
                                _context.RecipeModel,
-                               visit => visit.RecipeId,
+                               app => app.RecipeId,
                                recipe => recipe.Id,
-                               (visit, recipe) => new { visit, recipe }
+                               (app, recipe) => new { app, recipe }
                            )
-                           .Where(d => d.visit.Id == userVisit.Id)
+                           .Where(d => d.app.Id == id)
                            .SingleOrDefault();
 
-
-           var medicineInfo = _context.RecipeModel
-                                   .Join(
-                                       _context.MedicineModel,
-                                       recipe => recipe.Id,
-                                       medicine => medicine.RecipeId,
-                                       (recipe, medicine) => new { recipe, medicine }
-                                   )
-                                   .Where(d => d.recipe.Id == recipeInfo.recipe.Id)
+            List<string> medicineList = new List<string>();
+            if(recipeInfo != null)
+            {
+                var medicineInfo = _context.MedicineModel
+                                    .Where(d => d.RecipeId == recipeInfo.recipe.Id)
                                    .ToList();
 
-
-           var referralInfo = _context.AppointmentModel
-                           .Join(
-                               _context.ReferralModel,
-                               visit => visit.Id,
-                               referral => referral.AppointmentId,
-                               (visit, referral) => new { visit, referral }
-                           )
+                foreach(MedicineModel medicine in medicineInfo)
+                {
+                    medicineList.Add(medicine.Name);
+                }
+            }
+            
+           var referralInfo = _context.ReferralModel
+                            .Where(d => d.AppointmentId == id)
                            .Join(
                                _context.ExaminationModel,
-                               visRef => visRef.referral.ExaminationId,
+                               referral => referral.ExaminationId,
                                examination => examination.Id,
-                               (visRef, examination) => new { visRef, examination }
+                               (referral, examination) => new { referral, examination }
                            )
-                           .SingleOrDefault();
+                           .ToList();
 
-           var visits = new VisitHistoryViewModel[] { };
+            var visitInfo = new VisitDetailsViewModel
+            {
+                Id = id,
+                DateOfApp = visit.appDoc.app.DateOfApp,
+                DoctorFirstName = visit.user.FirstName,
+                DoctorLastName = visit.user.LastName,
+                Specialization = visit.appDoc.doctor.Specialization,
+                Referral = new List<ReferralViewModel>()
+            };
 
-           foreach
+            if(recipeInfo != null)
+            {
+                visitInfo.ExpDate = recipeInfo.recipe.ExpDate;
+                visitInfo.Descrpition = recipeInfo.recipe.Descrpition;
+                visitInfo.NameofMedicine = medicineList;
+            }
+            
+            foreach(var referral in referralInfo)
+            {
+                var refInfo = new ReferralViewModel
+                {
+                    DateOfIssuance = referral.referral.DateOfIssuance,
+                    NameOfExamination = referral.examination.NameOfExamination
+                };
 
-           visits.Id = 
-               Id = userVisit.Id,
-               DateOfApp = userVisit.DateOfApp,
-               DoctorFirstName = userVisit.DoctorFirstName,
-               DoctorLastName = userVisit.DoctorLastName,
-               Notes = recipeInfo.recipe.Descrpition,
-               Specialization = userVisit.Specialization,
-               DateOfIssuance = visRef.referral.DateOfIssuance,
-               NameOfExamination = examination.NameOfExamination
-           }
-       */
-            return View();
+                visitInfo.Referral.Add(refInfo);
+            }
+
+            /*
+                public string Synopsis { get; set; }
+
+                public string Symptoms { get; set; }
+
+                public string DeseaseName { get; set; }
+                
+            */
+            return View(visitInfo);
         }
     }
 }

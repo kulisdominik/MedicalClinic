@@ -24,7 +24,7 @@ else
                 <b>Data wizyty:</b> @Html.DisplayFor(modelItem => item.DateOfApp)<br />
                 <b>Lekarz:</b> @Html.DisplayFor(modelItem => item.DoctorFirstName) @Html.DisplayFor(modelItem => item.DoctorLastName)<br />
                 <b>Specjalizacja:</b> @Html.DisplayFor(modelItem => item.Specialization)<br />
-                <a asp-area="" asp-controller="" asp-action="" asp-route-id="@item.Id">Zobacz szczegóły</a>
+                <a asp-area="" asp-controller="PatientCard" asp-action="ShowDetails" asp-route-id="@item.Id">Zobacz szczegóły</a>
             </div>
         </div>
     }
