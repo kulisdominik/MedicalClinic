@@ -28,7 +28,7 @@ namespace MedicalClinic.Controllers
             return View();
         }
 
-        public async Task<IActionResult> PatientCard(PatientCardViewModel model)
+        public async Task<IActionResult> PatientCard()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -110,6 +110,7 @@ namespace MedicalClinic.Controllers
             return View(userVisits);
         }
 
+        [HttpGet]
         public IActionResult ShowDetails(string id)
         {
             var visit = _context.AppointmentModel
@@ -138,6 +139,16 @@ namespace MedicalClinic.Controllers
                            .Where(d => d.app.Id == id)
                            .SingleOrDefault();
 
+            var cardInfo = _context.AppointmentModel
+                            .Where(d => d.Id == id)
+                            .Join(
+                                _context.PatientCardModel,
+                                app => app.PatientCardId,
+                                card => card.Id,
+                                (app, card) => new { app, card }
+                            )
+                            .Single();
+
             List<string> medicineList = new List<string>();
             if(recipeInfo != null)
             {
@@ -161,9 +172,16 @@ namespace MedicalClinic.Controllers
                            )
                            .ToList();
 
+            //var diagnosisInfo
+
+            var gradeInfo = _context.GradeModel
+                            .Where(d => d.AppointmentId == id)
+                            .SingleOrDefault();
+
             var visitInfo = new VisitDetailsViewModel
             {
                 Id = id,
+                CardId = cardInfo.card.Id,
                 DateOfApp = visit.appDoc.app.DateOfApp,
                 DoctorFirstName = visit.user.FirstName,
                 DoctorLastName = visit.user.LastName,
@@ -189,6 +207,12 @@ namespace MedicalClinic.Controllers
                 visitInfo.Referral.Add(refInfo);
             }
 
+            if(gradeInfo != null)
+            {
+                visitInfo.Comment = gradeInfo.Comment;
+                visitInfo.Grade = gradeInfo.Grade;
+            }
+
             /*
                 public string Synopsis { get; set; }
 
@@ -198,6 +222,27 @@ namespace MedicalClinic.Controllers
                 
             */
             return View(visitInfo);
+        }
+
+        [HttpPost]
+        public IActionResult ShowDetails(VisitDetailsViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var newGrade = new GradeModel
+            {
+                Grade = model.Grade,
+                Comment = model.Comment,
+                AppointmentId = model.Id
+            };
+
+            _context.GradeModel.Add(newGrade);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(ShowDetails));
         }
     }
 }

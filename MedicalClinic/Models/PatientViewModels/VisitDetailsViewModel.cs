@@ -9,6 +9,8 @@ namespace MedicalClinic.Models.PatientViewModels
     {
         public string Id { get; set; }
 
+        public string CardId { get; set; }
+
         public string DateOfApp { get; set; }
 
         public string DoctorFirstName { get; set; }
@@ -30,6 +32,10 @@ namespace MedicalClinic.Models.PatientViewModels
         public string Descrpition { get; set; }
 
         public List<ReferralViewModel> Referral { get; set; }
+
+        public string Comment { get; set; }
+
+        public int Grade { get; set; }
 
     }
 }
