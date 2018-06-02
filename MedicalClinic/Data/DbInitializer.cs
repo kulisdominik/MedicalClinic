@@ -1,5 +1,6 @@
 ﻿using MedicalClinic.Data.Migrations;
 using MedicalClinic.Models;
+using MedicalClinic.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +25,7 @@ namespace MedicalClinic.Data
             var serviceScope = _serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
             var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<ApplicationRole>>();
 
-            string[] roleNames = { "Admin", "Manager", "Patient", "Doctor", "Clerk" };
+            string[] roleNames = { RoleNames.Admin, RoleNames.Manager, RoleNames.Patient, RoleNames.Doctor, RoleNames.Clerk };
 
             var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
             await context.Database.EnsureCreatedAsync();
@@ -59,7 +60,7 @@ namespace MedicalClinic.Data
                 var success = await userManager.CreateAsync(userAdmin, userPassword);
                 if (success.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(userAdmin, "Admin");
+                    await userManager.AddToRoleAsync(userAdmin, RoleNames.Admin);
                 }
                 context.SaveChanges();
             }
@@ -103,7 +104,7 @@ namespace MedicalClinic.Data
                     var success = await userManager.CreateAsync(user, userPassword);
                     if (success.Succeeded)
                     {
-                        await userManager.AddToRoleAsync(user, "Doctor");
+                        await userManager.AddToRoleAsync(user, RoleNames.Doctor);
                     }
 
                     context.SaveChanges();
@@ -195,7 +196,7 @@ namespace MedicalClinic.Data
                     var success = await userManager.CreateAsync(userPatient, patientPassword);
                     if (success.Succeeded)
                     {
-                        await userManager.AddToRoleAsync(userPatient, "Patient");
+                        await userManager.AddToRoleAsync(userPatient, RoleNames.Patient);
                     }
 
                     var patient = new PatientModel
@@ -238,7 +239,7 @@ namespace MedicalClinic.Data
                 var success = await userManager.CreateAsync(userClerk, userPassword);
                 if (success.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(userClerk, "Clerk");
+                    await userManager.AddToRoleAsync(userClerk, RoleNames.Clerk);
                 }
 
                 var clerk = new ClerkModel

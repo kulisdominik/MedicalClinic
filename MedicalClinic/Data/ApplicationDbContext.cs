@@ -125,6 +125,6 @@ namespace MedicalClinic.Data.Migrations
         public DbSet<ExaminationModel> ExaminationModel { get; set; }
         public DbSet<RecipeModel> RecipeModel { get; set; }
         public DbSet<MedicineModel> MedicineModel { get; set; }
-
+        public DbSet<MessageModel> MessageModels { get; set; }
     }
 }
