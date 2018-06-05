@@ -11,22 +11,22 @@
 <form asp-action="VisitRegistration">
     <div style="overflow:hidden;">
         <div>
-             <div>
-                  <div class="col-md-8">
+            <div>
+                <div class="col-md-8">
                     <div class="datetimepicker" id='datetimepicker1'></div>
-                  </div>
-             </div>
+                </div>
+            </div>
         </div>
         <script type="text/javascript">
             var date = new Date();
             var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
             var available_day = "@Html.DisplayFor(model => model.DayofWeek)";
-                        
+
             var startHour = parseInt("@Html.DisplayFor(model => model.StartHour)");
-            
+
             var endHour = parseInt("@Html.DisplayFor(model => model.EndHour)");
-            
+
             var availableHours = [];
             for (var i = startHour; i < endHour; ++i) {
                 availableHours.push(i);
@@ -121,8 +121,8 @@
                             enabledHours: availableHours
                         });
                     });
-                }                
-            </script>
+                }
+        </script>
     </div>
     <div class="btn-group form-group">
         @foreach (string hour in Model.Hours)
@@ -135,3 +135,14 @@
         <input type="submit" value="Zapisz się" class="btn btn-default" />
     </div>
 </form>
+    @if (Model.Grade.Any())
+    {
+        <h4>Komentarze</h4>
+    @foreach (var grade in Model.Grade)
+    {
+        <div class="col-md-7" style="border-top: 1px solid #EEE; margin-bottom: 20px;">
+            <b>Ocena: </b>@Html.DisplayFor(model => grade.Grade)<br />
+            @Html.DisplayFor(model => grade.Comment)<br />
+        </div>
+    }
+    }

@@ -22,5 +22,7 @@ namespace MedicalClinic.Models.PatientViewModels
         public string EndHour { get; set; }
 
         public List<string> Hours { get; set; }
+
+        public List<GradeModel> Grade { get; set; }
     }
 }

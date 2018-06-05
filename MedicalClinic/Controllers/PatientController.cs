@@ -59,6 +59,16 @@ namespace MedicalClinic.Controllers
         [HttpGet]
         public IActionResult SelectHour(string id)
         {
+            var grades = _context.GradeModel
+                        .Join(
+                            _context.AppointmentModel,
+                            gr => gr.AppointmentId,
+                            app => app.Id,
+                            (gr, app) => new { gr, app }
+                        )
+                        .Where(d => d.app.DoctorId == id)
+                        .ToList();
+
             var doctorInfo = _context.ApplicationUser
                             .Join(
                                 _context.DoctorModel,
@@ -66,6 +76,7 @@ namespace MedicalClinic.Controllers
                                 doctor => doctor.UserId,
                                 (user, doctor) => new { user, doctor }
                             )
+                            .Where(d => d.doctor.Id == id)
                             .Join(
                                 _context.WorkHours,
                                 doc => doc.doctor.Id,
@@ -78,13 +89,25 @@ namespace MedicalClinic.Controllers
                                     DayofWeek = hours.DayofWeek,
                                     StartHour = hours.StartHour,
                                     EndHour = hours.EndHour,
-                                    Hours = new List<string>()
+                                    Hours = new List<string>(),
+                                    Grade = new List<GradeModel>()
                                 }
                             )
-                            .Where(d => d.Id == id)
-                            .First();
+                            .Single();
 
             doctorInfo.Hours.Clear();
+            doctorInfo.Grade.Clear();
+
+            foreach(var gr in grades)
+            {
+                var grade = new GradeModel
+                {
+                    Grade = gr.gr.Grade,
+                    Comment = gr.gr.Comment
+                };
+
+                doctorInfo.Grade.Add(grade);
+            }
 
             string startHour = doctorInfo.StartHour;
             string endHour = doctorInfo.EndHour;
