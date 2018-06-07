@@ -1,62 +1,73 @@
-﻿@model IEnumerable<MedicalClinic.Models.DoctorViewModels.CalendarViewModel>
+﻿@model MedicalClinic.Models.DoctorViewModels.CalendarViewModel
 
 @{
     ViewData["Title"] = "Kalendarz wizyt";
 }
 
-<h2>Panel lekarza</h2>
+<h2>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
 
 <h3><b>Twoje wizyty w dniu:</b> <br /></h3>
-   
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://momentjs.com/downloads/moment.js"></script>
-    <form asp-action="Calendar">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <div class="input-group date" id='datetimepicker12'>
-                            <input id="selectedDate" type="text" class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://momentjs.com/downloads/moment.js"></script>
+<div class="container">
+    <div class="row">
+        <form asp-action="Calendar" class="col-md-4">
+                <div class="form-group" hidden>
+                    <input asp-for="Id" class="form-control" hidden />
+                </div>
+                <div class="form-group">
+                    <div class="input-group date" id='datetimepicker12'>
+                        <input id="selectedDate" asp-for="SelectedDate" class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
                     </div>
                 </div>
 
-                <script>
-                    var daysWithVisits = [];
-                </script>
-                @foreach (var item in Model)
-                {
             <script>
-                    daysWithVisits.push('@Html.DisplayFor(modelItem => item.DateOfApp)');
+                var daysWithVisits = [];
             </script>
-}
-                <script type="text/javascript">
-
-                    var enabledDaysWithVisits = [];
-                    daysWithVisits.forEach(function (element) {
-                        enabledDaysWithVisits.push(moment(element, 'DD/MM/YYYY'));
-                    });
-
-                    var temp;
-
-                    $(function () {
-                        $('#datetimepicker12').datetimepicker({
-                            locale: 'pl',
-                            showTodayButton: true,
-                            format: 'DD/MM/YYYY',
-                            enabledDates: enabledDaysWithVisits,
-                        });
-                        temp = $('#datetimepicker12').data('DateTimePicker').date();
-                    });
-
-                    console.log(temp);
+            @foreach (var date in Model.DateOfApp)
+            {
+                <script>
+                        daysWithVisits.push('@date');
                 </script>
+            }
+            <script type="text/javascript">
+
+                var enabledDaysWithVisits = [];
+                daysWithVisits.forEach(function (element) {
+                    enabledDaysWithVisits.push(moment(element, 'DD/MM/YYYY'));
+                });
+
+                var temp;
+
+                $(function () {
+                    $('#datetimepicker12').datetimepicker({
+                        locale: 'pl',
+                        showTodayButton: true,
+                        format: 'DD/MM/YYYY',
+                        enabledDates: enabledDaysWithVisits,
+                    });
+                    temp = $('#datetimepicker12').data('DateTimePicker').date();
+                });
+
+                console.log(temp);
+            </script>
+            <input type="submit" value="wyświetl" class="btn btn-default" />
+        </form>
+        <div class="col-md-6">
+            @foreach (var item in Model.Visits)
+        {
+            <div class="row">
+                <div class="col-md-12" style="border: 1px solid #CCC; margin: 20px; padding: 20px;">
+                    <b>Data wizyty:</b> @Html.DisplayFor(modelItem => item.DateOfApp)<br />
+                    <b>Pacjent:</b> @Html.DisplayFor(modelItem => item.PatientFirstName) @Html.DisplayFor(modelItem => item.PatientLastName)<br />
+                    <a asp-area="" asp-controller="Doctor" asp-action="Calendar">Zobacz szczegóły</a>
+                </div>
             </div>
+        }
         </div>
-
-
-        <h3><span style="font-size: 70%; color:lightseagreen;"><br />czekam na zmianę typu w bazie...</span></h3>
-    </form>
+    </div>
+</div>

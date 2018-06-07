@@ -15,8 +15,12 @@ namespace MedicalClinic.Models.DoctorViewModels
 
         public string Specialization { get; set; }
 
-        public string DateOfApp { get; set; }
+        public List<string> DateOfApp { get; set; }
 
         public string Notes { get; set; }
+
+        public string SelectedDate { get; set; }
+
+        public List<VisitsViewModel> Visits { get; set; }
     }
 }
