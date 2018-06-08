@@ -17,8 +17,6 @@ namespace MedicalClinic.Models.DoctorViewModels
 
         public string PatientLastName { get; set; }
 
-        public string Specialization { get; set; }
-
         public string Synopsis { get; set; }
 
         public string Symptoms { get; set; }
@@ -33,8 +31,5 @@ namespace MedicalClinic.Models.DoctorViewModels
 
         public List<ReferralViewModel> Referral { get; set; }
 
-        public string Comment { get; set; }
-
-        public int Grade { get; set; }
     }
 }

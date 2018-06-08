@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using MedicalClinic.Data.Migrations;
@@ -185,7 +186,7 @@ namespace MedicalClinic.Controllers
                                 (pat, residence) => new PatientCardViewModel
                                 {
                                     PatientId = id,
-                                    Date = DateTime.Now.ToString("dd/MM/yyyy"),
+                                    Date = DateTime.Now.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                                     FirstName = pat.applicationUser.FirstName,
                                     LastName = pat.applicationUser.LastName,
                                     PIN = pat.applicationUser.PIN,
@@ -225,7 +226,7 @@ namespace MedicalClinic.Controllers
 
             var newCard = new PatientCardModel
             {
-                Date = DateTime.Now.ToString("dd/MM/yyyy"),
+                Date = DateTime.Now.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                 PatientId = model.PatientId,
                 ClerkId = clerkUser.clerk.Id
             };

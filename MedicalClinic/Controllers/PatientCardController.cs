@@ -172,7 +172,9 @@ namespace MedicalClinic.Controllers
                            )
                            .ToList();
 
-            //var diagnosisInfo
+            var diagnosisInfo = _context.DiagnosisModel
+                               .Where(d => d.AppointmentId == id)
+                               .SingleOrDefault();
 
             var gradeInfo = _context.GradeModel
                             .Where(d => d.AppointmentId == id)
@@ -207,20 +209,19 @@ namespace MedicalClinic.Controllers
                 visitInfo.Referral.Add(refInfo);
             }
 
+            if(diagnosisInfo != null)
+            {
+                visitInfo.DeseaseName = diagnosisInfo.DeseaseName;
+                visitInfo.Symptoms = diagnosisInfo.Symptoms;
+                visitInfo.Synopsis = diagnosisInfo.Synopsis;
+            }
+
             if(gradeInfo != null)
             {
                 visitInfo.Comment = gradeInfo.Comment;
                 visitInfo.Grade = gradeInfo.Grade;
             }
 
-            /*
-                public string Synopsis { get; set; }
-
-                public string Symptoms { get; set; }
-
-                public string DeseaseName { get; set; }
-                
-            */
             return View(visitInfo);
         }
 

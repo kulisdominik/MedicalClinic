@@ -7,6 +7,7 @@ using MedicalClinic.Models;
 using MedicalClinic.Models.DoctorViewModels;
 using MedicalClinic.Data.Migrations;
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 
 namespace MedicalClinic.Controllers
 {
@@ -152,6 +153,232 @@ namespace MedicalClinic.Controllers
             visits.Visits = userVisits;
 
             return View(visits);
+        }
+
+        public IActionResult EditVisit(string id)
+        {
+            var visit = _context.AppointmentModel
+                           .Where(d => d.Id == id)
+                           .Join(
+                              _context.PatientCardModel,
+                              app => app.PatientCardId,
+                              card => card.Id,
+                              (app, card) => new { app, card }
+                           )
+                           .Join(
+                              _context.PatientModel,
+                              appCard => appCard.card.PatientId,
+                              patient => patient.Id,
+                              (appCard, patient) => new { appCard, patient }
+                           )
+                           .Join(
+                              _context.ApplicationUser,
+                              appCardPat => appCardPat.patient.UserId,
+                              user => user.Id,
+                              (appCardPat, user) => new { appCardPat, user }
+                           )
+                           .Single();
+
+            var recipeInfo = _context.AppointmentModel
+                            .Where(d => d.Id == id)
+                            .Join(
+                                _context.RecipeModel,
+                                app => app.RecipeId,
+                                recipe => recipe.Id,
+                                (app, recipe) => new { app, recipe }
+                            )
+                            .SingleOrDefault();
+
+            var cardInfo = _context.AppointmentModel
+                            .Where(d => d.Id == id)
+                            .Join(
+                                _context.PatientCardModel,
+                                app => app.PatientCardId,
+                                card => card.Id,
+                                (app, card) => new { app, card }
+                            )
+                            .Single();
+
+            List<string> medicineList = new List<string>();
+            if (recipeInfo != null)
+            {
+                var medicineInfo = _context.MedicineModel
+                                   .Where(d => d.RecipeId == recipeInfo.recipe.Id)
+                                   .ToList();
+
+                foreach (MedicineModel medicine in medicineInfo)
+                {
+                    medicineList.Add(medicine.Name);
+                }
+            }
+
+            var referralInfo = _context.ReferralModel
+                             .Where(d => d.AppointmentId == id)
+                            .Join(
+                                _context.ExaminationModel,
+                                referral => referral.ExaminationId,
+                                examination => examination.Id,
+                                (referral, examination) => new { referral, examination }
+                            )
+                            .ToList();
+
+            var diagnosisInfo = _context.DiagnosisModel
+                               .Where(d => d.AppointmentId == id)
+                               .SingleOrDefault();
+
+            var visitInfo = new VisitsViewModel
+            {
+                Id = id,
+                CardId = cardInfo.card.Id,
+                DateOfApp = visit.appCardPat.appCard.app.DateOfApp,
+                PatientFirstName = visit.user.FirstName,
+                PatientLastName = visit.user.LastName,
+                Referral = new List<ReferralViewModel>()
+            };
+
+            if (recipeInfo != null)
+            {
+                visitInfo.ExpDate = recipeInfo.recipe.ExpDate;
+                visitInfo.Descrpition = recipeInfo.recipe.Descrpition;
+                visitInfo.NameofMedicine = medicineList;
+            }
+
+            foreach (var referral in referralInfo)
+            {
+                var refInfo = new ReferralViewModel
+                {
+                    DateOfIssuance = referral.referral.DateOfIssuance,
+                    NameOfExamination = referral.examination.NameOfExamination
+                };
+
+                visitInfo.Referral.Add(refInfo);
+            }
+
+            if (diagnosisInfo != null)
+            {
+                visitInfo.DeseaseName = diagnosisInfo.DeseaseName;
+                visitInfo.Symptoms = diagnosisInfo.Symptoms;
+                visitInfo.Synopsis = diagnosisInfo.Synopsis;
+            }
+
+            return View(visitInfo);
+        }
+
+        [HttpGet]
+        public IActionResult AddDiagnosis(string id)
+        {
+            var diagnosis = new DiagnosisViewModel
+            {
+                AppointmentId = id
+            };
+
+            return View(diagnosis);
+        }
+
+        [HttpPost]
+        public IActionResult AddDiagnosis(DiagnosisViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var newDiagnosis = new DiagnosisModel
+            {
+                DeseaseName = model.DeseaseName,
+                Synopsis = model.Synopsis,
+                Symptoms = model.Symptoms,
+                AppointmentId = model.AppointmentId
+            };
+
+            _context.DiagnosisModel.Add(newDiagnosis);
+            _context.SaveChanges();
+
+            return RedirectToAction("EditVisit", "Doctor", new { id = model.AppointmentId });
+        }
+
+        [HttpGet]
+        public IActionResult AddRecipe(string id)
+        {
+            var recipe = new RecipeViewModel
+            {
+                AppointmentId = id
+            };
+
+            return View(recipe);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRecipe(RecipeViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var newRecipe = new RecipeModel
+            {
+                ExpDate = model.ExpDate,
+                Descrpition = model.Descrpition
+            };
+
+            _context.RecipeModel.Add(newRecipe);
+
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                var updateVisit = _context.AppointmentModel
+                              .Where(d => d.Id == model.AppointmentId)
+                              .First();
+
+                updateVisit.RecipeId = newRecipe.Id;
+                _context.SaveChanges();
+
+                return RedirectToAction("EditVisit", "Doctor", new { id = model.AppointmentId });
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult AddReferral(string id)
+        {
+            var referral = new ReferralViewModel
+            {
+                AppointmentId = id
+            };
+
+            return View(referral);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddReferral(ReferralViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var newExamination = new ExaminationModel
+            {
+                NameOfExamination = model.NameOfExamination
+            };
+
+            _context.ExaminationModel.Add(newExamination);
+
+            if( await _context.SaveChangesAsync() > 0 )
+            {
+                var newReferral = new ReferralModel
+                {
+                    DateOfIssuance = DateTime.Now.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                    AppointmentId = model.AppointmentId,
+                    ExaminationId = newExamination.Id
+                };
+
+                _context.ReferralModel.Add(newReferral);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("EditVisit", "Doctor", new { id = model.AppointmentId });
         }
     }
 }

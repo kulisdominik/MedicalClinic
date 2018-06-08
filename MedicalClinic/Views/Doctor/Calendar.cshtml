@@ -64,7 +64,7 @@
                 <div class="col-md-12" style="border: 1px solid #CCC; margin: 20px; padding: 20px;">
                     <b>Data wizyty:</b> @Html.DisplayFor(modelItem => item.DateOfApp)<br />
                     <b>Pacjent:</b> @Html.DisplayFor(modelItem => item.PatientFirstName) @Html.DisplayFor(modelItem => item.PatientLastName)<br />
-                    <a asp-area="" asp-controller="Doctor" asp-action="Calendar">Zobacz szczegóły</a>
+                    <a asp-area="" asp-controller="Doctor" asp-action="EditVisit" asp-route-id="@item.Id">Zobacz szczegóły</a>
                 </div>
             </div>
         }

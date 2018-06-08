@@ -1,0 +1,36 @@
+﻿@model MedicalClinic.Models.DoctorViewModels.DiagnosisViewModel
+
+@{
+    ViewData["Title"] = "Historia wizyt";
+}
+
+<h2>Historia wizyt</h2>
+
+<h3><b>Nowa diagnoza</b></h3>
+<br />
+<a asp-area="" asp-controller="Doctor" asp-action="EditVisit" asp-route-id="@Model.AppointmentId">Powrót</a>
+<br /><br />
+<div class="container">
+    <div class="row">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Synopsis"></label>
+                <input asp-for="Synopsis" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Symptoms"></label>
+                <textarea asp-for="Symptoms" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeseaseName"></label>
+                <input asp-for="DeseaseName" class="form-control" />
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="AppointmentId"></label>
+                <input asp-for="AppointmentId" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-default">Dodaj diagnozę</button>
+        </form>
+        <br />
+    </div>
+</div>

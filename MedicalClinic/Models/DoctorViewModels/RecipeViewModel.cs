@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace MedicalClinic.Models.DoctorViewModels
 {
-    public class ReferralViewModel
+    public class RecipeViewModel
     {
-        public string DateOfIssuance { get; set; }
+        public string Id { get; set; }
 
-        [Display(Name = "Nazwa badania")]
-        public string NameOfExamination { get; set; }
+        [Display(Name = "Data ważności")]
+        public string ExpDate { get; set; }
+
+        [Display(Name = "Opis")]
+        public string Descrpition { get; set; }
 
         public string AppointmentId { get; set; }
     }
