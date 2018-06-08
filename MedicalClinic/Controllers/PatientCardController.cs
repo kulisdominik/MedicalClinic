@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using MedicalClinic.Data.Migrations;
@@ -107,7 +108,20 @@ namespace MedicalClinic.Controllers
                             )
                             .ToList();
 
-            return View(userVisits);
+            var visits = new List<VisitHistoryViewModel>();
+
+            DateTime now = DateTime.Today;
+
+            foreach (VisitHistoryViewModel visit in userVisits)
+            {
+                DateTime myDate = DateTime.ParseExact(visit.DateOfApp, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                if (DateTime.Compare(myDate, now) < 0)
+                {
+                    visits.Add(visit);
+                }
+            }
+
+            return View(visits.AsEnumerable());
         }
 
         [HttpGet]

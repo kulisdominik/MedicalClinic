@@ -8,8 +8,11 @@ namespace MedicalClinic.Models.PatientViewModels
 {
     public class VisitRegistrationViewModel
     {
-        [Required]
         public string Id { get; set; }
+
+        public string CardId { get; set; }
+
+        public string SelectedDateTime { get; set; }
 
         public string FirstName { get; set; }
 

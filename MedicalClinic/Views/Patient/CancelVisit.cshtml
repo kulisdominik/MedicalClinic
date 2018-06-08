@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MedicalClinic.Models.PatientViewModels.VisitHistoryViewModel>
+
+@{
+    ViewData["Title"] = "Odwołaj wizytę";
+}
+
+<h4>@ViewData["Title"]</h4>
+
+@if (!Model.Any())
+{
+    <span>Brak wizyt.</span>
+}
+else
+{
+    <div class="container">
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-md-5" style="border: 1px solid #CCC; margin: 20px; padding: 20px;">
+                    <b>Data wizyty:</b> @Html.DisplayFor(modelItem => item.DateOfApp)<br />
+                    <b>Lekarz:</b> @Html.DisplayFor(modelItem => item.DoctorFirstName) @Html.DisplayFor(modelItem => item.DoctorLastName)<br />
+                    <b>Specjalizacja:</b> @Html.DisplayFor(modelItem => item.Specialization)<br />
+                    <form asp-action="CancelVisit">
+                        <div class="form-group" hidden>
+                            <input asp-for="@item.Id" class="form-control" />
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <input type="submit" value="Odwołaj" class="btn btn-default" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+}

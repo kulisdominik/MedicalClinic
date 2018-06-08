@@ -5,9 +5,18 @@
 }
 
 <h4>@ViewData["Title"]</h4>
-<ul>
-    @foreach (var item in Model)
+
+    @if(Model.Any(o => o.CardId != null))
     {
-    <li><b><a asp-action="SelectHour" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a></b>: @Html.DisplayFor(modelItem => item.DayofWeek) @Html.DisplayFor(modelItem => item.StartHour) - @Html.DisplayFor(modelItem => item.EndHour)</li>        
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li><b><a asp-action="SelectHour" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a></b>: @Html.DisplayFor(modelItem => item.DayofWeek) @Html.DisplayFor(modelItem => item.StartHour) - @Html.DisplayFor(modelItem => item.EndHour)</li>
+            }
+        </ul>
     }
-</ul>
+    else
+    {
+        <span>Nie założono karty.</span>
+    }
+

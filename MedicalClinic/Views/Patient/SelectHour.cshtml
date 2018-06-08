@@ -8,13 +8,14 @@
 
 <h3><b>Dostępne godziny - @Html.DisplayFor(model => model.DayofWeek)</b></h3>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<form asp-action="VisitRegistration">
+<form asp-action="SelectHour">
+    <div class="form-group" hidden>
+        <input asp-for="Id" class="form-control" />
+    </div>
     <div style="overflow:hidden;">
-        <div>
-            <div>
-                <div class="col-md-8">
-                    <div class="datetimepicker" id='datetimepicker1'></div>
-                </div>
+        <div class="col-md-8">
+            <div class="datetimepicker" id='datetimepicker1'>
+                <input type="hidden" id="selectedDateTime" asp-for="SelectedDateTime" class="form-control" />
             </div>
         </div>
         <script type="text/javascript">
@@ -123,13 +124,6 @@
                     });
                 }
         </script>
-    </div>
-    <div class="btn-group form-group">
-        @foreach (string hour in Model.Hours)
-        {
-
-            <input type="button" class="btn btn-default" value="@Html.DisplayFor(model => hour)">
-        }
     </div>
     <div class="form-group">
         <input type="submit" value="Zapisz się" class="btn btn-default" />
