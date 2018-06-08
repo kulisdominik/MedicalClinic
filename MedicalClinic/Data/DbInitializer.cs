@@ -209,12 +209,15 @@ namespace MedicalClinic.Data
                 {
                     await userManager.AddToRoleAsync(userClerk, "Clerk");
                 }
+            }
 
-                var clerk = new ClerkModel
-                {
-                    UserId = userClerk.Id
-                };
+            var clerk = new ClerkModel
+            {
+                UserId = userClerk.Id
+            };
 
+            if (!context.ClerkModel.Any())
+            {
                 context.ClerkModel.Add(clerk);
                 context.SaveChanges();
             }
@@ -421,51 +424,184 @@ namespace MedicalClinic.Data
 
             foreach (ApplicationUser userPatient in userPatients)
             {
-             
                 if (!context.ApplicationUser.Any(o => o.UserName == userPatient.UserName))
                 {
                     var residence = new ResidenceModel
                     {
                         Country = "Polska",
-                        Street = Streets[random.Next(0,Streets.Length)].ToString(),
-                        City = Towns[random.Next(0,Towns.Length)].ToString(),
-                        PostalCode = random.Next(10, 34).ToString()+ "-" +random.Next(100, 456).ToString(),
+                        Street = Streets[random.Next(0, Streets.Length)].ToString(),
+                        City = Towns[random.Next(0, Towns.Length)].ToString(),
+                        PostalCode = random.Next(10, 34).ToString() + "-" + random.Next(100, 456).ToString(),
                         BuildingNum = random.Next(1, 400).ToString(),
                         FlatNum = random.Next(1, 120).ToString()
                     };
 
                     context.ResidenceModel.Add(residence);
                     context.SaveChanges();
-                  
-
 
                     var success = await userManager.CreateAsync(userPatient, patientPassword);
                     if (success.Succeeded)
                     {
                         await userManager.AddToRoleAsync(userPatient, "Patient");
                     }
-
-                    var patient = new PatientModel
-                    {
-                        UserId = userPatient.Id
-                    };
-
-                    context.PatientModel.Add(patient);
-                    context.SaveChanges();
-
-                    /*
-                     * var patientCard = new PatientCardModel
-                    {
-                        Date = "17/05/2018",
-                        PatientId = patient.Id
-                    };
-
-                    context.PatientCardModel.Add(patientCard);
-                    context.SaveChanges();
-                    */
                 }
             }
-            
+
+            var newPatients = new PatientModel[]
+            {
+                new PatientModel
+                {
+                    UserId = userPatients[0].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[1].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[2].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[3].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[4].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[5].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[6].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[7].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[8].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[9].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[10].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[11].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[12].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[13].Id
+                },
+
+                new PatientModel
+                {
+                    UserId = userPatients[14].Id
+                }
+            };
+
+            if (!context.PatientModel.Any())
+            {
+                foreach (PatientModel patient in newPatients)
+                {
+                    context.PatientModel.Add(patient);
+                    context.SaveChanges();
+                }
+            }
+
+            var patientCards = new PatientCardModel[]
+            {
+                new PatientCardModel
+                {
+                    Date = "20/07/2017",
+                    PatientId = newPatients[0].Id,
+                    ClerkId = clerk.Id
+                },
+                
+                new PatientCardModel
+                {
+                    Date = "14/02/2018",
+                    PatientId = newPatients[1].Id,
+                    ClerkId = clerk.Id
+                },
+
+                new PatientCardModel
+                {
+                    Date = "16/03/2018",
+                    PatientId = newPatients[2].Id,
+                    ClerkId = clerk.Id
+                },
+
+                new PatientCardModel
+                {
+                    Date = "23/02/2018",
+                    PatientId = newPatients[3].Id,
+                    ClerkId = clerk.Id
+                },
+
+                new PatientCardModel
+                {
+                    Date = "23/09/2017",
+                    PatientId = newPatients[4].Id,
+                    ClerkId = clerk.Id
+                },
+
+                new PatientCardModel
+                {
+                    Date = "01/01/2018",
+                    PatientId = newPatients[5].Id,
+                    ClerkId = clerk.Id
+                },
+
+                new PatientCardModel
+                {
+                    Date = "11/02/2018",
+                    PatientId = newPatients[6].Id,
+                    ClerkId = clerk.Id
+                },
+
+                new PatientCardModel
+                {
+                    Date = "10/04/2018",
+                    PatientId = newPatients[7].Id,
+                    ClerkId = clerk.Id
+                }
+            };         
+
+            if (!context.PatientCardModel.Any())
+            {
+                foreach (PatientCardModel patientCard in patientCards)
+                {
+                    context.PatientCardModel.Add(patientCard);
+                    context.SaveChanges();
+                }
+            }
+
             var workHours = new WorkHoursModel[]
             {
                 new WorkHoursModel{
