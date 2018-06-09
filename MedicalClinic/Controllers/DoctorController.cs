@@ -66,6 +66,7 @@ namespace MedicalClinic.Controllers
                             app => app.DoctorId,
                             (doctor, app) => new { doctor, app }
                         )
+                        .Where(c => c.app.IsConfirmed == 1)
                         .ToList();
 
             foreach(var date in dates)
@@ -113,6 +114,7 @@ namespace MedicalClinic.Controllers
                             app => app.DoctorId,
                             (doctor, app) => new { doctor, app }
                         )
+                        .Where(c => c.app.IsConfirmed == 1)
                         .ToList();
 
             foreach (var date in dates)
@@ -123,7 +125,7 @@ namespace MedicalClinic.Controllers
             visits.Visits.Clear();
 
             var userVisits = _context.AppointmentModel
-                            .Where(d => (d.DateOfApp == model.SelectedDate) && (d.DoctorId == model.Id))
+                            .Where(d => (d.DateOfApp == model.SelectedDate) && (d.DoctorId == model.Id) && (d.IsConfirmed == 1))
                             .Join(
                                 _context.PatientCardModel,
                                 docVisit => docVisit.PatientCardId,

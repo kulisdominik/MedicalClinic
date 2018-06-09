@@ -26,6 +26,7 @@
             @if (User.IsInRole("Clerk"))
             {
                 <li><a asp-area="" asp-controller="Clerk" asp-action="Patients" title="">Pacjenci</a></li>
+                <li><a asp-area="" asp-controller="Clerk" asp-action="ConfirmVisit" title="">Wizyty do potwierdzenia</a></li>
             }
                 <li><a asp-area="" asp-controller="Message" asp-action="Index" title="">Wiadomości</a></li>
             <li><button type="submit" class="btn-custom">Wyloguj</button></li>

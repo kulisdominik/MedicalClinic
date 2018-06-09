@@ -14,6 +14,8 @@ namespace MedicalClinic.Models.PatientViewModels
 
         public string SelectedDateTime { get; set; }
 
+        public List<DateTime> nDates { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

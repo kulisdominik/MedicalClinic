@@ -283,5 +283,63 @@ namespace MedicalClinic.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public IActionResult ConfirmVisit()
+        {
+            var userVisits = _context.PatientCardModel
+                            .Join(
+                                _context.AppointmentModel,
+                                card => card.Id,
+                                visit => visit.PatientCardId,
+                                (card, visit) => new { card, visit }
+                            )
+                            .Where(d => d.visit.IsConfirmed == 0)
+                            .Join(
+                                _context.DoctorModel,
+                                cardVisit => cardVisit.visit.DoctorId,
+                                doctor => doctor.Id,
+                                (cardVisit, doctor) => new { cardVisit, doctor }
+                            )
+                            .Join(
+                                _context.ApplicationUser,
+                                cardVisitDoctor => cardVisitDoctor.doctor.UserId,
+                                applicationUser => applicationUser.Id,
+                                (cardVisitDoctor, applicationUser) => new VisitHistoryViewModel
+                                {
+                                    Id = cardVisitDoctor.cardVisit.visit.Id,
+                                    isConfirmed = cardVisitDoctor.cardVisit.visit.IsConfirmed,
+                                    DateOfApp = cardVisitDoctor.cardVisit.visit.DateOfApp,
+                                    Hour = cardVisitDoctor.cardVisit.visit.Hour,
+                                    DoctorFirstName = applicationUser.FirstName,
+                                    DoctorLastName = applicationUser.LastName,
+                                    Specialization = cardVisitDoctor.doctor.Specialization
+                                }
+                            )
+                            .ToList();
+
+            var visits = new List<VisitHistoryViewModel>();
+
+            DateTime now = DateTime.Today;
+
+            foreach (VisitHistoryViewModel visit in userVisits)
+            {
+                DateTime myDate = DateTime.ParseExact(visit.DateOfApp, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                if (DateTime.Compare(myDate, now) > 0)
+                {
+                    visits.Add(visit);
+                }
+            }
+
+            return View(visits.AsEnumerable());
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmVisit(string id)
+        {
+
+
+            return View();
+        }
     }
 }

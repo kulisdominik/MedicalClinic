@@ -125,6 +125,13 @@
                 }
         </script>
     </div>
+    <div>
+        <h5>Zajęte wizyty</h5>
+        @foreach (DateTime date in Model.nDates)
+        {
+            @date.ToString()<br />
+        }
+    </div>
     <div class="form-group">
         <input type="submit" value="Zapisz się" class="btn btn-default" />
     </div>

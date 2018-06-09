@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MedicalClinic.Models.PatientViewModels.VisitHistoryViewModel>
 
 @{
-    ViewData["Title"] = "Odwołaj wizytę";
+    ViewData["Title"] = "Potwierdź wizytę";
 }
 
 <h4>@ViewData["Title"]</h4>
@@ -21,7 +21,7 @@ else
                     <b>Godzina:</b> @Html.DisplayFor(modelItem => item.Hour)<br />
                     <b>Lekarz:</b> @Html.DisplayFor(modelItem => item.DoctorFirstName) @Html.DisplayFor(modelItem => item.DoctorLastName)<br />
                     <b>Specjalizacja:</b> @Html.DisplayFor(modelItem => item.Specialization)<br />
-                    @if(item.isConfirmed == 0)
+                    @if (item.isConfirmed == 0)
                     {
                         <span>Wizyta niepotwierdzona.</span><br />
                     }
@@ -35,7 +35,7 @@ else
                         </div>
                         <br />
                         <div class="form-group">
-                            <input type="submit" value="Odwołaj" class="btn btn-default" />
+                            <input type="submit" value="Potwierdź" class="btn btn-default" />
                         </div>
                     </form>
                 </div>

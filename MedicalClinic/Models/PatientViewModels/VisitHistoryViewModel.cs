@@ -11,10 +11,14 @@ namespace MedicalClinic.Models.PatientViewModels
 
         public string DateOfApp { get; set; }
 
+        public string Hour { get; set; }
+
         public string DoctorFirstName { get; set; }
 
         public string DoctorLastName { get; set; }
 
         public string Specialization { get; set; }
+
+        public int isConfirmed { get; set; }
     }
 }

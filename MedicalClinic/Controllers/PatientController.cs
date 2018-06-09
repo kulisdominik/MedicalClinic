@@ -121,10 +121,30 @@ namespace MedicalClinic.Controllers
                                     StartHour = hours.StartHour,
                                     EndHour = hours.EndHour,
                                     Hours = new List<string>(),
-                                    Grade = new List<GradeModel>()
+                                    Grade = new List<GradeModel>(),
+                                    nDates = new List<DateTime>()
                                 }
                             )
                             .Single();
+
+            doctorInfo.nDates.Clear();
+
+            var visits = _context.AppointmentModel
+                         .Where(d => DateTime.Compare(DateTime.ParseExact(d.DateOfApp, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.Today) > 0 && d.DoctorId == id);
+
+            var dates = new List<DateTime>();
+            dates.Clear();
+
+            foreach(AppointmentModel visit in visits)
+            {
+                string nDate = visit.DateOfApp + " " + visit.Hour;
+                dates.Add(DateTime.ParseExact(nDate, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture));
+            }
+
+            if(dates.Any())
+            {
+                doctorInfo.nDates = dates;
+            }
 
             doctorInfo.Hours.Clear();
             doctorInfo.Grade.Clear();
@@ -192,12 +212,13 @@ namespace MedicalClinic.Controllers
             DateTime myDate = DateTime.ParseExact(model.SelectedDateTime, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
 
             string date = myDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-            // string hour = myDate..ToString("HH:mm");
+            string hour = myDate.ToString("HH:mm", CultureInfo.InvariantCulture);
 
             var newVisit = new AppointmentModel
             {
                 DateOfApp = date,
-                //godzina,
+                Hour = hour,
+                IsConfirmed = 0,
                 DoctorId = model.Id,
                 PatientCardId = patientCard.card.Id
             };
@@ -254,7 +275,9 @@ namespace MedicalClinic.Controllers
                                 (cardVisitDoctor, applicationUser) => new VisitHistoryViewModel
                                 {
                                     Id = cardVisitDoctor.cardVisit.visit.Id,
+                                    isConfirmed = cardVisitDoctor.cardVisit.visit.IsConfirmed,
                                     DateOfApp = cardVisitDoctor.cardVisit.visit.DateOfApp,
+                                    Hour = cardVisitDoctor.cardVisit.visit.Hour,
                                     DoctorFirstName = applicationUser.FirstName,
                                     DoctorLastName = applicationUser.LastName,
                                     Specialization = cardVisitDoctor.doctor.Specialization

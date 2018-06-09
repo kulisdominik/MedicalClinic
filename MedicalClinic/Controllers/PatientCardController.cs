@@ -101,6 +101,7 @@ namespace MedicalClinic.Controllers
                                 {
                                     Id = cardVisitDoctor.cardVisit.visit.Id,
                                     DateOfApp = cardVisitDoctor.cardVisit.visit.DateOfApp,
+                                    Hour = cardVisitDoctor.cardVisit.visit.Hour,
                                     DoctorFirstName = applicationUser.FirstName,
                                     DoctorLastName = applicationUser.LastName,
                                     Specialization = cardVisitDoctor.doctor.Specialization
@@ -199,6 +200,7 @@ namespace MedicalClinic.Controllers
                 Id = id,
                 CardId = cardInfo.card.Id,
                 DateOfApp = visit.appDoc.app.DateOfApp,
+                Hour = visit.appDoc.app.Hour,
                 DoctorFirstName = visit.user.FirstName,
                 DoctorLastName = visit.user.LastName,
                 Specialization = visit.appDoc.doctor.Specialization,
