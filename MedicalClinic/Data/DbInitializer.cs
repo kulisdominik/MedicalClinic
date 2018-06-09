@@ -637,38 +637,44 @@ namespace MedicalClinic.Data
                 new RecipeModel
                 {
                     ExpDate = "20/06/2019",
-                    Descrpition = "Take two pills daily after meal."
+                    Descrpition = "Bierz dwie tabletki dziennie przed posiłekiem."
                 },
 
                 new RecipeModel
                 {
                     ExpDate = "25/05/2019",
-                    Descrpition = "Take one before sleep when you have high fever"
+                    Descrpition = "Bierz jedną przed snem przy wyskoiej goraczce."
                 },
 
                 new RecipeModel
                 {
-                    ExpDate = "20/06/2019",
-                    Descrpition = "Take two pills daily after meal."
+                    ExpDate = "13/06/2019",
+                    Descrpition = "Bierz dwie tabletki dziennie przed posiłekiem."
                 },
 
                 new RecipeModel
                 {
-                    ExpDate = "25/05/2019",
-                    Descrpition = "Take one before sleep when you have high fever"
+                    ExpDate = "03/07/2019",
+                    Descrpition = "Bierz jedną przed snem przy wyskoiej goraczce."
                 },
 
                 new RecipeModel
                 {
-                    ExpDate = "20/06/2019",
-                    Descrpition = "Take two pills daily after meal."
+                    ExpDate = "05/12/2019",
+                    Descrpition = "Bierz dwie tabletki dziennie przed posiłekiem."
                 },
 
                 new RecipeModel
                 {
-                    ExpDate = "25/05/2019",
-                    Descrpition = "Take one before sleep when you have high fever"
+                    ExpDate = "12/05/2019",
+                    Descrpition = "Bierz jedną przed snem przy wyskoiej goraczce."
                 },
+
+                new RecipeModel
+                {
+                    ExpDate = "12/02/2019",
+                    Descrpition = "Bierz dwie."
+                }
             };
 
             if (!context.RecipeModel.Any())
@@ -694,7 +700,37 @@ namespace MedicalClinic.Data
                 {
                     RecipeId = recpies[1].Id,
                     Name = "Nurofen Extra Forte w Zielonej powłoce :o"
-                }
+                },
+
+                new MedicineModel
+                {
+                    RecipeId = recpies[2].Id,
+                    Name = "NameName"
+                },
+
+                 new MedicineModel
+                {
+                    RecipeId = recpies[3].Id,
+                    Name = "Abilify"
+                },
+
+                 new MedicineModel
+                 {
+                     RecipeId = recpies[4].Id,
+                     Name = "Acticin"
+                 },
+
+                 new MedicineModel
+                 {
+                     RecipeId = recpies[5].Id,
+                     Name = "Axert"
+                 },
+
+                 new MedicineModel
+                 {
+                     RecipeId = recpies[6].Id,
+                     Name = "Kionex"
+                 }
             };
 
             if (!context.MedicineModel.Any())
@@ -713,44 +749,78 @@ namespace MedicalClinic.Data
                 new AppointmentModel
                 {
                     DateOfApp = "08/05/2018",
-                    DoctorId = doctors[0].Id,
-
+                    Hour = "09:30",
+                    IsConfirmed = 1,
+                    Notes = "-----",
+                    DoctorId = doctors[1].Id,
+                    RecipeId = recpies[0].Id,
+                    PatientCardId = patientCards[0].Id 
                 },
 
                 new AppointmentModel
                 {
                     DateOfApp = "15/05/2018",
-                    DoctorId = doctors[0].Id
+                    Hour = "10:00",
+                    IsConfirmed = 1,
+                    Notes = "-----",
+                    DoctorId = doctors[1].Id,
+                    RecipeId = recpies[1].Id,
+                    PatientCardId = patientCards[1].Id
                 },
 
                 new AppointmentModel
                 {
                     DateOfApp = "22/05/2018",
-                    DoctorId = doctors[0].Id
+                    Hour = "10:30",
+                    IsConfirmed = 1,
+                    Notes = "------",
+                    DoctorId = doctors[1].Id,
+                    RecipeId = recpies[2].Id,
+                    PatientCardId = patientCards[2].Id
                 },
 
                 new AppointmentModel
                 {
                     DateOfApp = "05/06/2018",
-                    DoctorId = doctors[0].Id
+                    Hour = "11:00",
+                    IsConfirmed = 1,
+                    Notes = " ----- ",
+                    DoctorId = doctors[1].Id,
+                    RecipeId = recpies[3].Id,
+                    PatientCardId = patientCards[3].Id
                 },
 
                 new AppointmentModel
                 {
                     DateOfApp = "24/05/2018",
-                    DoctorId = doctors[1].Id
+                    Hour = "13:00",
+                    IsConfirmed = 1,
+                    Notes = "-----",
+                    DoctorId = doctors[0].Id,
+                    RecipeId = recpies[4].Id,
+                    PatientCardId = patientCards[4].Id
                 },
 
                 new AppointmentModel
                 {
                     DateOfApp = "07/06/2018",
-                    DoctorId = doctors[1].Id
+                    Hour = "13:30",
+                    IsConfirmed = 1,
+                    Notes ="-----",
+                    DoctorId = doctors[0].Id,
+                    RecipeId = recpies[5].Id,
+                    PatientCardId = patientCards[5].Id
                 },
 
                 new AppointmentModel
                 {
                     DateOfApp = "14/06/2018",
-                    DoctorId = doctors[1].Id
+                    Hour = "14:00",
+                    IsConfirmed = 1,
+                    Notes = "-------",
+                    DoctorId = doctors[0].Id,
+                    RecipeId = recpies[6].Id,
+                    PatientCardId = patientCards[6].Id
                 }
             };
 
@@ -769,34 +839,58 @@ namespace MedicalClinic.Data
             {
                 new DiagnosisModel
                 {
-                    Synopsis = "Patient has cough and running nose.",
-                    Symptoms = "Cough",
-                    DeseaseName = "Pneumonia",
+                    Synopsis = "Pacjent przyszedl z kaszlem i katarem.",
+                    Symptoms = "Kaszel, ból w płucach",
+                    DeseaseName = "Zapalenie płuc",
                     AppointmentId = visits[0].Id
                 },
 
                 new DiagnosisModel
                 {
-                    Synopsis = "Patient has fever and elargement of the tonsils. Not good for him.",
-                    Symptoms = "Sore throat, fever, enlargement of the tonsils, trouble swallowing, large lymph nodes around the neck",
-                    DeseaseName = "Tonsillitis",
+                    Synopsis = "Pacjent ma gorączke i opuchnięte migdałki, nie dobrze z nim.",
+                    Symptoms = "Ból gardła, gorączka, problemy z przełykaniem, powiekszone węzły chłonne.",
+                    DeseaseName = "Angina",
                     AppointmentId = visits[1].Id
                 },
 
                 new DiagnosisModel
                 {
-                    Synopsis = "Patient came in with pain in his ear and little fever.",
-                    Symptoms = "Ear pain, fever, hearing loss.",
-                    DeseaseName = "Otitis media",
+                    Synopsis = "Pacjent przyszedł z bólem ucha i lekką gorączką.",
+                    Symptoms = "Ból ucha, gorączka, problemy ze słuchem",
+                    DeseaseName = "Zapalenie ucha środkowego",
                     AppointmentId = visits[2].Id
                 },
 
                 new DiagnosisModel
                 {
-                    Synopsis = "Patient has little headache",
-                    Symptoms = "Fever, headache, and neurological problems",
-                    DeseaseName = "Brain abscess",
+                    Synopsis = "Pacjent ma lekkie bóle głowy",
+                    Symptoms = "Gorączka, zawroty głowy, ból głowy z prawej strony",
+                    DeseaseName = "Ropień mózgu",
                     AppointmentId = visits[3].Id
+                },
+
+                new DiagnosisModel
+                {
+                    Synopsis = "Pacjent przyszedl z kaszlem i katarem.",
+                    Symptoms = "Kaszel, ból w płucach",
+                    DeseaseName = "Zapalenie płuc",
+                    AppointmentId = visits[4].Id
+                },
+
+                new DiagnosisModel
+                {
+                    Synopsis = "Pacjent przyszedł z krwawiącymi oczami i gorączką",
+                    Symptoms = "Wysoka gorączka, podwyższone ciśnienie, krew z oczu",
+                    DeseaseName = "Ebola",
+                    AppointmentId = visits[5].Id
+                },
+
+                new DiagnosisModel
+                {
+                    Synopsis = "Pacjent przyszedl z kaszlem i katarem.",
+                    Symptoms = "Kaszel, ból w płucach",
+                    DeseaseName = "Zapalenie płuc",
+                    AppointmentId = visits[6].Id
                 }
             };
 
@@ -810,9 +904,114 @@ namespace MedicalClinic.Data
             }
 
             /* Examination */
+            var exams = new ExaminationModel[]
+            {
+                new ExaminationModel
+                {
+                    NameOfExamination = "Prześwietlenie"
+                },
+
+                new ExaminationModel
+                {
+                    NameOfExamination = "----"
+                },
+
+                new ExaminationModel
+                {
+                    NameOfExamination = "Badanie ucha wewnętrznego"
+                },
+
+                new ExaminationModel
+                {
+                    NameOfExamination = "Rezonans magnetyczny"
+                },
+
+                new ExaminationModel
+                {
+                    NameOfExamination = "Prześwietlnenie"
+                },
+
+                new ExaminationModel
+                {
+                    NameOfExamination = "----"
+                },
+
+                new ExaminationModel
+                {
+                    NameOfExamination = "Prześwietlenie"
+                }
+            };
+
+            if (!context.ExaminationModel.Any())
+            {
+                foreach (ExaminationModel examination in exams)
+                {
+                    context.ExaminationModel.Add(examination);
+                    context.SaveChanges();
+                }
+            }
 
             /* Refferal */
+            var refferals = new ReferralModel[]
+            {
+                new ReferralModel
+                {
+                    DateOfIssuance = "08/05/2018",
+                    ExaminationId = exams[0].Id,
+                    AppointmentId = visits[0].Id,
+                },
 
+                new ReferralModel
+                {
+                    DateOfIssuance = "----",
+                    ExaminationId = exams[1].Id,
+                    AppointmentId = visits[1].Id,
+                },
+
+                new ReferralModel
+                {
+                    DateOfIssuance = "22/05/2018",
+                    ExaminationId = exams[2].Id,
+                    AppointmentId = visits[2].Id,
+                },
+
+                new ReferralModel
+                {
+                    DateOfIssuance = "05/06/2018",
+                    ExaminationId = exams[3].Id,
+                    AppointmentId = visits[3].Id,
+                },
+
+                new ReferralModel
+                {
+                    DateOfIssuance = "24/05/2018",
+                    ExaminationId = exams[4].Id,
+                    AppointmentId = visits[4].Id,
+                },
+
+                new ReferralModel
+                {
+                    DateOfIssuance = "----",
+                    ExaminationId = exams[5].Id,
+                    AppointmentId = visits[5].Id,
+                },
+
+                new ReferralModel
+                {
+                    DateOfIssuance = "14/06/2018",
+                    ExaminationId = exams[6].Id,
+                    AppointmentId = visits[6].Id,
+                }
+            };
+
+            if (!context.ReferralModel.Any())
+            {
+                foreach (ReferralModel refferal in refferals)
+                {
+                    context.ReferralModel.Add(refferal);
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }
