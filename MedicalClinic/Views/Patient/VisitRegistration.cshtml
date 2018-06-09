@@ -11,7 +11,7 @@
         <ul>
             @foreach (var item in Model)
             {
-                <li><b><a asp-action="SelectHour" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a></b>: @Html.DisplayFor(modelItem => item.DayofWeek) @Html.DisplayFor(modelItem => item.StartHour) - @Html.DisplayFor(modelItem => item.EndHour)</li>
+                <li><b><a asp-action="SelectDate" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a></b>: @Html.DisplayFor(modelItem => item.DayofWeek) @Html.DisplayFor(modelItem => item.StartHour) - @Html.DisplayFor(modelItem => item.EndHour)</li>
             }
         </ul>
     }

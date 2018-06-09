@@ -1,167 +1,30 @@
-﻿@model MedicalClinic.Models.PatientViewModels.VisitRegistrationViewModel
+﻿@model MedicalClinic.Models.PatientViewModels.NewVisitViewModel
 
 @{
     ViewData["Title"] = "Rejestracja na wizytę";
 }
 
-<h2>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
-
-<h3><b>Dostępne godziny - @Html.DisplayFor(model => model.DayofWeek)</b></h3>
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<h3>Wybierz godzinę</h3><hr />
+<h5>Dostępne godziny</h5>
 <form asp-action="SelectHour">
     <div class="form-group" hidden>
         <input asp-for="Id" class="form-control" />
     </div>
-    <div style="overflow:hidden;">
-        <div class="col-md-8">
-            <div class="datetimepicker" id='datetimepicker1'>
-                <input type="hidden" id="selectedDateTime" asp-for="SelectedDateTime" class="form-control" />
-            </div>
-        </div>
-        <script type="text/javascript">
-            var date = new Date();
-            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-
-            var available_day = "@Html.DisplayFor(model => model.DayofWeek)";
-
-            var startHour = parseInt("@Html.DisplayFor(model => model.StartHour)");
-
-            var endHour = parseInt("@Html.DisplayFor(model => model.EndHour)");
-
-            var notAvailableHours = [];
-
-            </script>
-            @foreach (DateTime date in Model.nDates)
-            {
-                <script>
-                    notAvailableHours.push(@date.Hour+":"+@date.Minute);
-                </script>
-            }
-
-            <script>
-
-            var availableHours = [];
-            for (var i = startHour; i < endHour; ++i) {
-                availableHours.push(i);
-            }           
-
-                console.log(availableHours);
-                console.log(notAvailableHours);
-
-
-
-                if (available_day == "poniedziałek") {
-                    $(function () {
-                        $('#datetimepicker1').datetimepicker({
-                            daysOfWeekDisabled: [0, 2, 3, 4, 5, 6],
-                            minDate: today,
-                            locale: 'pl',
-                            inline: true,
-                            sideBySide: true,
-                            stepping: 30,
-                            enabledHours: availableHours
-                        });
-                    });
-                }
-                if (available_day == "wtorek") {
-                    $(function () {
-                        $('#datetimepicker1').datetimepicker({
-                            daysOfWeekDisabled: [0,1,3,4,5,6],
-                            minDate: today,
-                            locale: 'pl',
-                            inline: true,
-                            sideBySide: true,
-                            stepping: 30,
-                            enabledHours: availableHours
-                        });
-                    });
-                }
-                if (available_day == "środa") {
-                    $(function () {
-                        $('#datetimepicker1').datetimepicker({
-                            daysOfWeekDisabled: [0,1,2,4,5,6],
-                            minDate: today,
-                            locale: 'pl',
-                            inline: true,
-                            sideBySide: true,
-                            stepping: 30,
-                            enabledHours: availableHours
-                        });
-                    });
-                }
-                if (available_day == "czwartek") {
-                    $(function () {
-                        $('#datetimepicker1').datetimepicker({
-                            daysOfWeekDisabled: [0, 1, 2, 3, 5, 6],
-                            minDate: today,
-                            locale: 'pl',
-                            inline: true,
-                            sideBySide: true,
-                            stepping: 30,
-                            enabledHours: availableHours
-                        });
-                    });
-                }
-                if (available_day == "piątek") {
-                    $(function () {
-                        $('#datetimepicker1').datetimepicker({
-                            daysOfWeekDisabled: [0,1,2,3,4,6],
-                            minDate: today,
-                            locale: 'pl',
-                            inline: true,
-                            sideBySide: true,
-                            stepping: 30,
-                            enabledHours: availableHours
-                        });
-                    });
-                }
-                if (available_day == "sobota") {
-                    $(function () {
-                        $('#datetimepicker1').datetimepicker({
-                            daysOfWeekDisabled: [0,1,2,3,4,5],
-                            minDate: today,
-                            locale: 'pl',
-                            inline: true,
-                            sideBySide: true,
-                            stepping: 30,
-                            enabledHours: availableHours
-                        });
-                    });
-                }
-                if (available_day == "niedziela") {
-                    $(function () {
-                        $('#datetimepicker1').datetimepicker({
-                            daysOfWeekDisabled: [1,2,3,4,5,6],
-                            minDate: today,
-                            locale: 'pl',
-                            inline: true,
-                            sideBySide: true,
-                            stepping: 30,
-                            enabledHours: availableHours
-                        });
-                    });
-                }
-        </script>
+    <div class="form-group" hidden>
+        <input asp-for="CardId" class="form-control" />
     </div>
-    <div>
-        <h5>Zajęte wizyty</h5>
-        @foreach (DateTime date in Model.nDates)
-        {
-            @date.ToString()<br />
-        }
+    <div class="form-group" hidden>
+        <input asp-for="SelectedDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <select asp-for="SelectedHour" class="form-control">
+            @foreach(string hour in Model.Hours)
+            {
+                <option>@hour</option>
+            }
+        </select>
     </div>
     <div class="form-group">
         <input type="submit" value="Zapisz się" class="btn btn-default" />
     </div>
 </form>
-    @if (Model.Grade.Any())
-    {
-        <h4>Komentarze</h4>
-    @foreach (var grade in Model.Grade)
-    {
-        <div class="col-md-7" style="border-top: 1px solid #EEE; margin-bottom: 20px;">
-            <b>Ocena: </b>@Html.DisplayFor(model => grade.Grade)<br />
-            @Html.DisplayFor(model => grade.Comment)<br />
-        </div>
-    }
-    }

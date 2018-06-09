@@ -88,104 +88,7 @@ namespace MedicalClinic.Controllers
         }
 
         [HttpGet]
-        public IActionResult SelectHour(string id)
-        {
-            var grades = _context.GradeModel
-                        .Join(
-                            _context.AppointmentModel,
-                            gr => gr.AppointmentId,
-                            app => app.Id,
-                            (gr, app) => new { gr, app }
-                        )
-                        .Where(d => d.app.DoctorId == id)
-                        .ToList();
-
-            var doctorInfo = _context.ApplicationUser
-                            .Join(
-                                _context.DoctorModel,
-                                user => user.Id,
-                                doctor => doctor.UserId,
-                                (user, doctor) => new { user, doctor }
-                            )
-                            .Where(d => d.doctor.Id == id)
-                            .Join(
-                                _context.WorkHours,
-                                doc => doc.doctor.Id,
-                                hours => hours.DoctorId,
-                                (doc, hours) => new VisitRegistrationViewModel
-                                {
-                                    Id = doc.doctor.Id,
-                                    FirstName = doc.user.FirstName,
-                                    LastName = doc.user.LastName,
-                                    DayofWeek = hours.DayofWeek,
-                                    StartHour = hours.StartHour,
-                                    EndHour = hours.EndHour,
-                                    Hours = new List<string>(),
-                                    Grade = new List<GradeModel>(),
-                                    nDates = new List<DateTime>()
-                                }
-                            )
-                            .Single();
-
-            doctorInfo.nDates.Clear();
-
-            var visits = _context.AppointmentModel
-                         .Where(d => DateTime.Compare(DateTime.ParseExact(d.DateOfApp, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.Today) > 0 && d.DoctorId == id);
-
-            var dates = new List<DateTime>();
-            dates.Clear();
-
-            foreach(AppointmentModel visit in visits)
-            {
-                string nDate = visit.DateOfApp + " " + visit.Hour;
-                dates.Add(DateTime.ParseExact(nDate, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture));
-            }
-
-            if(dates.Any())
-            {
-                doctorInfo.nDates = dates;
-            }
-
-            doctorInfo.Hours.Clear();
-            doctorInfo.Grade.Clear();
-
-            foreach(var gr in grades)
-            {
-                var grade = new GradeModel
-                {
-                    Grade = gr.gr.Grade,
-                    Comment = gr.gr.Comment
-                };
-
-                doctorInfo.Grade.Add(grade);
-            }
-
-            string startHour = doctorInfo.StartHour;
-            string endHour = doctorInfo.EndHour;
-
-            startHour = startHour.Replace(":", string.Empty);
-            endHour = endHour.Replace(":", string.Empty);
-
-            int sHour = Int32.Parse(startHour);
-            int eHour = Int32.Parse(endHour);
-
-            int hour = sHour;
-
-            while ((hour+30) < eHour)
-            {
-                doctorInfo.Hours.Add(hour.ToString().Insert(hour.ToString().Length - 2, ":"));
-
-                if((hour + 30) % 100 >= 60)
-                    hour = hour + 100 - 30;
-                else
-                    hour = hour + 30;
-            }
-
-            return View(doctorInfo);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SelectHour(VisitRegistrationViewModel model)
+        public async Task<IActionResult> SelectDate(string id)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -209,18 +112,127 @@ namespace MedicalClinic.Controllers
                             )
                             .SingleOrDefault();
 
-            DateTime myDate = DateTime.ParseExact(model.SelectedDateTime, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
+            var grades = _context.GradeModel
+                        .Join(
+                            _context.AppointmentModel,
+                            gr => gr.AppointmentId,
+                            app => app.Id,
+                            (gr, app) => new { gr, app }
+                        )
+                        .Where(d => d.app.DoctorId == id)
+                        .ToList();
 
-            string date = myDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-            string hour = myDate.ToString("HH:mm", CultureInfo.InvariantCulture);
+            var doctorInfo = _context.ApplicationUser
+                            .Join(
+                                _context.DoctorModel,
+                                appUser => appUser.Id,
+                                doctor => doctor.UserId,
+                                (appUser, doctor) => new { appUser, doctor }
+                            )
+                            .Where(d => d.doctor.Id == id)
+                            .Join(
+                                _context.WorkHours,
+                                doc => doc.doctor.Id,
+                                hours => hours.DoctorId,
+                                (doc, hours) => new { doc, hours }
+                            )
+                            .Single();
 
+            var visitRegistrationInfo = new VisitRegistrationViewModel
+            {
+                Id = doctorInfo.doc.doctor.Id,
+                CardId = patientCard.card.Id,
+                FirstName = doctorInfo.doc.appUser.FirstName,
+                LastName = doctorInfo.doc.appUser.LastName,
+                DayofWeek = doctorInfo.hours.DayofWeek,
+                StartHour = doctorInfo.hours.StartHour,
+                EndHour = doctorInfo.hours.EndHour,
+                Grade = new List<GradeModel>()
+            };
+
+            visitRegistrationInfo.Grade.Clear();
+
+            foreach (var gr in grades)
+            {
+                var grade = new GradeModel
+                {
+                    Grade = gr.gr.Grade,
+                    Comment = gr.gr.Comment
+                };
+
+                visitRegistrationInfo.Grade.Add(grade);
+            }
+
+            return View(visitRegistrationInfo);
+        }
+
+        [HttpPost]
+        public IActionResult SelectDate(VisitRegistrationViewModel model)
+        {
+            return RedirectToAction("SelectHour", "Patient", model);
+        }
+
+        [HttpGet]
+        public IActionResult SelectHour(VisitRegistrationViewModel model)
+        {
+            var newVisitInfo = new NewVisitViewModel
+            {
+                Id = model.Id,
+                CardId = model.CardId,
+                Hours = new List<string>(),
+                Grade = model.Grade
+            };
+
+            var visits = _context.AppointmentModel
+                        .Where(d => (d.DoctorId == model.Id) && (d.DateOfApp == model.SelectedDate))
+                        .Select(p => new { hour = p.Hour })
+                        .ToList();
+
+            newVisitInfo.Hours.Clear();
+
+            string startHour = model.StartHour;
+            string endHour = model.EndHour;
+
+            startHour = startHour.Replace(":", string.Empty);
+            endHour = endHour.Replace(":", string.Empty);
+
+            int sHour = Int32.Parse(startHour);
+            int eHour = Int32.Parse(endHour);
+
+            int hour = sHour;
+
+            while ((hour + 30) < eHour)
+            {
+                string newHour = hour.ToString().Insert(hour.ToString().Length - 2, ":");
+                newVisitInfo.Hours.Add(newHour);
+                
+                foreach (var app in visits)
+                {
+                    if(app.hour == newHour)
+                    {
+                        newVisitInfo.Hours.Remove(newHour);
+                    }
+                }
+
+                if ((hour + 30) % 100 >= 60)
+                    hour = hour + 100 - 30;
+                else
+                    hour = hour + 30;
+            }
+
+            return View(newVisitInfo);
+        }
+
+        [HttpPost]
+        public IActionResult SelectHour(NewVisitViewModel model)
+        {
             var newVisit = new AppointmentModel
             {
-                DateOfApp = date,
-                Hour = hour,
+                DateOfApp = model.SelectedDate,
+                Hour = model.SelectedHour,
                 IsConfirmed = 0,
                 DoctorId = model.Id,
-                PatientCardId = patientCard.card.Id
+                PatientCardId = model.CardId
             };
 
             _context.AppointmentModel.Add(newVisit);
