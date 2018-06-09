@@ -13,7 +13,8 @@ namespace MedicalClinic.Models
     {
         /*[Required] dodać do skonczonej bazy*/
 
-        [Required] public int Id { get; set; }
+        [Required]
+        public int Id { get; set; }
         public string Country { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
