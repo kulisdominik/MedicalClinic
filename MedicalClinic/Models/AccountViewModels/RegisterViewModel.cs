@@ -24,5 +24,13 @@ namespace MedicalClinic.Models
         [Compare("Password", ErrorMessage = "Podane hasła się nie zgadzają.")]
         public string ConfirmPassword { get; set; }
 
+        [Required(ErrorMessage = "Wymagane imię.")]
+        [Display(Name = "Imię")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Wymagane nazwisko.")]
+        [Display(Name = "Nazwisko")]
+        public string LastName { get; set; }
+
     }
 }

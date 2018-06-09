@@ -112,6 +112,8 @@ namespace MedicalClinic.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
                     ResidenceId = userResidence.Id
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -123,6 +125,14 @@ namespace MedicalClinic.Controllers
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+
+                    var patient = new PatientModel
+                    {
+                        UserId = user.Id
+                    };
+
+                    _context.PatientModel.Add(patient);
+                    _context.SaveChanges();
 
                     await _userManager.AddToRoleAsync(user, "Patient");
                     await _signInManager.SignInAsync(user, false);
