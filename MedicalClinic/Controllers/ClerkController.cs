@@ -287,42 +287,55 @@ namespace MedicalClinic.Controllers
         [HttpGet]
         public IActionResult ConfirmVisit()
         {
-            var userVisits = _context.PatientCardModel
+            var userVisits = _context.ApplicationUser
+                            .Join(
+                                _context.PatientModel,
+                                appUser => appUser.Id,
+                                patient => patient.UserId,
+                                (appUser, patient) => new { appUser, patient }
+                            )
+                            .Join(
+                                _context.PatientCardModel,
+                                appUserPat => appUserPat.patient.Id,
+                                card => card.PatientId,
+                                (appUserPat, card) => new { appUserPat, card }
+                            )
                             .Join(
                                 _context.AppointmentModel,
-                                card => card.Id,
+                                appUserPatCard => appUserPatCard.card.Id,
                                 visit => visit.PatientCardId,
-                                (card, visit) => new { card, visit }
+                                (appUserPatCard, visit) => new { appUserPatCard, visit }
                             )
                             .Where(d => d.visit.IsConfirmed == 0)
                             .Join(
                                 _context.DoctorModel,
-                                cardVisit => cardVisit.visit.DoctorId,
+                                appUserPatCardVisit => appUserPatCardVisit.visit.DoctorId,
                                 doctor => doctor.Id,
-                                (cardVisit, doctor) => new { cardVisit, doctor }
+                                (appUserPatCardVisit, doctor) => new { appUserPatCardVisit, doctor }
                             )
                             .Join(
                                 _context.ApplicationUser,
                                 cardVisitDoctor => cardVisitDoctor.doctor.UserId,
                                 applicationUser => applicationUser.Id,
-                                (cardVisitDoctor, applicationUser) => new VisitHistoryViewModel
+                                (cardVisitDoctor, applicationUser) => new VisitsToConfirmViewModel
                                 {
-                                    Id = cardVisitDoctor.cardVisit.visit.Id,
-                                    isConfirmed = cardVisitDoctor.cardVisit.visit.IsConfirmed,
-                                    DateOfApp = cardVisitDoctor.cardVisit.visit.DateOfApp,
-                                    Hour = cardVisitDoctor.cardVisit.visit.Hour,
+                                    Id = cardVisitDoctor.appUserPatCardVisit.visit.Id,
+                                    DateOfApp = cardVisitDoctor.appUserPatCardVisit.visit.DateOfApp,
+                                    Hour = cardVisitDoctor.appUserPatCardVisit.visit.Hour,
                                     DoctorFirstName = applicationUser.FirstName,
                                     DoctorLastName = applicationUser.LastName,
+                                    PatientFirstName = cardVisitDoctor.appUserPatCardVisit.appUserPatCard.appUserPat.appUser.FirstName,
+                                    PatientLastName = cardVisitDoctor.appUserPatCardVisit.appUserPatCard.appUserPat.appUser.LastName,
                                     Specialization = cardVisitDoctor.doctor.Specialization
                                 }
                             )
                             .ToList();
 
-            var visits = new List<VisitHistoryViewModel>();
+            var visits = new List<VisitsToConfirmViewModel>();
 
             DateTime now = DateTime.Today;
 
-            foreach (VisitHistoryViewModel visit in userVisits)
+            foreach (VisitsToConfirmViewModel visit in userVisits)
             {
                 DateTime myDate = DateTime.ParseExact(visit.DateOfApp, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 if (DateTime.Compare(myDate, now) > 0)
@@ -334,12 +347,66 @@ namespace MedicalClinic.Controllers
             return View(visits.AsEnumerable());
         }
 
-        [HttpPost]
-        public IActionResult ConfirmVisit(string id)
+        [HttpGet]
+        public IActionResult AcceptConfirmation(string id)
         {
+            var userVisit = _context.ApplicationUser
+                           .Join(
+                               _context.PatientModel,
+                               appUser => appUser.Id,
+                               patient => patient.UserId,
+                               (appUser, patient) => new { appUser, patient }
+                           )
+                           .Join(
+                               _context.PatientCardModel,
+                               appUserPat => appUserPat.patient.Id,
+                               card => card.PatientId,
+                               (appUserPat, card) => new { appUserPat, card }
+                           )
+                           .Join(
+                               _context.AppointmentModel,
+                               appUserPatCard => appUserPatCard.card.Id,
+                               visit => visit.PatientCardId,
+                               (appUserPatCard, visit) => new { appUserPatCard, visit }
+                           )
+                           .Where(d => (d.visit.IsConfirmed == 0) && (d.visit.Id == id))
+                           .Join(
+                               _context.DoctorModel,
+                               appUserPatCardVisit => appUserPatCardVisit.visit.DoctorId,
+                               doctor => doctor.Id,
+                               (appUserPatCardVisit, doctor) => new { appUserPatCardVisit, doctor }
+                           )
+                           .Join(
+                               _context.ApplicationUser,
+                               cardVisitDoctor => cardVisitDoctor.doctor.UserId,
+                               applicationUser => applicationUser.Id,
+                               (cardVisitDoctor, applicationUser) => new VisitsToConfirmViewModel
+                               {
+                                   Id = cardVisitDoctor.appUserPatCardVisit.visit.Id,
+                                   DateOfApp = cardVisitDoctor.appUserPatCardVisit.visit.DateOfApp,
+                                   Hour = cardVisitDoctor.appUserPatCardVisit.visit.Hour,
+                                   DoctorFirstName = applicationUser.FirstName,
+                                   DoctorLastName = applicationUser.LastName,
+                                   PatientFirstName = cardVisitDoctor.appUserPatCardVisit.appUserPatCard.appUserPat.appUser.FirstName,
+                                   PatientLastName = cardVisitDoctor.appUserPatCardVisit.appUserPatCard.appUserPat.appUser.LastName,
+                                   Specialization = cardVisitDoctor.doctor.Specialization
+                               }
+                           )
+                           .Single();
 
+            return View(userVisit);
+        }
 
-            return View();
+        [HttpPost]
+        public IActionResult AcceptConfirmation(VisitsToConfirmViewModel model)
+        {
+            var updateVisit = _context.AppointmentModel
+                              .Single(d => d.Id == model.Id);
+
+            updateVisit.IsConfirmed = 1;
+            _context.SaveChanges();
+
+            return RedirectToAction("ConfirmVisit");
         }
     }
 }

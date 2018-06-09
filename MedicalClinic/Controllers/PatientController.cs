@@ -252,9 +252,13 @@ namespace MedicalClinic.Controllers
                                 card => card.PatientId,
                                 (appUserPat, card) => new { appUserPat, card }
                             )
-                            .Single();
+                            .SingleOrDefault();
 
-            var userVisits = _context.PatientCardModel
+            var visits = new List<VisitHistoryViewModel>();
+
+            if (userCard != null)
+            {
+                var userVisits = _context.PatientCardModel
                             .Where(d => d.Id == userCard.card.Id)
                             .Join(
                                 _context.AppointmentModel,
@@ -275,7 +279,7 @@ namespace MedicalClinic.Controllers
                                 (cardVisitDoctor, applicationUser) => new VisitHistoryViewModel
                                 {
                                     Id = cardVisitDoctor.cardVisit.visit.Id,
-                                    isConfirmed = cardVisitDoctor.cardVisit.visit.IsConfirmed,
+                                    IsConfirmed = cardVisitDoctor.cardVisit.visit.IsConfirmed,
                                     DateOfApp = cardVisitDoctor.cardVisit.visit.DateOfApp,
                                     Hour = cardVisitDoctor.cardVisit.visit.Hour,
                                     DoctorFirstName = applicationUser.FirstName,
@@ -285,27 +289,62 @@ namespace MedicalClinic.Controllers
                             )
                             .ToList();
 
-            var visits = new List<VisitHistoryViewModel>();
+                DateTime now = DateTime.Today;
 
-            DateTime now = DateTime.Today;
-
-            foreach (VisitHistoryViewModel visit in userVisits)
-            {
-                DateTime myDate = DateTime.ParseExact(visit.DateOfApp, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                if(DateTime.Compare(myDate, now) > 0)
+                foreach (VisitHistoryViewModel visit in userVisits)
                 {
-                    visits.Add(visit);
+                    DateTime myDate = DateTime.ParseExact(visit.DateOfApp, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    if (DateTime.Compare(myDate, now) > 0)
+                    {
+                        visits.Add(visit);
+                    }
                 }
             }
 
             return View(visits.AsEnumerable());
         }
 
-        [HttpPost]
-        public IActionResult CancelVisit(VisitHistoryViewModel model)
+        [HttpGet]
+        public IActionResult AcceptCancellation(string id)
         {
-            
-            return RedirectToAction(nameof(CancelVisit));
+            var userVisit = _context.AppointmentModel
+                            .Where(d => d.Id == id)
+                            .Join(
+                                _context.DoctorModel,
+                                visit => visit.DoctorId,
+                                doctor => doctor.Id,
+                                (visit, doctor) => new { visit, doctor }
+                            )
+                            .Join(
+                                _context.ApplicationUser,
+                                visitDoctor => visitDoctor.doctor.UserId,
+                                applicationUser => applicationUser.Id,
+                                (visitDoctor, applicationUser) => new VisitHistoryViewModel
+                                {
+                                    Id = visitDoctor.visit.Id,
+                                    IsConfirmed = visitDoctor.visit.IsConfirmed,
+                                    DateOfApp = visitDoctor.visit.DateOfApp,
+                                    Hour = visitDoctor.visit.Hour,
+                                    DoctorFirstName = applicationUser.FirstName,
+                                    DoctorLastName = applicationUser.LastName,
+                                    Specialization = visitDoctor.doctor.Specialization
+                                }
+                            )
+                            .Single();
+
+            return View(userVisit);
+        }
+
+        [HttpPost]
+        public IActionResult AcceptCancellation(VisitHistoryViewModel model)
+        {
+            var updateVisit = _context.AppointmentModel
+                              .Single(d => d.Id == model.Id);
+
+            _context.AppointmentModel.Remove(updateVisit);
+            _context.SaveChanges();
+
+            return RedirectToAction("CancelVisit");
         }
     }
 }

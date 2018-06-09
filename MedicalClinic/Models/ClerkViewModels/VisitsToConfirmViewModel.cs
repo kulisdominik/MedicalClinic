@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MedicalClinic.Models.PatientViewModels
+namespace MedicalClinic.Models.ClerkViewModels
 {
-    public class VisitHistoryViewModel
+    public class VisitsToConfirmViewModel
     {
         public string Id { get; set; }
 
@@ -17,8 +17,10 @@ namespace MedicalClinic.Models.PatientViewModels
 
         public string DoctorLastName { get; set; }
 
-        public string Specialization { get; set; }
+        public string PatientFirstName { get; set; }
 
-        public int IsConfirmed { get; set; }
+        public string PatientLastName { get; set; }
+
+        public string Specialization { get; set; }
     }
 }

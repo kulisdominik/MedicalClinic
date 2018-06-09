@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MedicalClinic.Models.PatientViewModels.VisitHistoryViewModel>
+﻿@model IEnumerable<MedicalClinic.Models.ClerkViewModels.VisitsToConfirmViewModel>
 
 @{
     ViewData["Title"] = "Potwierdź wizytę";
@@ -8,7 +8,7 @@
 
 @if (!Model.Any())
 {
-    <span>Brak wizyt.</span>
+    <span>Brak wizyt wymagających potwierdzenia.</span>
 }
 else
 {
@@ -19,25 +19,10 @@ else
                 <div class="col-md-5" style="border: 1px solid #CCC; margin: 20px; padding: 20px;">
                     <b>Data wizyty:</b> @Html.DisplayFor(modelItem => item.DateOfApp)<br />
                     <b>Godzina:</b> @Html.DisplayFor(modelItem => item.Hour)<br />
+                    <b>Pacjent:</b> @Html.DisplayFor(modelItem => item.PatientFirstName) @Html.DisplayFor(modelItem => item.PatientLastName)<br />
                     <b>Lekarz:</b> @Html.DisplayFor(modelItem => item.DoctorFirstName) @Html.DisplayFor(modelItem => item.DoctorLastName)<br />
                     <b>Specjalizacja:</b> @Html.DisplayFor(modelItem => item.Specialization)<br />
-                    @if (item.isConfirmed == 0)
-                    {
-                        <span>Wizyta niepotwierdzona.</span><br />
-                    }
-                    else
-                    {
-                        <span>Wizyta potwierdzona.</span><br />
-                    }
-                    <form asp-action="CancelVisit">
-                        <div class="form-group" hidden>
-                            <input asp-for="@item.Id" class="form-control" />
-                        </div>
-                        <br />
-                        <div class="form-group">
-                            <input type="submit" value="Potwierdź" class="btn btn-default" />
-                        </div>
-                    </form>
+                    <a asp-area="" asp-controller="Clerk" asp-action="AcceptConfirmation" asp-route-id="@item.Id">Potwierdź</a>
                 </div>
             </div>
         }
