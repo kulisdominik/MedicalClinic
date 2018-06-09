@@ -28,10 +28,28 @@
 
             var endHour = parseInt("@Html.DisplayFor(model => model.EndHour)");
 
+            var notAvailableHours = [];
+
+            </script>
+            @foreach (DateTime date in Model.nDates)
+            {
+                <script>
+                    notAvailableHours.push(@date.Hour+":"+@date.Minute);
+                </script>
+            }
+
+            <script>
+
             var availableHours = [];
             for (var i = startHour; i < endHour; ++i) {
                 availableHours.push(i);
-            }
+            }           
+
+                console.log(availableHours);
+                console.log(notAvailableHours);
+
+
+
                 if (available_day == "poniedziałek") {
                     $(function () {
                         $('#datetimepicker1').datetimepicker({

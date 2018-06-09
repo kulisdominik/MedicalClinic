@@ -11,12 +11,15 @@ namespace MedicalClinic.Models.ManageViewModels
         [Display(Name = "Nazwa użytkownika")]
         public string Username { get; set; }
 
+        [StringLength(30, ErrorMessage = "{0} może mieć maksymalnie {1} znaków")]
         [Display(Name ="Imię")]
         public string FirstName { get; set; }
 
+        [StringLength(50, ErrorMessage = "{0} może mieć maksymalnie {1} znaków")]
         [Display(Name ="Nazwisko")]
         public string LastName { get; set; }
 
+        [StringLength(11, ErrorMessage ="{0} musi mieć dokładnie {1} znaków")]
         [Display(Name ="PESEL")]
         public string PIN { get; set; }
 
@@ -32,13 +35,16 @@ namespace MedicalClinic.Models.ManageViewModels
 
         [Display(Name ="Płeć")]
         public string Sex { get; set; }
-
+        
+        [StringLength(30, ErrorMessage ="{0} może mieć maksymalnie {1} znaków")]
         [Display(Name ="Kraj")]
         public string Country { get; set; }
 
+        [StringLength(50, ErrorMessage = "{0} może mieć maksymalnie {1} znaków")]
         [Display(Name ="Miasto")]
         public string City { get; set; }
 
+        [StringLength(50, ErrorMessage = "{0} może mieć maksymalnie {1} znaków")]
         [Display(Name ="Ulica")]
         public string Street { get; set; }
 
@@ -48,6 +54,7 @@ namespace MedicalClinic.Models.ManageViewModels
         [Display(Name ="Numer mieszkania")]
         public string FlatNum { get; set; }
 
+        [StringLength(6, ErrorMessage ="{0} musi mieć co najmniej {2} znaków i może mieć maksymalnie {1} znaków", MinimumLength = 5)]
         [Display(Name ="Kod pocztowy")]
         public string PostalCode { get; set; }
 
