@@ -124,7 +124,6 @@ namespace MedicalClinic.Controllers
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-
                     await _userManager.AddToRoleAsync(user, "Patient");
                     await _signInManager.SignInAsync(user, false);
 

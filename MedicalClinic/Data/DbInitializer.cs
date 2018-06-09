@@ -1012,6 +1012,69 @@ namespace MedicalClinic.Data
                     context.SaveChanges();
                 }
             }
+
+            /* Grade */
+
+            var grades = new GradeModel[]
+            {
+                new GradeModel
+                {
+                    Grade = 1,
+                    Comment = "Beznadzieja ... ",
+                    AppointmentId = visits[0].Id
+                },
+
+                new GradeModel
+                {
+                    Grade = 5,
+                    Comment = "Bardzo dobra i szybka obsługa",
+                    AppointmentId = visits[1].Id
+                },
+
+                new GradeModel
+                {
+                    Grade = 3,
+                    Comment = "Dobre rozpoznanie ale nie chciał wypisać L4",
+                    AppointmentId = visits[2].Id
+                },
+
+                new GradeModel
+                {
+                    Grade = 5,
+                    Comment = "Szybko umówiona wizyta uratowała mi życie",
+                    AppointmentId = visits[3].Id
+                },
+
+                new GradeModel
+                {
+                    Grade = 1,
+                    Comment = "Nietrafna diagnoza, nie polecam",
+                    AppointmentId = visits[4].Id
+                },
+
+                new GradeModel
+                {
+                    Grade = 4,
+                    Comment = "Szybko i dobrze",
+                    AppointmentId = visits[5].Id
+                },
+
+                new GradeModel
+                {
+                    Grade = 2,
+                    Comment = "Ostatnia deska ratunku.... tylko dlatego go był moim wyborem",
+                    AppointmentId = visits[6].Id
+                }
+            };
+
+            if (!context.GradeModel.Any())
+            {
+                foreach (GradeModel grade in grades)
+                {
+                    context.GradeModel.Add(grade);
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }
