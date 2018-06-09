@@ -33,8 +33,8 @@ namespace MedicalClinic.Controllers
             }
 
             var temp = _context.MessageModel.Where(u =>
-                u.ReceiverEmail == currentUser.Email ||
-                u.SenderEmail == currentUser.Email
+                (u.ReceiverEmail == currentUser.Email && u.ReceiverVisibility) ||
+                (u.SenderEmail == currentUser.Email && u.SenderVisibility)
                 ).ToList().OrderBy(s => s.Date);
 
             return View(temp);
@@ -97,6 +97,43 @@ namespace MedicalClinic.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(string id)
+        {
+            var message = _context.MessageModel.SingleOrDefault(u => u.Id == id);
+            return View(message);
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            MessageModel message = _context.MessageModel.SingleOrDefault(m => m.Id == id);
+
+            ApplicationUser currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                throw new Exception("Error: Current user is null!");
+            }
+
+            if(currentUser.Email == message.ReceiverEmail)
+            {
+                message.ReceiverVisibility = false;
+            }
+            else
+            {
+                message.SenderVisibility = false;
+
+            }
+
+            _context.Update(message);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
     }
 }
