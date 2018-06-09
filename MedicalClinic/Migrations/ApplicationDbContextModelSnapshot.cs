@@ -135,6 +135,10 @@ namespace MedicalClinic.Migrations
 
                     b.Property<string>("DoctorId");
 
+                    b.Property<string>("Hour");
+
+                    b.Property<int>("IsConfirmed");
+
                     b.Property<string>("Notes");
 
                     b.Property<string>("PatientCardId");

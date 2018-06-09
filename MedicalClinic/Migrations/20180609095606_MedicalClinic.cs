@@ -355,6 +355,8 @@ namespace MedicalClinic.Migrations
                     Id = table.Column<string>(nullable: false),
                     DateOfApp = table.Column<string>(nullable: true),
                     DoctorId = table.Column<string>(nullable: true),
+                    Hour = table.Column<string>(nullable: true),
+                    IsConfirmed = table.Column<int>(nullable: false),
                     Notes = table.Column<string>(nullable: true),
                     PatientCardId = table.Column<string>(nullable: true),
                     RecipeId = table.Column<string>(nullable: true)

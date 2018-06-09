@@ -14,6 +14,8 @@ namespace MedicalClinic.Models
         [Required] public string Id { get; set; }
         public string DateOfApp { get; set; }
         public string Notes { get; set; }
+        public string Hour { get; set; }
+        public int IsConfirmed { get; set; }
 
         public string DoctorId { get; set; }
         public DoctorModel DoctorModel { get; set; }

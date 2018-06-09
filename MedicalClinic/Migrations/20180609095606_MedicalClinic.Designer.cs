@@ -11,7 +11,7 @@ using System;
 namespace MedicalClinic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180601230547_MedicalClinic")]
+    [Migration("20180609095606_MedicalClinic")]
     partial class MedicalClinic
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,6 +135,10 @@ namespace MedicalClinic.Migrations
                     b.Property<string>("DateOfApp");
 
                     b.Property<string>("DoctorId");
+
+                    b.Property<string>("Hour");
+
+                    b.Property<int>("IsConfirmed");
 
                     b.Property<string>("Notes");
 

@@ -604,14 +604,16 @@ namespace MedicalClinic.Data
 
             var workHours = new WorkHoursModel[]
             {
-                new WorkHoursModel{
+                new WorkHoursModel
+                {
                     DayofWeek = "wtorek",
                     StartHour = "12:55",
                     EndHour = "16:40",
                     DoctorId = doctors[0].Id
                 },
 
-                new WorkHoursModel{
+                new WorkHoursModel
+                {
                     DayofWeek = "czwartek",
                     StartHour = "9:30",
                     EndHour = "13:00",
@@ -628,12 +630,91 @@ namespace MedicalClinic.Data
                 }
             }
 
+            /* Recipe */
+
+            var recpies = new RecipeModel[]
+            {
+                new RecipeModel
+                {
+                    ExpDate = "20/06/2019",
+                    Descrpition = "Take two pills daily after meal."
+                },
+
+                new RecipeModel
+                {
+                    ExpDate = "25/05/2019",
+                    Descrpition = "Take one before sleep when you have high fever"
+                },
+
+                new RecipeModel
+                {
+                    ExpDate = "20/06/2019",
+                    Descrpition = "Take two pills daily after meal."
+                },
+
+                new RecipeModel
+                {
+                    ExpDate = "25/05/2019",
+                    Descrpition = "Take one before sleep when you have high fever"
+                },
+
+                new RecipeModel
+                {
+                    ExpDate = "20/06/2019",
+                    Descrpition = "Take two pills daily after meal."
+                },
+
+                new RecipeModel
+                {
+                    ExpDate = "25/05/2019",
+                    Descrpition = "Take one before sleep when you have high fever"
+                },
+            };
+
+            if (!context.RecipeModel.Any())
+            {
+                foreach (RecipeModel recipe in recpies)
+                {
+                    context.RecipeModel.Add(recipe);
+                    context.SaveChanges();
+                }
+            }
+
+            /* Medicine */
+
+            var medicines = new MedicineModel[]
+            {
+                new MedicineModel
+                {
+                    RecipeId = recpies[0].Id,
+                    Name = "Adderall"
+                },
+
+                new MedicineModel
+                {
+                    RecipeId = recpies[1].Id,
+                    Name = "Nurofen Extra Forte w Zielonej powłoce :o"
+                }
+            };
+
+            if (!context.MedicineModel.Any())
+            {
+                foreach (MedicineModel medicine in medicines)
+                {
+                    context.MedicineModel.Add(medicine);
+                    context.SaveChanges();
+                }
+            }
+
+            /* Appointment */
+
             var visits = new AppointmentModel[]
             {
                 new AppointmentModel
                 {
-                    DateOfApp = "8/05/2018",
-                    DoctorId = doctors[0].Id
+                    DateOfApp = "08/05/2018",
+                    DoctorId = doctors[0].Id,
+
                 },
 
                 new AppointmentModel
@@ -681,6 +762,57 @@ namespace MedicalClinic.Data
                     context.SaveChanges();
                 }
             }
+
+            /* Diagnosis */
+
+            var diagnosises = new DiagnosisModel[]
+            {
+                new DiagnosisModel
+                {
+                    Synopsis = "Patient has cough and running nose.",
+                    Symptoms = "Cough",
+                    DeseaseName = "Pneumonia",
+                    AppointmentId = visits[0].Id
+                },
+
+                new DiagnosisModel
+                {
+                    Synopsis = "Patient has fever and elargement of the tonsils. Not good for him.",
+                    Symptoms = "Sore throat, fever, enlargement of the tonsils, trouble swallowing, large lymph nodes around the neck",
+                    DeseaseName = "Tonsillitis",
+                    AppointmentId = visits[1].Id
+                },
+
+                new DiagnosisModel
+                {
+                    Synopsis = "Patient came in with pain in his ear and little fever.",
+                    Symptoms = "Ear pain, fever, hearing loss.",
+                    DeseaseName = "Otitis media",
+                    AppointmentId = visits[2].Id
+                },
+
+                new DiagnosisModel
+                {
+                    Synopsis = "Patient has little headache",
+                    Symptoms = "Fever, headache, and neurological problems",
+                    DeseaseName = "Brain abscess",
+                    AppointmentId = visits[3].Id
+                }
+            };
+
+            if (!context.DiagnosisModel.Any())
+            {
+                foreach (DiagnosisModel diagnosis in diagnosises)
+                {
+                    context.DiagnosisModel.Add(diagnosis);
+                    context.SaveChanges();
+                }
+            }
+
+            /* Examination */
+
+            /* Refferal */
+
         }
     }
 }
