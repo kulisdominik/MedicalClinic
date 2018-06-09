@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MedicalClinic.Data.Migrations;
 using MedicalClinic.Models;
 using MedicalClinic.Models.ManageViewModels;
 using MedicalClinic.Services;
@@ -15,17 +16,20 @@ namespace MedicalClinic.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private ApplicationDbContext _context;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public ManageController(
               UserManager<ApplicationUser> userManager,
               SignInManager<ApplicationUser> signInManager,
+              ApplicationDbContext context,
               IEmailSender emailSender,
               ILogger<ManageController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
             _emailSender = emailSender;
             _logger = logger;
         }
@@ -42,13 +46,26 @@ namespace MedicalClinic.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            var residence = _context.ResidenceModel
+                            .Single(d => d.Id == user.ResidenceId);
+
             var model = new IndexViewModel
             {
                 Username = user.UserName,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
+                PhoneNumber = user.PhoneNum,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PIN = user.PIN,
+                Sex = user.Sex,
+                StatusMessage = StatusMessage,
+                Country = residence.Country,
+                City = residence.City,
+                Street = residence.Street,
+                BuildingNum = residence.BuildingNum,
+                FlatNum = residence.FlatNum,
+                PostalCode = residence.PostalCode
             };
 
             return View(model);
@@ -88,6 +105,26 @@ namespace MedicalClinic.Controllers
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
             }
+
+            user.PhoneNum = model.PhoneNumber;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.PIN = model.PIN;
+            user.Sex = model.Sex;
+
+            _context.SaveChanges();
+
+            var residence = _context.ResidenceModel
+                            .Single(d => d.Id == user.ResidenceId);
+
+            residence.Country = model.Country;
+            residence.City = model.City;
+            residence.Street = model.Street;
+            residence.BuildingNum = model.BuildingNum;
+            residence.FlatNum = model.FlatNum;
+            residence.PostalCode = model.PostalCode;
+
+            _context.SaveChanges();
 
             StatusMessage = "Twoje dane zostały zaktualizowane.";
             return RedirectToAction(nameof(Index));
