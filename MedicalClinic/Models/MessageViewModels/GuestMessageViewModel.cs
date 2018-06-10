@@ -16,9 +16,6 @@ namespace MedicalClinic.Models.MessageViewModels
 
         [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
-
-        [Display(Name = "PESEL")]
-        public string PIN { get; set; }
         
         [EmailAddress]
         [Display(Name ="Email")]

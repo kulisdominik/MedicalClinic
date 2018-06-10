@@ -9,34 +9,39 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <div id="contact_form">
             <form asp-action="SendMessageToAllClerk">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
+                <div class="form-group" id="sender_data">
                     <label asp-for="FirstName" class="control-label"></label>
                     <input asp-for="FirstName" class="form-control"/>
                     <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="sender_data">
                     <label asp-for="LastName" class="control-label"></label>
                     <input asp-for="LastName" class="form-control" />
                     <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
-                <!--<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Content" class="control-label"></label>
-        <input asp-for="Content" class="form-control" />
-        <span asp-validation-for="Content" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="SenderEmail" class="control-label"></label>
-        <input asp-for="SenderEmail" class="form-control" />
-        <span asp-validation-for="SenderEmail" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-default" />
-    </div>-->
+                <div class="form-group" id="sender_data">
+                    <label asp-for="SenderEmail" class="control-label"></label>
+                    <input asp-for="SenderEmail" class="form-control" />
+                    <span asp-validation-for="SenderEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="message_topic">
+                    <label asp-for="Topic" class="control-label"></label>
+                    <input asp-for="Topic" class="form-control" />
+                    <span asp-validation-for="Topic" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="width:100%;">
+                    <label asp-for="Content" class="control-label"></label>
+                    <textarea asp-for="Content" class="form-control" id="message_content"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="g-recaptcha" data-sitekey="6LcpyVgUAAAAAK0BmYwYW_CjvapCVx9_jj_9a7Ka"></div>
+                    <button class="send_button" name="send" type="submit"><span>Wyślij </span></button>
+                </div>
             </form>
         </div>
     </div>

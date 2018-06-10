@@ -186,7 +186,8 @@ footer {
 }
 
 #contact_form {
-    max-width: 500px;
+    width: 50%;
+    min-width: 100px;
     padding: 10px;
     background: linear-gradient(#4c878f -40%, #fff 100%);
     border: 1px solid #808080;
@@ -194,17 +195,17 @@ footer {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-#sender_data {
-    width: 100%;
+#sender_data{
+    width: 70%;
 }
 
 #message_topic {
-    width: 70%;
+    width: 100%;
 }
 
 #message_content {
     width: 100%;
-    height: 100px;
+    height: 200px;
     max-height: 500px;
     max-width: 100%;
     min-height: 40px;
