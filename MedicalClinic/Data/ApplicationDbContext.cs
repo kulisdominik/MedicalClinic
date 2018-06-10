@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MedicalClinic.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MedicalClinic.Models.MessageViewModels;
 
 namespace MedicalClinic.Data.Migrations
 {
@@ -133,5 +134,6 @@ namespace MedicalClinic.Data.Migrations
         public DbSet<GradeModel> GradeModel { get; set; }
         public DbSet<DiagnosisModel> DiagnosisModel { get; set; }
         public DbSet<MessageModel> MessageModel { get; set; }
+        public DbSet<MedicalClinic.Models.MessageViewModels.GuestMessageViewModel> GuestMessageViewModel { get; set; }
     }
 }
