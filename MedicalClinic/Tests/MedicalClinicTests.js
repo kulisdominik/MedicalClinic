@@ -41,7 +41,7 @@ casper.test.begin("MedicalClinic", 71, function(test){
 			test.assertResourceExists("contact_img_2.svg", "img mail");
 			test.assertResourceExists("contact_img_3.svg", "img phone");
 			test.assertResourceExists("contact_img_4.svg", "img staff");
-			test.assertElementCount("h3", 1, "header napisz do nas");
+			test.assertElementCount("h5", 1, "header napisz do nas");
 			test.assertExists("#contact_form", "form napisz do nas");
 			test.assertElementCount(".form-control", 5, "form napisz do nas elements");
 			//testing form when it works
@@ -57,7 +57,7 @@ casper.test.begin("MedicalClinic", 71, function(test){
 			test.assertExists("#Email", "mail");
 			test.assertExists("#Password", "password");
 			test.assertExists("#ConfirmPassword", "confirm password");
-			test.assertElementCount(".form-group", 3, "form elements");
+			test.assertElementCount(".form-group", 5, "form elements");
 			test.assertElementCount("h2", 1, "h2 header");
 			nickname = randomNickname();
 			this.fill("form",{"Email":nickname},true);
@@ -78,7 +78,7 @@ casper.test.begin("MedicalClinic", 71, function(test){
 			password = nickname+"Q1!"
 			nickname = nickname+"@"+nickname+".com";
 			casper.echo("user: "+nickname+" "+password);
-			this.fill("form", {"Email":nickname, "Password":password, "ConfirmPassword":password},true);
+			this.fill("form", {"Email":nickname, "Password":password, "ConfirmPassword":password, "FirstName":nickname, "LastName":nickname},true);
 		});
 
 		casper.waitForSelector("footer", function(){
