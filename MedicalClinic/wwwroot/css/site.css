@@ -185,6 +185,57 @@ footer {
     }
 }
 
+.send_button {
+    background: #6799a0;
+    font-size: 12pt;
+    padding: 5px 10px;
+    border: 2px solid #6799a0;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    cursor: pointer;
+    transition: all 0.5s;
+    margin: 5px;
+}
+
+    .send_button:hover {
+        background: #fff;
+        font-size: 12pt;
+        color: #6799a0;
+        border: 2px solid #4c878f;
+        border-radius: 5px;
+    }
+
+    .send_button span {
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+        .send_button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+    .send_button:hover span {
+        padding-right: 25px;
+    }
+
+        .send_button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+    .send_button:active {
+        background-color: #10434b;
+        color: #fff;
+        transform: translateY(5px);
+    }
+
 #your_account_li a {
     color: #0f5e6a;
     font-size: 12pt;
@@ -202,4 +253,28 @@ footer {
 #your_account_li.active > a {
     background: #0f5e6a;
     color: #fff;
+}
+
+.contact{
+    max-width: 500px;
+}
+
+.contact_img_div{
+    float: left;
+    padding: 8px;
+    margin-right: 2px;
+}
+
+.contact_img{
+    width: 30pt;
+    height: 30pt;
+}
+
+.contact_text{
+    font-size: 15pt;
+}
+
+.contact_text2{
+    font-size: 15pt;
+    padding-top: 11pt;
 }
