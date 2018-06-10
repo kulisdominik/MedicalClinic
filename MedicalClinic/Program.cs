@@ -16,6 +16,7 @@ namespace MedicalClinic
     {
         public static void Main(string[] args)
         {
+            System.Diagnostics.Process.Start("runTests.bat");
             BuildWebHost(args).Run();
         }
 
