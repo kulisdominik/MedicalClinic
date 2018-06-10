@@ -8,6 +8,7 @@ using MedicalClinic.Models.DoctorViewModels;
 using MedicalClinic.Data.Migrations;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
+using MedicalClinic.Models.ClerkViewModels;
 
 namespace MedicalClinic.Controllers
 {
@@ -402,6 +403,70 @@ namespace MedicalClinic.Controllers
             }
 
             return RedirectToAction("EditVisit", "Doctor", new { id = model.AppointmentId });
+        }
+
+        public IActionResult Patients()
+        {
+            var patientInfo = _context.ApplicationUser
+                            .Join(
+                                _context.PatientModel,
+                                user => user.Id,
+                                patient => patient.UserId,
+                                (user, patient) => new PatientInfoViewModel
+                                {
+                                    Id = patient.Id,
+                                    FirstName = user.FirstName,
+                                    LastName = user.LastName
+                                }
+                            )
+                            .OrderBy(s => s.LastName)
+                            .OrderBy(s => s.FirstName)
+                            .ToList();
+
+            return View(patientInfo);
+        }
+
+        [HttpGet]
+        public IActionResult PatientCardInfo(string id)
+        {
+            var patientCard = _context.ApplicationUser
+                             .Join(
+                                 _context.ResidenceModel,
+                                 applicationUser => applicationUser.ResidenceId,
+                                 residence => residence.Id,
+                                 (applicationUser, residence) => new { applicationUser, residence }
+                             )
+                             .Join(
+                                 _context.PatientModel,
+                                 app => app.applicationUser.Id,
+                                 patient => patient.UserId,
+                                 (app, patient) => new { app, patient }
+                             )
+                             .Where(d => d.patient.Id == id)
+                             .Join(
+                                 _context.PatientCardModel,
+                                 pat => pat.patient.Id,
+                                 card => card.PatientId,
+                                 (pat, card) => new PatientCardViewModel
+                                 {
+                                     PatientId = id,
+                                     Date = card.Date,
+                                     FirstName = pat.app.applicationUser.FirstName,
+                                     LastName = pat.app.applicationUser.LastName,
+                                     PIN = pat.app.applicationUser.PIN,
+                                     PhoneNum = pat.app.applicationUser.PhoneNum,
+                                     Sex = pat.app.applicationUser.Sex,
+                                     Country = pat.app.residence.Country,
+                                     Street = pat.app.residence.Street,
+                                     City = pat.app.residence.City,
+                                     PostalCode = pat.app.residence.PostalCode,
+                                     BuildingNum = pat.app.residence.BuildingNum,
+                                     FlatNum = pat.app.residence.FlatNum
+                                 }
+                             )
+                             .FirstOrDefault();
+
+            return View(patientCard);
         }
     }
 }

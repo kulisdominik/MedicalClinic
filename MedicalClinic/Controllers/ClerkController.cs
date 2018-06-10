@@ -30,7 +30,7 @@ namespace MedicalClinic.Controllers
             return View();
         }
 
-        public IActionResult Patients(PatientInfoViewModel model)
+        public IActionResult Patients()
         {
             var patientInfo = _context.ApplicationUser
                             .Join(
@@ -282,6 +282,118 @@ namespace MedicalClinic.Controllers
             }
 
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Visits(string id)
+        {
+            var userCard = _context.ApplicationUser
+                            .Join(
+                                _context.PatientModel,
+                                appUser => appUser.Id,
+                                patient => patient.UserId,
+                                (appUser, patient) => new { appUser, patient }
+                            )
+                            .Where(d => d.patient.Id == id)
+                            .Join(
+                                _context.PatientCardModel,
+                                appUserPat => appUserPat.patient.Id,
+                                card => card.PatientId,
+                                (appUserPat, card) => new { appUserPat, card }
+                            )
+                            .SingleOrDefault();
+
+            var visits = new List<VisitHistoryViewModel>();
+
+            if (userCard != null)
+            {
+                var userVisits = _context.PatientCardModel
+                            .Where(d => d.Id == userCard.card.Id)
+                            .Join(
+                                _context.AppointmentModel,
+                                card => card.Id,
+                                visit => visit.PatientCardId,
+                                (card, visit) => new { card, visit }
+                            )
+                            .Join(
+                                _context.DoctorModel,
+                                cardVisit => cardVisit.visit.DoctorId,
+                                doctor => doctor.Id,
+                                (cardVisit, doctor) => new { cardVisit, doctor }
+                            )
+                            .Join(
+                                _context.ApplicationUser,
+                                cardVisitDoctor => cardVisitDoctor.doctor.UserId,
+                                applicationUser => applicationUser.Id,
+                                (cardVisitDoctor, applicationUser) => new VisitHistoryViewModel
+                                {
+                                    Id = cardVisitDoctor.cardVisit.visit.Id,
+                                    IsConfirmed = cardVisitDoctor.cardVisit.visit.IsConfirmed,
+                                    DateOfApp = cardVisitDoctor.cardVisit.visit.DateOfApp,
+                                    Hour = cardVisitDoctor.cardVisit.visit.Hour,
+                                    DoctorFirstName = applicationUser.FirstName,
+                                    DoctorLastName = applicationUser.LastName,
+                                    Specialization = cardVisitDoctor.doctor.Specialization
+                                }
+                            )
+                            .ToList();
+
+                DateTime now = DateTime.Today;
+
+                foreach (VisitHistoryViewModel visit in userVisits)
+                {
+                    DateTime myDate = DateTime.ParseExact(visit.DateOfApp, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    if (DateTime.Compare(myDate, now) > 0)
+                    {
+                        visits.Add(visit);
+                    }
+                }
+            }
+
+            return View(visits.AsEnumerable());
+        }
+
+        [HttpGet]
+        public IActionResult AcceptCancellation(string id)
+        {
+            var userVisit = _context.AppointmentModel
+                            .Where(d => d.Id == id)
+                            .Join(
+                                _context.DoctorModel,
+                                visit => visit.DoctorId,
+                                doctor => doctor.Id,
+                                (visit, doctor) => new { visit, doctor }
+                            )
+                            .Join(
+                                _context.ApplicationUser,
+                                visitDoctor => visitDoctor.doctor.UserId,
+                                applicationUser => applicationUser.Id,
+                                (visitDoctor, applicationUser) => new VisitHistoryViewModel
+                                {
+                                    Id = visitDoctor.visit.Id,
+                                    IsConfirmed = visitDoctor.visit.IsConfirmed,
+                                    DateOfApp = visitDoctor.visit.DateOfApp,
+                                    Hour = visitDoctor.visit.Hour,
+                                    DoctorFirstName = applicationUser.FirstName,
+                                    DoctorLastName = applicationUser.LastName,
+                                    Specialization = visitDoctor.doctor.Specialization
+                                }
+                            )
+                            .Single();
+
+            return View(userVisit);
+        }
+
+        [HttpPost]
+        public IActionResult AcceptCancellation(VisitHistoryViewModel model)
+        {
+            var updateVisit = _context.AppointmentModel
+                              .Single(d => d.Id == model.Id);
+
+            _context.AppointmentModel.Remove(updateVisit);
+            _context.SaveChanges();
+
+            return RedirectToAction("Patients");
         }
 
         [HttpGet]

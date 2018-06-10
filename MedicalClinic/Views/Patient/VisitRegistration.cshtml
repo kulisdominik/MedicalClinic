@@ -11,7 +11,7 @@
         <ul class="nostyle_ul">
             @foreach (var item in Model)
             {
-                <li><div class="doctors_div"><b><a asp-action="SelectDate" asp-route-id="@item.Id" class="text_information">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a></b><br/>@Html.DisplayFor(modelItem => item.DayofWeek) @Html.DisplayFor(modelItem => item.StartHour) - @Html.DisplayFor(modelItem => item.EndHour)</div></li>
+                <li><div class="doctors_div"><b><a asp-action="SelectDate" asp-route-id="@item.Id" class="text_information">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a></b><br/>@Html.DisplayFor(modelItem => item.Specialization)<br />@Html.DisplayFor(modelItem => item.DayofWeek) @Html.DisplayFor(modelItem => item.StartHour) - @Html.DisplayFor(modelItem => item.EndHour)</div></li>
             }
         </ul>
     }

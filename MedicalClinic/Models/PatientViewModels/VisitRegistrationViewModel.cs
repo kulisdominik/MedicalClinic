@@ -14,6 +14,8 @@ namespace MedicalClinic.Models.PatientViewModels
 
         public string SelectedDate { get; set; }
 
+        public string Specialization { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -25,5 +27,7 @@ namespace MedicalClinic.Models.PatientViewModels
         public string EndHour { get; set; }
 
         public List<GradeModel> Grade { get; set; }
+
+        public double Average { get; set; }
     }
 }

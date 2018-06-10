@@ -67,6 +67,7 @@ namespace MedicalClinic.Controllers
                                 (doc, hours) => new VisitRegistrationViewModel
                                 {
                                     Id = doc.doctor.Id,
+                                    Specialization = doc.doctor.Specialization,
                                     FirstName = doc.appUser.FirstName,
                                     LastName = doc.appUser.LastName,
                                     DayofWeek = hours.DayofWeek,

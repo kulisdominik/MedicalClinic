@@ -15,7 +15,8 @@
             }
             @if (User.IsInRole("Doctor"))
             {
-                 <li><a asp-area="" asp-controller="Doctor" asp-action="Calendar" title="">Panel lekarza</a></li>
+                 <li><a asp-area="" asp-controller="Doctor" asp-action="Calendar" title="">Kalendarz wizyt</a></li>
+                 <li><a asp-area="" asp-controller="Doctor" asp-action="Patients" title="">Pacjenci</a></li>
             }
             @if (User.IsInRole("Patient"))
             {

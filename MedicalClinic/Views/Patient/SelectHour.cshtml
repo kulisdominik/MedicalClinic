@@ -5,26 +5,34 @@
 }
 
 <h3><b>Wybierz godzinę</b></h3><hr />
-<h5 class="text_information">Dostępne godziny:</h5>
-<form asp-action="SelectHour">
-    <div class="form-group" hidden>
-        <input asp-for="Id" class="form-control" />
-    </div>
-    <div class="form-group" hidden>
-        <input asp-for="CardId" class="form-control" />
-    </div>
-    <div class="form-group" hidden>
-        <input asp-for="SelectedDate" class="form-control" />
-    </div>
-    <div class="form-group">
-        <select asp-for="SelectedHour" class="form-control">
-            @foreach(string hour in Model.Hours)
-            {
-                <option>@hour</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Zapisz się" class="send_button" />
-    </div>
-</form>
+@if (!Model.Hours.Any())
+{
+    <h5>Brak dostępnych godzin w tym dniu.</h5>
+}
+else
+{
+    <h5 class="text_information">Dostępne godziny:</h5>
+    <form asp-action="SelectHour">
+        <div class="form-group" hidden>
+            <input asp-for="Id" class="form-control" />
+        </div>
+        <div class="form-group" hidden>
+            <input asp-for="CardId" class="form-control" />
+        </div>
+        <div class="form-group" hidden>
+            <input asp-for="SelectedDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <select asp-for="SelectedHour" class="form-control">
+                @foreach (string hour in Model.Hours)
+                {
+                    <option>@hour</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Zapisz się" class="send_button" />
+        </div>
+    </form>
+}
+
