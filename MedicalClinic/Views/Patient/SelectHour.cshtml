@@ -4,8 +4,8 @@
     ViewData["Title"] = "Rejestracja na wizytę";
 }
 
-<h3>Wybierz godzinę</h3><hr />
-<h5>Dostępne godziny</h5>
+<h3><b>Wybierz godzinę</b></h3><hr />
+<h5 class="text_information">Dostępne godziny:</h5>
 <form asp-action="SelectHour">
     <div class="form-group" hidden>
         <input asp-for="Id" class="form-control" />
@@ -25,6 +25,6 @@
         </select>
     </div>
     <div class="form-group">
-        <input type="submit" value="Zapisz się" class="btn btn-default" />
+        <input type="submit" value="Zapisz się" class="send_button" />
     </div>
 </form>

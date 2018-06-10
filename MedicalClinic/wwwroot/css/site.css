@@ -329,9 +329,17 @@ footer {
         text-decoration: none;
     }
 
+    .text_format:active{
+        text-decoration: none;
+    }
+
 .text_information {
     font-size: 20px;
     color: #6799a0;
+}
+
+.text_information:hover{
+    text-decoration: none;
 }
 
 #visits_div {
@@ -343,6 +351,31 @@ footer {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-.medicine_ul{
-    list-style: decimal;
+.nostyle_ul{
+    list-style: none;
+}
+
+.doctors_div {
+    padding: 10px;
+    margin: 10px;
+    margin-left: 0;
+    border: 1px solid #6799a0;
+    border-radius: 10px;
+    width: 30%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#comment_div {
+    border: 1px solid #6799a0;
+    border-radius: 5px;
+    margin: 1px;
+    margin-left: 0;
+    padding: 10px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.2);
+}
+
+#table_style {
+    border: 1px solid #6799a0;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }

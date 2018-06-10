@@ -10,8 +10,10 @@ namespace MedicalClinic.Models.MessageViewModels
 {
     public class MessageViewModel
     {
+        [Display(Name ="Treść wiadomości")]
         public string Content { get; set; }
 
+        [Display(Name ="Email odbiorcy")]
         [NotMapped]
         public List<SelectListItem> ReceiversEmail { get; set; }
 

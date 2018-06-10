@@ -9,7 +9,7 @@
 <h3><b>Twoje wizyty</b></h3>
 @if (!Model.Any())
 {
-    <span class="text_information">Brak wizyt.</span>
+    <span class="text_information">Brak wizyt.</span><br/>
 }
 else
 {
@@ -29,4 +29,4 @@ else
     }
     </div>
 }
-    <a asp-area="" asp-controller="PatientCard" asp-action="PatientCard" class="text_format">Powrót</a>
+    <br/><a asp-area="" asp-controller="PatientCard" asp-action="PatientCard" class="text_format">Powrót</a>

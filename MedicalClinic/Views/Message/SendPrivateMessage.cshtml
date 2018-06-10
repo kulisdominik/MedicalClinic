@@ -1,36 +1,35 @@
 ﻿@model MedicalClinic.Models.MessageViewModels.MessageViewModel
 
 @{
-//ViewData["Title"] = "SendPrivateMessage";
-//Layout = "~/Views/Shared/_Layout.cshtml";
+ViewData["Title"] = "Wyślij wiadomość";
+Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>SendPrivateMessage</h2>
+<h2>Utwórz nową wiadomość</h2>
 
-<h4>MessageViewModel</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" id="contact_form">
         <form asp-action="SendPrivateMessage" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group" id="sender_data">
                 <label asp-for="ReceiversEmail" class="control-label"></label>
-                <select asp-for="ReceiverEmail" asp-items="Model.ReceiversEmail"></select>
+                <select asp-for="ReceiverEmail" asp-items="Model.ReceiversEmail" class="form-control"></select>
                 <span asp-validation-for="ReceiversEmail" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="sender_data">
                 <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
+                <textarea asp-for="Content" class="form-control"></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <button class="send_button" type="submit" ><span>Wyślij </span></button>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <br/><a asp-action="Index" class="text_format">Powrót do wiadomości</a>
 </div>
 

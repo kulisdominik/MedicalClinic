@@ -7,7 +7,7 @@
 <h4>@ViewData["Title"]</h4>
     @if (!Model.Any())
     {
-        <span>Brak wizyt.</span>
+        <span class="text_information">Brak wizyt.</span>
     }
     else
     {
@@ -15,20 +15,20 @@
             @foreach (var item in Model)
             {
                 <div class="row">
-                    <div class="col-md-5" style="border: 1px solid #CCC; margin: 20px; padding: 20px;">
+                    <div class="col-md-5" id="visits_div">
                         <b>Data wizyty:</b> @Html.DisplayFor(modelItem => item.DateOfApp)<br />
                         <b>Godzina:</b> @Html.DisplayFor(modelItem => item.Hour)<br />
                         <b>Lekarz:</b> @Html.DisplayFor(modelItem => item.DoctorFirstName) @Html.DisplayFor(modelItem => item.DoctorLastName)<br />
                         <b>Specjalizacja:</b> @Html.DisplayFor(modelItem => item.Specialization)<br />
                         @if (item.IsConfirmed == 0)
                         {
-                            <span>Wizyta niepotwierdzona.</span><br />
+                            <br/><span class="text_information">Wizyta niepotwierdzona.</span><br />
                         }
                         else
                         {
-                            <span>Wizyta potwierdzona.</span><br />
+                            <br/><span class="text_information">Wizyta potwierdzona.</span><br />
                         }
-                        <a asp-area="" asp-controller="Patient" asp-action="AcceptCancellation" asp-route-id="@item.Id">Odwołaj</a>
+                        <a asp-area="" asp-controller="Patient" asp-action="AcceptCancellation" asp-route-id="@item.Id" class="text_format" style="float: right;">Odwołaj</a>
                     </div>
                 </div>
             }

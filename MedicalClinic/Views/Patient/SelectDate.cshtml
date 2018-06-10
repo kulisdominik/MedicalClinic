@@ -6,7 +6,7 @@
 
 <h2>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
 
-<h3><b>Dostępne godziny - @Html.DisplayFor(model => model.DayofWeek)</b></h3>
+<h3><b>Wybierz datę - @Html.DisplayFor(model => model.DayofWeek)</b></h3>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <form asp-action="SelectDate">
     <div class="form-group" hidden>
@@ -39,12 +39,7 @@
             var startHour = parseInt("@Html.DisplayFor(model => model.StartHour)");
 
             var endHour = parseInt("@Html.DisplayFor(model => model.EndHour)");
-
-            var notAvailableHours = [];
-
-        </script>
-
-        <script>
+            
             if (available_day == "poniedziałek") {
                 $(function () {
                     $('#datetimepicker1').datetimepicker({
@@ -125,17 +120,17 @@
         </script>
     </div>
     <div class="form-group">
-        <input type="submit" value="Zapisz się" class="btn btn-default" />
+        <input type="submit" value="Wybierz godzinę" class="send_button" />
     </div>
 </form>
     @if (Model.Grade.Any())
     {
-        <h4>Komentarze</h4>
+        <h4 class="text_information"><b>Opinie użytkowników:</b></h4>
     @foreach (var grade in Model.Grade)
     {
-        <div class="col-md-7" style="border-top: 1px solid #EEE; margin-bottom: 20px;">
+        <div class="col-md-7" id="comment_div">
             <b>Ocena: </b>@Html.DisplayFor(model => grade.Grade)<br />
-            @Html.DisplayFor(model => grade.Comment)<br />
+            <b>Komentarz: </b>@Html.DisplayFor(model => grade.Comment)<br />
         </div>
     }
     }

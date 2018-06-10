@@ -1,16 +1,16 @@
 ﻿@model MedicalClinic.Models.MessageModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Usuń wiadomość";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Usuń</h2>
 
-<h3>Czy na pewno chcesz to usunąć...?</h3>
+<h3>Czy na pewno chcesz usunąć tę wiadomość?</h3>
 <div>
-    <h4>MessageModel</h4>
     <hr />
+    <div class="col-md-6" id="comment_div">
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Content)
@@ -25,22 +25,10 @@
             @Html.DisplayFor(model => model.ReceiverEmail)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ReceiverVisibility)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReceiverVisibility)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.SenderEmail)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.SenderEmail)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SenderVisibility)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SenderVisibility)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Date)
@@ -49,10 +37,11 @@
             @Html.DisplayFor(model => model.Date)
         </dd>
     </dl>
+        </div>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Powrót do listy</a>
+        <input type="submit" value="Usuń" class="send_button" /><br /><br/>
+        <a asp-action="Index" class="text_format">Powrót do wiadomości</a>
     </form>
 </div>
