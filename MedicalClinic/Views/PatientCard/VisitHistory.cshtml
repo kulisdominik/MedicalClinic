@@ -5,14 +5,11 @@
 }
 
 <h2>Historia wizyt</h2>
-
-<h3><b>Wizyty</b></h3>
-<br />
-<a asp-area="" asp-controller="PatientCard" asp-action="PatientCard">Powrót</a>
-<br /><br />
+<hr/>
+<h3><b>Twoje wizyty</b></h3>
 @if (!Model.Any())
 {
-    <span>Brak wizyt.</span>
+    <span class="text_information">Brak wizyt.</span>
 }
 else
 {
@@ -20,14 +17,16 @@ else
     @foreach (var item in Model)
     {
         <div class="row">
-            <div class="col-md-5" style="border: 1px solid #CCC; margin: 20px; padding: 20px;">
-                <b>Data wizyty:</b> @Html.DisplayFor(modelItem => item.DateOfApp)<br />
-                <b>Godzina:</b> @Html.DisplayFor(modelItem => item.Hour)<br />
-                <b>Lekarz:</b> @Html.DisplayFor(modelItem => item.DoctorFirstName) @Html.DisplayFor(modelItem => item.DoctorLastName)<br />
-                <b>Specjalizacja:</b> @Html.DisplayFor(modelItem => item.Specialization)<br />
-                <a asp-area="" asp-controller="PatientCard" asp-action="ShowDetails" asp-route-id="@item.Id">Zobacz szczegóły</a>
+            <div class="col-md-5" id="visits_div">
+                    <b>Data wizyty:</b> @Html.DisplayFor(modelItem => item.DateOfApp)<br />
+                    <b>Godzina:</b> @Html.DisplayFor(modelItem => item.Hour)<br />
+                    <b>Lekarz:</b> @Html.DisplayFor(modelItem => item.DoctorFirstName) @Html.DisplayFor(modelItem => item.DoctorLastName)<br />
+                    <b>Specjalizacja:</b> @Html.DisplayFor(modelItem => item.Specialization)
+                    <a asp-area="" asp-controller="PatientCard" asp-action="ShowDetails" asp-route-id="@item.Id" class="text_format" style="float: right;">Zobacz szczegóły</a>
+                
             </div>
         </div>
     }
     </div>
 }
+    <a asp-area="" asp-controller="PatientCard" asp-action="PatientCard" class="text_format">Powrót</a>

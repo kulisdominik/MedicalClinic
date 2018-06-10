@@ -28,7 +28,7 @@
                 <li><a asp-area="" asp-controller="Clerk" asp-action="Patients" title="">Pacjenci</a></li>
                 <li><a asp-area="" asp-controller="Clerk" asp-action="ConfirmVisit" title="">Wizyty do potwierdzenia</a></li>
             }
-                <li><a asp-area="" asp-controller="Message" asp-action="Index" title="">Wiadomości</a></li>
+            <li><a asp-area="" asp-controller="Message" asp-action="Index" title="">Wiadomości</a></li>
             <li><button type="submit" class="btn-custom">Wyloguj</button></li>
         </ul>
     </form>
@@ -39,5 +39,6 @@ else
         <li><a asp-area="" asp-controller="Account" asp-action="Register">Rejestracja</a></li>
         <li><a asp-area="" asp-controller="Account" asp-action="Login">Logowanie</a></li>
         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
+        <li><a asp-area="" asp-controller="Message" asp-action="SendMessageToAllClerk">Kontakt nowy</a></li>
     </ul>
 }

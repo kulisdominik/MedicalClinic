@@ -31,5 +31,7 @@ namespace MedicalClinic.Models.DoctorViewModels
 
         public List<ReferralViewModel> Referral { get; set; }
 
+        public bool Edit { get; set; }
+
     }
 }

@@ -13,9 +13,11 @@
 <div class="container">
     <div class="row">
         <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ExpDate"></label>
                 <input asp-for="ExpDate" class="form-control" />
+                <span asp-validation-for="ExpDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Descrpition"></label>
@@ -24,6 +26,11 @@
             <div class="form-group" hidden>
                 <label asp-for="AppointmentId"></label>
                 <input asp-for="AppointmentId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NameOfMedicine"></label>
+                <textarea asp-for="NameOfMedicine" class="form-control"></textarea>
+                <span asp-validation-for="NameOfMedicine" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-default">Dodaj receptę</button>
         </form>

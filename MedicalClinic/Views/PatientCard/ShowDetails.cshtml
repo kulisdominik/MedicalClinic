@@ -5,87 +5,87 @@
 }
 
 <h2>Historia wizyt</h2>
+<hr/>
 
-<h3><b>Wizyty</b></h3>
-<br />
-<a asp-area="" asp-controller="PatientCard" asp-action="VisitHistory" asp-route-id="@Model.CardId">Powrót</a>
-<br /><br />
-    <div class="container">
-            <div class="row">
-                <div class="col-md-5" style="border: 1px solid #CCC; margin: 20px; padding: 20px;">
-                    <b>Data wizyty:</b> @Html.DisplayFor(model => model.DateOfApp)<br />
-                    <b>Godzina:</b> @Html.DisplayFor(model => model.Hour)<br />
-                    <b>Lekarz:</b> @Html.DisplayFor(model => model.DoctorFirstName) @Html.DisplayFor(model => model.DoctorLastName)<br />
-                    <b>Specjalizacja:</b> @Html.DisplayFor(model => model.Specialization)<br />
+<h3><b>Twoja wizyta</b></h3>
+      <div class="container">
+          <div class="row">
+              <div class="col-md-5" id="visits_div">
+                  <h3>Informacje o wizycie:</h3>
+                  <b>Data wizyty:</b> @Html.DisplayFor(model => model.DateOfApp)<br />
+                  <b>Godzina:</b> @Html.DisplayFor(model => model.Hour)<br />
+                  <b>Lekarz:</b> @Html.DisplayFor(model => model.DoctorFirstName) @Html.DisplayFor(model => model.DoctorLastName)<br />
+                  <b>Specjalizacja:</b> @Html.DisplayFor(model => model.Specialization)<br />
 
-                    @if(Model.DeseaseName != null)
-                    {
-                        <h4>Diagnoza</h4>
-                        <b>Choroba:</b> @Html.DisplayFor(model => model.DeseaseName)<br />
-                        <b>Opis:</b> @Html.DisplayFor(model => model.Synopsis)<br />
-                        <b>Objawy:</b> @Html.DisplayFor(model => model.Symptoms)<br />
-                        <hr />
-                    }
+                  @if (Model.DeseaseName != null)
+            {
+              <hr/>
+              <h3>Diagnoza</h3>
+              <b>Choroba:</b> @Html.DisplayFor(model => model.DeseaseName)<br />
+              <b>Opis:</b> @Html.DisplayFor(model => model.Synopsis)<br />
+              <b>Objawy:</b> @Html.DisplayFor(model => model.Symptoms)<br />
+    }
 
-                    @if(Model.ExpDate != null)
-                    {
-                        <div class="col-md-12" padding-right: 5px;">
-                            <hr />
-                            <h4>Recepta</h4>
-                            <b>Data ważności:</b> @Html.DisplayFor(model => model.ExpDate)<br />
-                            <b>Leki:</b> 
-                            <ul>
-                            @foreach(var med in Model.NameofMedicine)
-                            {
-                                <li>@med</li>
-                            }
-                            </ul>
-                            <br />
-                            <b>Opis:</b> @Html.DisplayFor(model => model.Descrpition)<br />
-                        </div>
-                    }
+                  @if (Model.ExpDate != null)
+            {
+              <div class="col-md-12">
+                  <hr />
+                  <h4>Recepta</h4>
+                  <b>Data ważności:</b> @Html.DisplayFor(model => model.ExpDate)<br />
+                  <b>Leki:</b>
+                  <ul class="medicine_ul">
+                      @foreach (var med in Model.NameofMedicine)
+                {
+                  <li>@med</li>
+        }
+                  </ul>
+                  <b>Opis:</b> @Html.DisplayFor(model => model.Descrpition)<br />
+              </div>
+    }
 
-                    @if(Model.Referral.Any())
-                    {
-                        foreach(var item in Model.Referral)
-                        {
-                            <div class="col-md-12">
-                                <hr />
-                                <h4>Skierowanie</h4>
-                                <b>Data wystawienia:</b> @Html.DisplayFor(modelItem => item.DateOfIssuance)<br />
-                                <b>Badanie:</b> @Html.DisplayFor(modelItem => item.NameOfExamination)<br />
-                            </div>
-                        }
-                    }
-                </div>
-                <div class="col-md-4"><br />
-                    <h4><b>Twoja ocena</b></h4>
-                    @if(Model.Grade > 0)
-                    {
-                        <b>Ocena: </b> @Html.DisplayFor(model => model.Grade)<br /><br />
-                        @Html.DisplayFor(model => model.Comment)<br /><br />
-                    }
-                    else
-                    {
-                        <hr />
-                        <form method="post">
-                            <div class="form-group" style="width: 30%">
-                                <label>Ocena</label><br />
-                                <select asp-for="Grade" class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                            </div>
-                            <div class="form-group" style="width: 100%;">
-                                <label>Komentarz</label><br />
-                                <textarea asp-for="Comment" class="form-control" style="height: 150px; resize: none"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-default">Zapisz</button>
-                        </form>
-                    }
-                 </div>
-            </div>
-    </div>
+                  @if (Model.Referral.Any())
+            {
+                foreach (var item in Model.Referral)
+                {
+                  <div class="col-md-12">
+                      <hr />
+                      <h4>Skierowanie</h4>
+                      <b>Data wystawienia:</b> @Html.DisplayFor(modelItem => item.DateOfIssuance)<br />
+                      <b>Badanie:</b> @Html.DisplayFor(modelItem => item.NameOfExamination)<br />
+                  </div>
+        }
+    }
+              </div>
+              <div class="col-md-4" id="visits_div">
+                  <br />
+                  <h4><b>Twoja ocena</b></h4>
+                  @if (Model.Grade > 0)
+            {
+              <b>Ocena: </b> @Html.DisplayFor(model => model.Grade)<br /><br />
+              @Html.DisplayFor(model => model.Comment)<br /><br />
+    }
+    else
+    {
+      <hr />
+      <form method="post">
+          <div class="form-group" style="width: 30%">
+              <label>Ocena</label><br />
+              <select asp-for="Grade" class="form-control">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+              </select>
+          </div>
+          <div class="form-group" style="width: 100%;">
+              <label>Komentarz</label><br />
+              <textarea asp-for="Comment" class="form-control" style="height: 150px; resize: none"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default">Zapisz</button>
+      </form>
+}
+              </div>
+          </div>
+          <a asp-area="" asp-controller="PatientCard" asp-action="VisitHistory" asp-route-id="@Model.CardId" class="text_format">Powrót</a>
+      </div>

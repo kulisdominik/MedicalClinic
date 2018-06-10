@@ -99,6 +99,50 @@ namespace MedicalClinic.Controllers
             return View(model);
         }
 
+        [HttpGet, ActionName("SendMessageToAllClerk")]
+        public IActionResult SendMessageToAllClerk()
+        {
+            GuestMessageViewModel guestMessage = new GuestMessageViewModel
+            {
+                Content = "Wiadomość...",
+                SenderEmail = "guest@MedicalClinic.com"
+            };
+
+            return View(guestMessage);
+        }
+
+        [HttpPost, ActionName("SendMessageToAllClerk")]
+        public async Task<IActionResult> SendMessageToAllClerkAsync(GuestMessageViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                var clerks = await _userManager.GetUsersInRoleAsync("Clerk");
+
+                if(clerks == null)
+                {
+                    return View();
+                }
+
+                foreach(var clerk in clerks)
+                {
+                    MessageModel message = new MessageModel
+                    {
+                        Date = DateTime.Now,
+                        Content = model.Content,
+                        ReceiverEmail = clerk.Email,
+                        SenderEmail = model.SenderEmail
+                    };
+                    // TODO: Make this method real async 
+                    await _context.MessageModel.AddAsync(message);
+                }
+                await _context.SaveChangesAsync();
+
+                return RedirectToRoute("default");
+            }
+
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Delete(string id)
         {
