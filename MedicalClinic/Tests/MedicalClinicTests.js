@@ -16,7 +16,7 @@ casper.test.begin("MedicalClinic", 71, function(test){
 			test.assertElementCount("h3", 1, "h3 headers");
 			test.assertElementCount("p", 7, "paragraphs in description");
 			test.assertElementCount("h5", 2, "h5 header");
-			test.assertElementCount("li", 13, "list elements");
+			test.assertElementCount("li", 14, "list elements");
 			test.assertExists(".row", "row exists");
 			test.assertExists(".menu", "menu exists");
 			test.assertExists(".services", "services exists");
@@ -99,6 +99,7 @@ casper.test.begin("MedicalClinic", 71, function(test){
 			casper.evaluate(function(){
 				document.querySelector("#PhoneNumber").value = "12345";
 			});
+			//this.click("button[class='send_button']");
 			this.click("button.send_button");
 		});
 

@@ -17,7 +17,7 @@ namespace MedicalClinic
         public static void Main(string[] args)
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
-            process.StartInfo.FileName = "runTests.bat";
+            process.StartInfo.FileName = "Tests\\runTests.bat";
             process.StartInfo.UseShellExecute = true;
             process.Start();
 
