@@ -32,7 +32,7 @@ namespace MedicalClinic.Controllers
 
         public IActionResult EditUser()
         {
-            return View(_context.Users.Where(u => u.IsActive).ToList());
+            return View(_context.Users.ToList());
         }
 
         [HttpGet]
@@ -74,7 +74,7 @@ namespace MedicalClinic.Controllers
         {
             var user = await _context.Users.SingleOrDefaultAsync(m => m.Id == id);
 
-            user.IsActive = false;
+            user.IsActive = !user.IsActive;
 
             _context.Users.Update(user);
 
