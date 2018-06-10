@@ -11,9 +11,25 @@ namespace MedicalClinic.Models.MessageViewModels
         [Key]
         public string Id { get; set; }
 
+        [Display(Name = "Imię")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Nazwisko")]
+        public string LastName { get; set; }
+
+        [Display(Name = "PESEL")]
+        public string PIN { get; set; }
+        
+        [EmailAddress]
+        [Display(Name ="Email")]
+        public string SenderEmail { get; set; }
+
+        [Display(Name = "Temat wiadomości")]
+        public string Topic { get; set; }
+
+        [Display(Name = "Treść wiadomości")]
         public string Content { get; set; }
 
-        [EmailAddress]
-        public string SenderEmail { get; set; }
+        
     }
 }

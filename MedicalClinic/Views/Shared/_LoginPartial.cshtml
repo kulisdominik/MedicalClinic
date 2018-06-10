@@ -21,7 +21,7 @@
             {
                 <li><a asp-area="" asp-controller="PatientCard" asp-action="PatientCard" title="">Karta pacjenta</a></li>
                 <li><a asp-area="" asp-controller="Patient" asp-action="VisitRegistration" title="">Wizyta</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Contact" title="">Kontakt</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Contact" title="">Informacje kontaktowe</a></li>
             }
             @if (User.IsInRole("Clerk"))
             {
@@ -38,7 +38,7 @@ else
     <ul class="menu-list">
         <li><a asp-area="" asp-controller="Account" asp-action="Register">Rejestracja</a></li>
         <li><a asp-area="" asp-controller="Account" asp-action="Login">Logowanie</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
-        <li><a asp-area="" asp-controller="Message" asp-action="SendMessageToAllClerk">Kontakt nowy</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Informacje kontaktowe</a></li>
+        <li><a asp-area="" asp-controller="Message" asp-action="SendMessageToAllClerk">Formularz kontaktowy</a></li>
     </ul>
 }
