@@ -127,7 +127,6 @@ namespace MedicalClinic.Controllers
             else
             {
                 message.SenderVisibility = false;
-
             }
 
             _context.Update(message);

@@ -32,7 +32,7 @@ namespace MedicalClinic.Controllers
 
         public IActionResult EditUser()
         {
-            return View(_context.Users.ToList());
+            return View(_context.Users.Where(u => u.IsActive).ToList());
         }
 
         [HttpGet]
@@ -60,22 +60,24 @@ namespace MedicalClinic.Controllers
             var user = _context.Users.SingleOrDefault(u => u.Id == id);
             return View(user);
         }
-
-
+        
         [HttpGet]
         public IActionResult Delete(string id)
         {
             var user = _context.Users.SingleOrDefault(u => u.Id == id);
             return View(user);
         }
-
-
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var user = await _context.Users.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Users.Remove(user);
+
+            user.IsActive = false;
+
+            _context.Users.Update(user);
+
             await _context.SaveChangesAsync();
             return RedirectToAction("EditUser");
         }

@@ -63,8 +63,21 @@ namespace MedicalClinic.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                // TODO: Use user manager to block accout :)
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if(user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Nieudana próba logowania.");
+                    return View(model);
+                }
+
+                if(!user.IsActive)
+                {
+                    ModelState.AddModelError(string.Empty, "Konto zablokowane. ");
+                    return View(model);
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
