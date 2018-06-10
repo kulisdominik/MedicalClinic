@@ -188,7 +188,7 @@ footer {
 #contact_form {
     max-width: 500px;
     padding: 10px;
-    background: linear-gradient(#4c878f -10%, #fff 100%);
+    background: linear-gradient(#4c878f -40%, #fff 100%);
     border: 1px solid #808080;
     border-radius: 5px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
@@ -304,4 +304,44 @@ footer {
 .contact_text2{
     font-size: 15pt;
     padding-top: 11pt;
+}
+
+.text_format {
+    background: #6799a0;
+    font-size: 12pt;
+    padding: 5px 10px;
+    border: 2px solid #6799a0;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    cursor: pointer;
+    transition: all 0.5s;
+    margin: 5px;
+}
+
+    .text_format:hover {
+        background: #fff;
+        font-size: 12pt;
+        color: #6799a0;
+        border: 2px solid #4c878f;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+.text_information {
+    font-size: 20px;
+    color: #6799a0;
+}
+
+#visits_div {
+    min-width: 200px;
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid #6799a0;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.medicine_ul{
+    list-style: decimal;
 }
