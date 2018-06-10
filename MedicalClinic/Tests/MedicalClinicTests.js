@@ -1,9 +1,9 @@
-//tests are adapted to Medical Clinic app of 2018-05-27 15:04
+//tests are adapted to Medical Clinic app of 2018-06-10 22:05
 
 var nickname;
 var password;
 
-casper.test.begin("MedicalClinic", 71, function(test){
+casper.test.begin("MedicalClinic", 69, function(test){
 	casper.start("http://localhost:57492/", function(){
 		casper.viewport(1100,800);
 		casper.waitForSelector("footer",function(){
@@ -11,7 +11,7 @@ casper.test.begin("MedicalClinic", 71, function(test){
 			test.assertTitle("Start - MedicalClinic", "main page title");
 			test.assertSelectorHasText("a", "Rejestracja");
 			test.assertSelectorHasText("a", "Logowanie");
-			test.assertSelectorHasText("a", "Kontakt");
+			test.assertSelectorHasText("a", "Informacje kontaktowe");
 			test.assertElementCount("h2", 3, "h2 headers");
 			test.assertElementCount("h3", 1, "h3 headers");
 			test.assertElementCount("p", 7, "paragraphs in description");
@@ -24,15 +24,15 @@ casper.test.begin("MedicalClinic", 71, function(test){
 			test.assertExists("footer", "footer exists");
 			test.assertExists("#invite", "invite exists");
 			test.assertHttpStatus(200, "http status ok");
-			this.clickLabel("Kontakt","a");
+			this.clickLabel("Informacje kontaktowe","a");
 			});
 
 		casper.waitForSelector("footer",function(){
-			casper.echo("kontakt page");
-			test.assertTitle("Kontakt - MedicalClinic", "kontakt page title");
+			casper.echo("informacje kontaktowe page");
+			test.assertTitle("Informacje kontaktowe - MedicalClinic", "informacje kontaktowe page title");
 			test.assertSelectorHasText("a", "Rejestracja");
 			test.assertSelectorHasText("a", "Logowanie");
-			test.assertSelectorHasText("a", "Kontakt");
+			test.assertSelectorHasText("a", "Informacje kontaktowe");
 			test.assertExists("#address", "address");
 			test.assertExists("#mail", "mail");
 			test.assertExists("#phone", "phone");
@@ -41,10 +41,6 @@ casper.test.begin("MedicalClinic", 71, function(test){
 			test.assertResourceExists("contact_img_2.svg", "img mail");
 			test.assertResourceExists("contact_img_3.svg", "img phone");
 			test.assertResourceExists("contact_img_4.svg", "img staff");
-			test.assertElementCount("h5", 1, "header napisz do nas");
-			test.assertExists("#contact_form", "form napisz do nas");
-			test.assertElementCount(".form-control", 5, "form napisz do nas elements");
-			//testing form when it works
 			this.clickLabel("Rejestracja");
 		});
 
@@ -53,7 +49,7 @@ casper.test.begin("MedicalClinic", 71, function(test){
 			test.assertTitle("Rejestracja - MedicalClinic");
 			test.assertSelectorHasText("a", "Rejestracja");
 			test.assertSelectorHasText("a", "Logowanie");
-			test.assertSelectorHasText("a", "Kontakt");
+			test.assertSelectorHasText("a", "Informacje kontaktowe");
 			test.assertExists("#Email", "mail");
 			test.assertExists("#Password", "password");
 			test.assertExists("#ConfirmPassword", "confirm password");
@@ -99,12 +95,12 @@ casper.test.begin("MedicalClinic", 71, function(test){
 			casper.evaluate(function(){
 				document.querySelector("#PhoneNumber").value = "12345";
 			});
-			//this.click("button[class='send_button']");
-			this.click("button.send_button");
+			test.assertElementCount(".send_button",1);
+			this.click(".send_button");
 		});
 
 		casper.waitForSelector("footer",function(){
-			this.clickLabel("Hasło");
+			this.clickLabel("Zmiana hasła");
 		});
 
 		casper.waitForSelector("footer", function(){
@@ -115,11 +111,11 @@ casper.test.begin("MedicalClinic", 71, function(test){
 				document.querySelector("#ConfirmPassword").value = password+"x";
 			});
 			password += "x";
-			this.click("button.btn.btn-default");
+			this.click(".send_button");
 		});
 
 		casper.waitForSelector("footer", function(){
-			this.clickLabel("Twoje dane");
+			this.clickLabel("Edycja profilu");
 		})
 
 		casper.waitForSelector("footer", function(){
@@ -134,7 +130,7 @@ casper.test.begin("MedicalClinic", 71, function(test){
 			casper.echo("main page back");
 			test.assertSelectorHasText("a", "Rejestracja");
 			test.assertSelectorHasText("a", "Logowanie");
-			test.assertSelectorHasText("a", "Kontakt");
+			test.assertSelectorHasText("a", "Informacje kontaktowe");
 			this.clickLabel("Logowanie");
 		});
 
@@ -158,7 +154,7 @@ casper.test.begin("MedicalClinic", 71, function(test){
 
 		casper.waitForSelector("footer", function(){
 			casper.echo("chceck if there is list of users");
-			test.assertExists("#edituser_table");
+			test.assertExists(".table");
 			test.assertSelectorHasText("td", nickname);
 		});
 	});
