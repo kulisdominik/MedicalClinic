@@ -16,7 +16,9 @@
             <b>Data wizyty:</b> @Html.DisplayFor(model => model.DateOfApp)<br />
             <b>Pacjent:</b> @Html.DisplayFor(model => model.PatientFirstName) @Html.DisplayFor(model => model.PatientLastName)<br /><br />
 
-            <div id="editVisit" class="col-md-12">
+            @if(Model.Edit)
+            {
+                <div class="col-md-12">
                 @if (Model.DeseaseName != null)
                 {
                     <h4>Diagnoza</h4>
@@ -30,7 +32,7 @@
                     <a asp-area="" asp-controller="Doctor" asp-action="AddDiagnosis" asp-route-id="@Model.Id">Dodaj diagnozę</a><br /><br />
                 }
 
-                @if (Model.Descrpition != null)
+                @if (Model.ExpDate != null)
                 {
                     <div class="col-md-12" padding-right: 5px;">
                         <hr />
@@ -68,6 +70,7 @@
                 }
                 <a asp-area="" asp-controller="Doctor" asp-action="AddReferral" asp-route-id="@Model.Id">Dodaj skierowanie</a><br /><br />
             </div>
+            }
         </div>
     </div>
 </div>

@@ -10,6 +10,7 @@ namespace MedicalClinic.Models.DoctorViewModels
     {
         public string Id { get; set; }
 
+        [Required(ErrorMessage = "Wymagana data ważności")]
         [Display(Name = "Data ważności")]
         public string ExpDate { get; set; }
 
@@ -17,5 +18,9 @@ namespace MedicalClinic.Models.DoctorViewModels
         public string Descrpition { get; set; }
 
         public string AppointmentId { get; set; }
+
+        [Required(ErrorMessage = "Wymagane lekarstwa")]
+        [Display(Name = "Lekarstwa - wprowadź nazwy oddzielone przecinkiem")]
+        public string NameOfMedicine { get; set; }
     }
 }

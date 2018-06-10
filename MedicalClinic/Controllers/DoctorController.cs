@@ -235,7 +235,8 @@ namespace MedicalClinic.Controllers
                 DateOfApp = visit.appCardPat.appCard.app.DateOfApp,
                 PatientFirstName = visit.user.FirstName,
                 PatientLastName = visit.user.LastName,
-                Referral = new List<ReferralViewModel>()
+                Referral = new List<ReferralViewModel>(),
+                Edit = false
             };
 
             if (recipeInfo != null)
@@ -261,6 +262,12 @@ namespace MedicalClinic.Controllers
                 visitInfo.DeseaseName = diagnosisInfo.DeseaseName;
                 visitInfo.Symptoms = diagnosisInfo.Symptoms;
                 visitInfo.Synopsis = diagnosisInfo.Synopsis;
+            }
+
+            DateTime myDate = DateTime.ParseExact(visitInfo.DateOfApp, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            if (DateTime.Compare(myDate, DateTime.Today) < 0)
+            {
+                visitInfo.Edit = true;
             }
 
             return View(visitInfo);
@@ -328,6 +335,20 @@ namespace MedicalClinic.Controllers
 
             if (await _context.SaveChangesAsync() > 0)
             {
+                    List<string> medicine = model.NameOfMedicine.Split(',').ToList();
+
+                    foreach (string med in medicine)
+                    {
+                        var newMedicine = new MedicineModel
+                        {
+                            Name = med,
+                            RecipeId = newRecipe.Id
+                        };
+
+                        _context.MedicineModel.Add(newMedicine);
+                        _context.SaveChanges();
+                    }
+
                 var updateVisit = _context.AppointmentModel
                               .Where(d => d.Id == model.AppointmentId)
                               .First();
