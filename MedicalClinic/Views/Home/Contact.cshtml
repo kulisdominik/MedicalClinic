@@ -30,11 +30,26 @@
         <div class="contact_img_div">
             <img class="contact_img" src="~/images/contact_img_4.svg"/>
         </div>
-        <div class="contact_text">Dyrektor:</br><b>Jan Kowalski</b></br>Telefon: 123 456 789</div>
+        <div class="contact_text">Dyrektor: <b>Jan Kowalski</b></br>Telefon: 123 456 789</div>
     </div></br>
 
     <p style="font-size: 10pt;"><i>Szczegółowe informacje kontaktowe dostępne będą po zalogowaniu się. W razie pytań lub uwag, zachęcamy do skorzystania z formularza kontaktowego.</i></p>
 
     <h5>Napisz do nas:</h5></br>
-    <div id="contact_form"></div>
+    <div id="contact_form">
+        <form>
+            <label>Dane nadawcy:</label></br>
+            <input name="name" placeholder="Imię i nazwisko" class="form-control" id="sender_data">
+            <input name="pesel" placeholder="Pesel" class="form-control" id="sender_data">
+            <input name="email" type="email" placeholder="Adres e-mail" class="form-control" id="sender_data"></br>
+            <label>Temat:</label></br>
+            <input name="topic" placeholder="Temat wiadomości" class="form-control" id="message_topic"></br>
+            <label>Treść wiadomości:</label></br>
+            <textarea id="message_content" name="message" placeholder="Napisz tu swoją wiadomość" class="form-control"></textarea></br>
+            <div id="captcha">
+                <div class="g-recaptcha" data-sitekey="6LcpyVgUAAAAAK0BmYwYW_CjvapCVx9_jj_9a7Ka"></div>
+            </div>
+            <button class="send_button" name="send" type="submit"><span>Wyślij </span></button>
+        </form>
+    </div>
 </address>
