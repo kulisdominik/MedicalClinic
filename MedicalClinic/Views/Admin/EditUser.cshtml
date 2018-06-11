@@ -1,52 +1,54 @@
 ﻿@model IEnumerable<MedicalClinic.Models.ApplicationUser>
 
 @{
-    ViewData["Title"] = "EditUser";
+    ViewData["Title"] = "Panel administratora";
 }
 
-<h2>EditUser</h2>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmailConfirmed)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailConfirmed)
-            </td>
+<h2>Panel administratora</h2>
+<div class="col-md-12" id="table_style">
+    <table class="table">
+        <thead>
+            <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmailConfirmed)
+                    </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                </td>
 
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> |
-                @if (item.IsActive)
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="text_format" style="float: right;">Edytuj</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="text_format" style="float: right;">Szczegóły</a>
+                    @if (item.IsActive)
+        {
+                <a asp-action="Delete" asp-route-id="@item.Id" class="text_format" style="float:right;">Zablokuj</a>
+    }
+    else
     {
-            <a asp-action="Delete" asp-route-id="@item.Id">Zablokuj</a>
-}
-else
-{
-            <a asp-action="Delete" asp-route-id="@item.Id">Odblokuj</a>
-}
+                <a asp-action="Delete" asp-route-id="@item.Id" class="text_format" style="float:right;">Odblokuj</a>
+    }
 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>

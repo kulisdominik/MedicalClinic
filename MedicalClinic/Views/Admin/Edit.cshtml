@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Edytuj użytkownika</h2>
 
-<h4>ApplicationUser</h4>
 <hr />
 <div class="row">
     <div class="col-md-12">
@@ -93,15 +92,12 @@
                 <span asp-validation-for="AccessFailedCount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Zapisz" class="text_format" />
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="EditUser">Powrót do listy</a>
-</div>
+<a asp-action="EditUser" class="text_format">Powrót</a>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

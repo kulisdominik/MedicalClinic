@@ -1,16 +1,14 @@
 ﻿@model MedicalClinic.Models.ApplicationUser
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Zablokuj/odblokuj użytkownika";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
-
-<h3>Czy na pewno chcesz zablokować tego użytkownika?!</h3>
-<div>
-    <h4>ApplicationUser</h4>
-    <hr />
+<h2>Zablokuj/odblokuj użytkownika</h2>
+<hr />
+<h3>Czy na pewno chcesz zablokować/odblokować tego użytkownika?</h3>
+<div id="visits_div">    
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.UserName)
@@ -100,7 +98,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="EditUser">Powrót do listy</a>
+        <input type="submit" value="Zablokuj / odblokuj" class="send_button" />
+        <a asp-action="EditUser" class="text_format">Powrót</a>
     </form>
 </div>

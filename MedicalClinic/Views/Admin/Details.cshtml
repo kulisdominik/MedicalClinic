@@ -1,15 +1,13 @@
 ﻿@model MedicalClinic.Models.ApplicationUser
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Szczegóły";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>ApplicationUser</h4>
-    <hr />
+<h2>Sczegóły</h2>
+<hr/>
+<div id="visits_div">
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.UserName)
@@ -44,7 +42,7 @@
         <dt>
             @Html.DisplayNameFor(model => model.PasswordHash)
         </dt>
-        <dd>
+        <dd style="word-break: break-all;">
             @Html.DisplayFor(model => model.PasswordHash)
         </dd>
         <dt>
@@ -96,8 +94,8 @@
             @Html.DisplayFor(model => model.AccessFailedCount)
         </dd>
     </dl>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="text_format" >Edytuj</a>
+    <a asp-action="EditUser" class="text_format">Powrót</a>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="EditUser">Powrót do listy</a>
 </div>
