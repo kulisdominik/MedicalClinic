@@ -62,12 +62,12 @@ namespace MedicalClinic.Controllers
             #region Create SelectListItem
 
             {
-                var adminGroup = new SelectListGroup { Name = "Admin" };
+                var adminGroup = new SelectListGroup { Name = "Administratorzy:" };
                 var managerGroup = new SelectListGroup { Name = "Manager" };
-                var patientGroup = new SelectListGroup { Name = "Patient" };
-                var doctorGroup = new SelectListGroup { Name = "Doctor" };
-                var clerkGroup = new SelectListGroup { Name = "Clerk" };
-                var groupsGroup = new SelectListGroup { Name = "Groups" };
+                var patientGroup = new SelectListGroup { Name = "Pacjenci:" };
+                var doctorGroup = new SelectListGroup { Name = "Doktorzy:" };
+                var clerkGroup = new SelectListGroup { Name = "Recepcjoniści:" };
+                var groupsGroup = new SelectListGroup { Name = "Grupy:" };
 
                 bool isPatient = false;
                 foreach (var item in await _userManager.GetRolesAsync(currentUser))
@@ -81,11 +81,11 @@ namespace MedicalClinic.Controllers
                 if (!isPatient)
                 {
                     model.ReceiversEmail.Add(
-                        new SelectListItem { Text = "Group Admin", Value = "Admin", Group = groupsGroup });
+                        new SelectListItem { Text = "Administratorzy", Value = "Admin", Group = groupsGroup });
                     model.ReceiversEmail.Add(
-                        new SelectListItem { Text = "Group Doctor", Value = "Doctor", Group = groupsGroup });
+                        new SelectListItem { Text = "Doktorzy", Value = "Doctor", Group = groupsGroup });
                     model.ReceiversEmail.Add(
-                        new SelectListItem { Text = "Group Clerk", Value = "Clerk", Group = groupsGroup });
+                        new SelectListItem { Text = "Recepcjoniści", Value = "Clerk", Group = groupsGroup });
                 }
 
                 foreach (var user in _context.Users)
