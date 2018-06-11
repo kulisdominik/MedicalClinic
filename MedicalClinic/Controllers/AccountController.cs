@@ -115,7 +115,11 @@ namespace MedicalClinic.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
+            if(!model.AcceptanceRegulation)
+            {
+                ModelState.AddModelError("AcceptanceRegulation", "Wymagana akceptacja regulaminu. ");
+            }
+            else if (ModelState.IsValid)
             {
                 var userResidence = new ResidenceModel { };
                 _context.ResidenceModel.Add(userResidence);
@@ -155,7 +159,7 @@ namespace MedicalClinic.Controllers
                 }
                 AddErrors(result);
             }
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -194,6 +198,12 @@ namespace MedicalClinic.Controllers
             }
             var model = new ResetPasswordViewModel { Code = code };
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public IActionResult Regulations()
+        {
+            return View();
         }
 
         #region Helpers

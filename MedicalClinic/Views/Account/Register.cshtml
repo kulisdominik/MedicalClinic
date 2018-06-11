@@ -35,6 +35,12 @@
                     <input asp-for="LastName" class="form-control" />
                     <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
+                <div class="form-group" id="sender_data">
+                    <label asp-for="AcceptanceRegulation"></label>
+                    <a asp-controller="Account" asp-action="Regulations">Regulamin</a>
+                    <input type="checkbox" asp-for="AcceptanceRegulation" class="form-control" />
+                    <span asp-validation-for="AcceptanceRegulation" class="text-danger"></span>
+                </div>
                 <div class="g-recaptcha" data-sitekey="6LcpyVgUAAAAAK0BmYwYW_CjvapCVx9_jj_9a7Ka"></div>
                 <button type="submit" class="send_button">Zarejestruj</button>
             </form>

@@ -32,5 +32,9 @@ namespace MedicalClinic.Models
         [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
 
+        [Required(ErrorMessage = "Wymagana akceptacja regulaminu. ")]
+        [Display(Name = "Regulamin")]
+        public bool AcceptanceRegulation { get; set; }
+
     }
 }
