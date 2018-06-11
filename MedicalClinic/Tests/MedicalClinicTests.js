@@ -54,7 +54,7 @@ casper.test.begin("MedicalClinic", 69, function(test){
 			test.assertExists("#Email", "mail");
 			test.assertExists("#Password", "password");
 			test.assertExists("#ConfirmPassword", "confirm password");
-			test.assertElementCount(".form-group", 5, "form elements");
+			test.assertElementCount(".form-group", 6, "form elements");
 			test.assertElementCount("h2", 1, "h2 header");
 			nickname = randomNickname();
 			this.fill("form",{"Email":nickname},true);
@@ -75,6 +75,7 @@ casper.test.begin("MedicalClinic", 69, function(test){
 			password = nickname+"Q1!"
 			nickname = nickname+"@"+nickname+".com";
 			casper.echo("user: "+nickname+" "+password);
+			this.click("#AcceptanceRegulation");
 			this.fill("form", {"Email":nickname, "Password":password, "ConfirmPassword":password, "FirstName":nickname, "LastName":nickname},true);
 		});
 
@@ -157,6 +158,31 @@ casper.test.begin("MedicalClinic", 69, function(test){
 			casper.echo("chceck if there is list of users");
 			test.assertExists(".table");
 			test.assertSelectorHasText("td", nickname);
+			this.clickLabel("Wyloguj");
+		});
+
+		casper.waitForSelector("footer", function(){
+			casper.echo("load test - creating 40 accounts");
+			var time = Date.now();
+			for (var i=0 ; i<40 ; i++){
+				casper.waitForSelector("footer", function(){
+					this.clickLabel("Rejestracja");
+					casper.waitForSelector("footer", function(){
+						nickname = randomNickname();
+						password = nickname + "1Q!";
+						nickname += "@example.com";
+						casper.echo("new user: " + nickname);
+						this.click("#AcceptanceRegulation");
+						this.fill("form", {"Email":nickname, "Password":password, "ConfirmPassword":password, "FirstName":nickname, "LastName":nickname},true);
+						casper.waitForSelector("footer", function(){
+							this.clickLabel("Wyloguj");
+						});
+					});
+				});
+			}
+			casper.waitForSelector("footer", function(){
+				casper.echo("it took " + (Date.now()-time)/1000 + " seconds")
+			});
 		});
 	});
 
