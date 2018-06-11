@@ -39,8 +39,8 @@ namespace MedicalClinic.Data
 
             Random random = new Random();
             string[] Towns = { "Kraków", "Warszawa", "Gdańsk", "Wrocław", "Lublin" };
-            string[] Streets = { "Długa", "Krótka", "Warszawska", "Armii Krajowej", "Clepardia", "Ave 5", "Merry",
-                                    "Marquette", "Algoma", "Dawn", "Basil"};
+            string[] Streets = { "Długa", "Krótka", "Warszawska", "Armii Krajowej", "Clepardia", "Aleja", "Lea",
+                                    "Wąska", "Ogrodowa", "Wilenska", "Wiejska"};
 
             // Create admin account
             var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
@@ -281,8 +281,8 @@ namespace MedicalClinic.Data
                     UserName = "bglaister0@ifeng.com",
                     Email = "bglaister0@ifeng.com",
                     EmailConfirmed = true,
-                    FirstName = "Bryanty",
-                    LastName = "Glaister",
+                    FirstName = "Walenty",
+                    LastName = "Słoń",
                     PIN = "68782448145",
                     PhoneNum = "633453498",
                     Sex = "Kobieta",
@@ -294,8 +294,8 @@ namespace MedicalClinic.Data
                     UserName = "cbrattan1@oaic.gov.au",
                     Email = "cbrattan1@oaic.gov.au",
                     EmailConfirmed = true,
-                    FirstName = "Cammie",
-                    LastName = "Brattan",
+                    FirstName = "Karolina",
+                    LastName = "Kulak",
                     PIN = "185943649",
                     PhoneNum = "060450344",
                     Sex = "Kobieta",
@@ -307,8 +307,8 @@ namespace MedicalClinic.Data
                     UserName = "rconnichie2@yellowpages.com",
                     Email = "rconnichie2@yellowpages.com",
                     EmailConfirmed = true,
-                    FirstName = "Rebeka",
-                    LastName = "Connichie",
+                    FirstName = "Rozalia",
+                    LastName = "Kiepska",
                     PIN = "926412148",
                     PhoneNum = "354250585",
                     Sex = "Kobieta",
@@ -320,8 +320,8 @@ namespace MedicalClinic.Data
                     UserName = "bbowstead3@paginegialle.it",
                     Email = "bbowstead3@paginegialle.it",
                     EmailConfirmed = true,
-                    FirstName = "Brigham",
-                    LastName = "Bowstead",
+                    FirstName = "Michał",
+                    LastName = "Piwowar",
                     PIN = "947661095",
                     PhoneNum = "491760050",
                     Sex = "Mężczyzna",
@@ -333,8 +333,8 @@ namespace MedicalClinic.Data
                     UserName = "enornasell4@mysql.com",
                     Email = "enornasell4@mysql.com",
                     EmailConfirmed = true,
-                    FirstName = "Egor",
-                    LastName = "Nornasell",
+                    FirstName = "Igor",
+                    LastName = "Hugo",
                     PIN = "007033489",
                     PhoneNum = "501810177",
                     Sex = "Mężczyzna",
@@ -346,8 +346,8 @@ namespace MedicalClinic.Data
                     UserName = "zbuessen5@harvard.edu",
                     Email = "zbuessen5@harvard.edu",
                     EmailConfirmed = true,
-                    FirstName = "Zonnya",
-                    LastName = "Buessen",
+                    FirstName = "Żaneta",
+                    LastName = "Bansen",
                     PIN = "611879490",
                     PhoneNum = "639866398",
                     Sex = "Kobieta",
@@ -359,8 +359,8 @@ namespace MedicalClinic.Data
                     UserName = "rleconte6@ycombinator.com",
                     Email = "rleconte6@ycombinator.com",
                     EmailConfirmed = true,
-                    FirstName = "Rooney",
-                    LastName = "LeCante",
+                    FirstName = "Kamil",
+                    LastName = "Nowakowski",
                     PIN = "477777552",
                     PhoneNum = "358855814",
                     Sex = "Mężczyzna",
@@ -372,8 +372,8 @@ namespace MedicalClinic.Data
                     UserName = "srodolico7@opensource.org",
                     Email = "srodolico7@opensource.org",
                     EmailConfirmed = true,
-                    FirstName = "Steffen",
-                    LastName = "Rodolico",
+                    FirstName = "Stefan",
+                    LastName = "Radykał",
                     PIN = "929720491",
                     PhoneNum = "358209817",
                     Sex = "Mężczyzna",
@@ -385,8 +385,8 @@ namespace MedicalClinic.Data
                     UserName = "kbarthorpe8@examiner.com",
                     Email = "kbarthorpe8@examiner.com",
                     EmailConfirmed = true,
-                    FirstName = "Kerri",
-                    LastName = "Barthor",
+                    FirstName = "Krystyna",
+                    LastName = "Zajac",
                     PIN = "083013242",
                     PhoneNum = "354233141",
                     Sex = "Kobieta",
@@ -398,8 +398,8 @@ namespace MedicalClinic.Data
                     UserName = "fsculley9@technorati.com",
                     Email = "fsculley9@technorati.com",
                     EmailConfirmed = true,
-                    FirstName = "Francisca",
-                    LastName = "Sculley",
+                    FirstName = "Franciszek",
+                    LastName = "Droga",
                     PIN = "543349067",
                     PhoneNum = "561099340",
                     Sex = "Kobieta",
@@ -411,8 +411,8 @@ namespace MedicalClinic.Data
                     UserName = "achallacea@vinaora.com",
                     Email = "achallacea@vinaora.com",
                     EmailConfirmed = true,
-                    FirstName = "Alexio",
-                    LastName = "Challace",
+                    FirstName = "Aleks",
+                    LastName = "Kawka",
                     PIN = "663290857",
                     PhoneNum = "417500104",
                     Sex = "Kobieta",
@@ -814,12 +814,12 @@ namespace MedicalClinic.Data
 
                 new AppointmentModel
                 {
-                    DateOfApp = "14/06/2018",
-                    Hour = "14:00",
+                    DateOfApp = "29/05/2018",
+                    Hour = "14:25",
                     IsConfirmed = 1,
                     Notes = "-------",
                     DoctorId = doctors[0].Id,
-                    RecipeId = recpies[6].Id,
+                    //RecipeId = recpies[6].Id,
                     PatientCardId = patientCards[6].Id
                 }
             };
@@ -885,13 +885,13 @@ namespace MedicalClinic.Data
                     AppointmentId = visits[5].Id
                 },
 
-                new DiagnosisModel
+               /* new DiagnosisModel
                 {
-                    Synopsis = "Pacjent przyszedl z kaszlem i katarem.",
-                    Symptoms = "Kaszel, ból w płucach",
-                    DeseaseName = "Zapalenie płuc",
+                    //Synopsis = "Pacjent przyszedl z kaszlem i katarem.",
+                   // Symptoms = "Kaszel, ból w płucach",
+                    //DeseaseName = "Zapalenie płuc",
                     AppointmentId = visits[6].Id
-                }
+                }*/
             };
 
             if (!context.DiagnosisModel.Any())
@@ -934,12 +934,12 @@ namespace MedicalClinic.Data
                 new ExaminationModel
                 {
                     NameOfExamination = "----"
-                },
+                }
 
-                new ExaminationModel
+               /* new ExaminationModel
                 {
                     NameOfExamination = "Prześwietlenie"
-                }
+                }*/
             };
 
             if (!context.ExaminationModel.Any())
@@ -994,14 +994,14 @@ namespace MedicalClinic.Data
                     DateOfIssuance = "----",
                     ExaminationId = exams[5].Id,
                     AppointmentId = visits[5].Id,
-                },
-
-                new ReferralModel
-                {
-                    DateOfIssuance = "14/06/2018",
-                    ExaminationId = exams[6].Id,
-                    AppointmentId = visits[6].Id,
                 }
+
+               /* new ReferralModel
+                {
+                   DateOfIssuance = "14/06/2018",
+                  ExaminationId = exams[6].Id,
+                   AppointmentId = visits[6].Id,
+                }*/
             };
 
             if (!context.ReferralModel.Any())
@@ -1057,14 +1057,14 @@ namespace MedicalClinic.Data
                     Grade = 4,
                     Comment = "Szybko i dobrze",
                     AppointmentId = visits[5].Id
-                },
-
-                new GradeModel
-                {
-                    Grade = 2,
-                    Comment = "Ostatnia deska ratunku.... tylko dlatego go był moim wyborem",
-                    AppointmentId = visits[6].Id
                 }
+
+               /* new GradeModel
+                {
+                   Grade = 2,
+                   Comment = "Ostatnia deska ratunku.... tylko dlatego go był moim wyborem",
+                    AppointmentId = visits[6].Id
+                }*/
             };
 
             if (!context.GradeModel.Any())
