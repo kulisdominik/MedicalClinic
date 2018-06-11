@@ -1,2 +1,2 @@
-..\casperjs\bin\casperjs.exe test Tests\MedicalClinicTests.js --fail-fast
+casperjs test Tests\MedicalClinicTests.js --fail-fast
 pause
