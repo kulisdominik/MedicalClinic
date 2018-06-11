@@ -239,7 +239,7 @@ namespace MedicalClinic.Controllers
             _context.AppointmentModel.Add(newVisit);
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(VisitRegistration));
+            return RedirectToAction(nameof(CancelVisit));
         }
 
         [HttpGet]
