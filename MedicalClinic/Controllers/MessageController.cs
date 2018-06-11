@@ -57,15 +57,88 @@ namespace MedicalClinic.Controllers
             };
 
 
-            foreach (var user in _context.Users)
+            // Create SelectListItem with @ReceiversEmail
+
+            #region Create SelectListItem
+
             {
-                if (user.Email != currentUser.Email)
+                var adminGroup = new SelectListGroup { Name = "Admin" };
+                var managerGroup = new SelectListGroup { Name = "Manager" };
+                var patientGroup = new SelectListGroup { Name = "Patient" };
+                var doctorGroup = new SelectListGroup { Name = "Doctor" };
+                var clerkGroup = new SelectListGroup { Name = "Clerk" };
+                var groupsGroup = new SelectListGroup { Name = "Groups" };
+
+                bool isPatient = false;
+                foreach (var item in await _userManager.GetRolesAsync(currentUser))
+                {
+                    if (item == "Patient")
+                    {
+                        isPatient = true;
+                    }
+                }
+
+                if (!isPatient)
                 {
                     model.ReceiversEmail.Add(
-                        new SelectListItem { Text = user.Email, Value = user.Email }
-                    );
+                        new SelectListItem { Text = "Group Admin", Value = "Admin", Group = groupsGroup });
+                    model.ReceiversEmail.Add(
+                        new SelectListItem { Text = "Group Doctor", Value = "Doctor", Group = groupsGroup });
+                    model.ReceiversEmail.Add(
+                        new SelectListItem { Text = "Group Clerk", Value = "Clerk", Group = groupsGroup });
+                }
+
+                foreach (var user in _context.Users)
+                {
+                    if (user.Email != currentUser.Email)
+                    {
+                        var userGroups = await _userManager.GetRolesAsync(user);
+                        // Take the main group
+                        string userGroupName = userGroups[0].ToString();
+                        SelectListGroup userGroup = null;
+                        switch (userGroupName)
+                        {
+                            case "Admin":
+                                {
+                                    userGroup = adminGroup;
+                                    break;
+                                }
+                            case "Manager":
+                                {
+                                    userGroup = managerGroup;
+                                    break;
+                                }
+                            case "Patient":
+                                {
+                                    userGroup = patientGroup;
+                                    break;
+                                }
+                            case "Doctor":
+                                {
+                                    userGroup = doctorGroup;
+                                    break;
+                                }
+                            case "Clerk":
+                                {
+                                    userGroup = clerkGroup;
+                                    break;
+                                }
+                        }
+
+                        if (userGroup != null)
+                        {
+                            if (!(isPatient && userGroup == patientGroup))
+                            {
+                                model.ReceiversEmail.Add(
+                                    new SelectListItem { Text = user.Email, Value = user.Email, Group = userGroup});
+                            }
+                        }
+
+                    }
                 }
             }
+
+            #endregion
 
             return View(model);
         }
@@ -82,17 +155,43 @@ namespace MedicalClinic.Controllers
                     throw new Exception("Error: Current user is null!");
                 }
 
-                MessageModel message = new MessageModel
+                if (model.ReceiverEmail == "Admin" ||
+                    model.ReceiverEmail == "Doctor" ||
+                    model.ReceiverEmail == "Clerk")
                 {
-                    Date = DateTime.Now,
-                    Content = model.Content,
-                    ReceiverEmail = model.ReceiverEmail,
-                    SenderEmail = currentUser.Email
-                };
+                    var receivers = await _userManager.GetUsersInRoleAsync(model.ReceiverEmail);
 
-                await _context.MessageModel.AddAsync(message);
-                await _context.SaveChangesAsync();
+                    if (receivers == null)
+                    {
+                        return View();
+                    }
 
+                    foreach (var receiver in receivers)
+                    {
+                        // TODO: Make this method real async 
+                        await _context.MessageModel.AddAsync(new MessageModel
+                        {
+                            Date = DateTime.Now,
+                            Content = model.Content,
+                            ReceiverEmail = receiver.Email,
+                            SenderEmail = currentUser.Email
+                        });
+                    }
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    MessageModel message = new MessageModel
+                    {
+                        Date = DateTime.Now,
+                        Content = model.Content,
+                        ReceiverEmail = model.ReceiverEmail,
+                        SenderEmail = currentUser.Email
+                    };
+
+                    await _context.MessageModel.AddAsync(message);
+                    await _context.SaveChangesAsync();                    
+                }
                 return RedirectToAction("Index");
             }
 
@@ -114,16 +213,16 @@ namespace MedicalClinic.Controllers
         [HttpPost, ActionName("SendMessageToAllClerk")]
         public async Task<IActionResult> SendMessageToAllClerkAsync(GuestMessageViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var clerks = await _userManager.GetUsersInRoleAsync("Clerk");
 
-                if(clerks == null)
+                if (clerks == null)
                 {
                     return View();
                 }
 
-                foreach(var clerk in clerks)
+                foreach (var clerk in clerks)
                 {
                     MessageModel message = new MessageModel
                     {
@@ -164,7 +263,7 @@ namespace MedicalClinic.Controllers
                 throw new Exception("Error: Current user is null!");
             }
 
-            if(currentUser.Email == message.ReceiverEmail)
+            if (currentUser.Email == message.ReceiverEmail)
             {
                 message.ReceiverVisibility = false;
             }
