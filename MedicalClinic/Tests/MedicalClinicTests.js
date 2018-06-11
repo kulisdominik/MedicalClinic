@@ -1,6 +1,5 @@
 //tests are adapted to Medical Clinic app of 2018-06-10 22:05
 
-PHANTOMJS_EXECUTABLE="phantomjs/bin/phantomjs.exe"
 var nickname;
 var password;
 
