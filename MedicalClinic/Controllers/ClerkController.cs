@@ -328,6 +328,7 @@ namespace MedicalClinic.Controllers
                                 (cardVisitDoctor, applicationUser) => new VisitHistoryViewModel
                                 {
                                     Id = cardVisitDoctor.cardVisit.visit.Id,
+                                    PatientId = id,
                                     IsConfirmed = cardVisitDoctor.cardVisit.visit.IsConfirmed,
                                     DateOfApp = cardVisitDoctor.cardVisit.visit.DateOfApp,
                                     Hour = cardVisitDoctor.cardVisit.visit.Hour,
@@ -354,7 +355,7 @@ namespace MedicalClinic.Controllers
         }
 
         [HttpGet]
-        public IActionResult AcceptCancellation(string id)
+        public IActionResult AcceptCancellation(string id, string patientid)
         {
             var userVisit = _context.AppointmentModel
                             .Where(d => d.Id == id)
@@ -371,6 +372,7 @@ namespace MedicalClinic.Controllers
                                 (visitDoctor, applicationUser) => new VisitHistoryViewModel
                                 {
                                     Id = visitDoctor.visit.Id,
+                                    PatientId = patientid,
                                     IsConfirmed = visitDoctor.visit.IsConfirmed,
                                     DateOfApp = visitDoctor.visit.DateOfApp,
                                     Hour = visitDoctor.visit.Hour,

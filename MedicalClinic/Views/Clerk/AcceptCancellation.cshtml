@@ -18,7 +18,7 @@
                     <input asp-for="Id" class="form-control" />
                 </div>
                 <div>
-                    <a asp-area="" asp-controller="Patient" asp-action="CancelVisit" class="text_format" style="float:right;">Powrót</a>
+                    <a asp-area="" asp-controller="Clerk" asp-action="Visits" asp-route-id="@Model.PatientId" class="text_format" style="float:right;">Powrót</a>
                     <input type="submit" value="Odwołaj" class="send_button" style="float: right;" />
                 </div>
             </form>

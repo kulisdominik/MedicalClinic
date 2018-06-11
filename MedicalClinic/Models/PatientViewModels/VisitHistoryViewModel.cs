@@ -9,6 +9,8 @@ namespace MedicalClinic.Models.PatientViewModels
     {
         public string Id { get; set; }
 
+        public string PatientId { get; set; }
+
         public string DateOfApp { get; set; }
 
         public string Hour { get; set; }
