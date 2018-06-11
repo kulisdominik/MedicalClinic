@@ -748,7 +748,7 @@ namespace MedicalClinic.Data
             {
                 new AppointmentModel
                 {
-                    DateOfApp = "08/05/2018",
+                    DateOfApp = "10/05/2018",
                     Hour = "09:30",
                     IsConfirmed = 1,
                     Notes = "-----",
@@ -759,7 +759,7 @@ namespace MedicalClinic.Data
 
                 new AppointmentModel
                 {
-                    DateOfApp = "15/05/2018",
+                    DateOfApp = "17/05/2018",
                     Hour = "10:00",
                     IsConfirmed = 1,
                     Notes = "-----",
@@ -770,7 +770,7 @@ namespace MedicalClinic.Data
 
                 new AppointmentModel
                 {
-                    DateOfApp = "22/05/2018",
+                    DateOfApp = "24/05/2018",
                     Hour = "10:30",
                     IsConfirmed = 1,
                     Notes = "------",
@@ -781,7 +781,7 @@ namespace MedicalClinic.Data
 
                 new AppointmentModel
                 {
-                    DateOfApp = "05/06/2018",
+                    DateOfApp = "07/06/2018",
                     Hour = "11:00",
                     IsConfirmed = 1,
                     Notes = " ----- ",
@@ -792,7 +792,7 @@ namespace MedicalClinic.Data
 
                 new AppointmentModel
                 {
-                    DateOfApp = "24/05/2018",
+                    DateOfApp = "22/05/2018",
                     Hour = "13:00",
                     IsConfirmed = 1,
                     Notes = "-----",
@@ -803,7 +803,7 @@ namespace MedicalClinic.Data
 
                 new AppointmentModel
                 {
-                    DateOfApp = "07/06/2018",
+                    DateOfApp = "05/06/2018",
                     Hour = "13:30",
                     IsConfirmed = 1,
                     Notes ="-----",
