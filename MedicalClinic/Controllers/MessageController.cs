@@ -93,6 +93,12 @@ namespace MedicalClinic.Controllers
                     if (user.Email != currentUser.Email)
                     {
                         var userGroups = await _userManager.GetRolesAsync(user);
+
+                        if(userGroups == null)
+                        {
+                            break;
+                        }
+                        
                         // Take the main group
                         string userGroupName = userGroups[0].ToString();
                         SelectListGroup userGroup = null;
