@@ -1,19 +1,16 @@
 ﻿@model MedicalClinic.Models.DoctorViewModels.ReferralViewModel
 
 @{
-    ViewData["Title"] = "Historia wizyt";
+    ViewData["Title"] = "Dodaj skierowanie";
 }
 
-<h2>Historia wizyt</h2>
+<h2>Dodaj skierowanie</h2>
 
 <h3><b>Nowe skierowanie</b></h3>
-<br />
-<a asp-area="" asp-controller="Doctor" asp-action="EditVisit" asp-route-id="@Model.AppointmentId">Powrót</a>
-<br /><br />
 <div class="container">
-    <div class="row">
+    <div class="row"id="contact_form">
         <form method="post">
-            <div class="form-group">
+            <div class="form-group" id="sender_data">
                 <label asp-for="NameOfExamination"></label>
                 <input asp-for="NameOfExamination" class="form-control" />
             </div>
@@ -21,7 +18,8 @@
                 <label asp-for="AppointmentId"></label>
                 <input asp-for="AppointmentId" class="form-control" />
             </div>
-            <button type="submit" class="btn btn-default">Dodaj skierowanie</button>
+            <button type="submit" class="send_button">Dodaj skierowanie</button><br /><br />
+            <a asp-area="" asp-controller="Doctor" asp-action="EditVisit" asp-route-id="@Model.AppointmentId" class="text_format">Powrót</a><br/><br/>
         </form>
         <br />
     </div>

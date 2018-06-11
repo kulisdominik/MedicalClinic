@@ -52,7 +52,7 @@ namespace MedicalClinic.Controllers
 
             MessageViewModel model = new MessageViewModel
             {
-                Content = "Miejsce na twoja wiadomość...",
+                //Content = "Miejsce na twoja wiadomość...",
                 ReceiversEmail = new List<SelectListItem>(),
             };
 
@@ -104,8 +104,8 @@ namespace MedicalClinic.Controllers
         {
             GuestMessageViewModel guestMessage = new GuestMessageViewModel
             {
-                Content = "Wiadomość...",
-                SenderEmail = "guest@MedicalClinic.com"
+                //Content = "Wiadomość...",
+                //SenderEmail = "guest@MedicalClinic.com"
             };
 
             return View(guestMessage);

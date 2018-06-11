@@ -1,38 +1,36 @@
 ﻿@model MedicalClinic.Models.DoctorViewModels.RecipeViewModel
 
 @{
-    ViewData["Title"] = "Historia wizyt";
+    ViewData["Title"] = "Dodaj receptę";
 }
 
-<h2>Historia wizyt</h2>
+<h2>Dodaj receptę</h2>
 
 <h3><b>Nowa recepta</b></h3>
-<br />
-<a asp-area="" asp-controller="Doctor" asp-action="EditVisit" asp-route-id="@Model.AppointmentId">Powrót</a>
-<br /><br />
 <div class="container">
-    <div class="row">
+    <div class="row" id="contact_form">
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group" id="sender_data">
                 <label asp-for="ExpDate"></label>
                 <input asp-for="ExpDate" class="form-control" />
                 <span asp-validation-for="ExpDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="sender_data">
                 <label asp-for="Descrpition"></label>
-                <textarea asp-for="Descrpition" class="form-control"></textarea>
+                <textarea asp-for="Descrpition" class="form-control" id="message_content"></textarea>
             </div>
             <div class="form-group" hidden>
                 <label asp-for="AppointmentId"></label>
                 <input asp-for="AppointmentId" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group" id="sender_data">
                 <label asp-for="NameOfMedicine"></label>
-                <textarea asp-for="NameOfMedicine" class="form-control"></textarea>
+                <textarea asp-for="NameOfMedicine" class="form-control" id="message_content"></textarea>
                 <span asp-validation-for="NameOfMedicine" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Dodaj receptę</button>
+            <button type="submit" class="send_button">Dodaj receptę</button><br /><br/>
+            <a asp-area="" asp-controller="Doctor" asp-action="EditVisit" asp-route-id="@Model.AppointmentId" class="text_format">Powrót</a><br/><br/>
         </form>
         <br />
     </div>

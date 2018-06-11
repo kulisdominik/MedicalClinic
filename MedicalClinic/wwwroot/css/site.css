@@ -267,7 +267,9 @@ footer {
 #your_account_li a {
     color: #0f5e6a;
     font-size: 12pt;
-    border: 1px groove;
+    border: 2px solid;
+    transition: 0.5s;
+    border-radius: 10px;
 }
 
     #your_account_li a:hover {
@@ -275,7 +277,6 @@ footer {
         color: #fff;
         border: 2px solid #fff;
         border-radius: 8px;
-        transition: 0.5s;
     }
 
 #your_account_li.active > a {
@@ -307,10 +308,10 @@ footer {
     padding-top: 11pt;
 }
 
-.text_format {
+.text_format{
     background: #6799a0;
     font-size: 12pt;
-    padding: 5px 10px;
+    padding: 5px 20px;
     border: 2px solid #6799a0;
     border-radius: 5px;
     color: #fff;
@@ -368,8 +369,8 @@ footer {
 #comment_div {
     border: 1px solid #6799a0;
     border-radius: 5px;
-    margin: 1px;
-    margin-left: 0;
+    margin: 10px;
+    margin-left: 0px;
     padding: 10px;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.2);
 }
@@ -379,3 +380,19 @@ footer {
     border-radius: 10px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
+
+#display_names_li{
+    padding: 2px;
+}
+
+#display_names_li a {
+    color: #0f5e6a;
+    font-size: 15px;
+    transition-duration:0.3s;
+}
+
+    #display_names_li a:hover {
+        color: #6799a0;
+        font-size: 17px;
+        text-decoration: none;
+    }

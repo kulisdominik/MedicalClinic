@@ -8,10 +8,9 @@
 
 <div class="row">
     <div class="col-md">
-        <a asp-area="" asp-controller="Doctor" asp-action="Patients">Powrót</a><br />
         @if (Model == null)
         {
-            <span>Brak karty pacjenta!</span>
+            <span class="text_information">Brak karty pacjenta!</span><br/><br/>
         }
         else
         {
@@ -68,6 +67,7 @@
             </form>
         }
     </div>
+    <a asp-area="" asp-controller="Doctor" asp-action="Patients" class="text_format">Powrót</a><br />
 </div>
 
 @section Scripts {

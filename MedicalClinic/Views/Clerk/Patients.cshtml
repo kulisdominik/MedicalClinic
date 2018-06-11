@@ -7,9 +7,9 @@
 <h2>Panel recepcjonisty</h2>
 
 <h3><b>Pacjenci</b></h3>
-<ul>
+<ul class="nostyle_ul">
     @foreach (var item in Model)
     {
-        <li><a asp-action="PatientCardInfo" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a></li>
+        <li id="display_names_li"><a asp-action="PatientCardInfo" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a></li>
     }
 </ul>

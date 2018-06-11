@@ -4,11 +4,11 @@
     ViewData["Title"] = "Potwierdź wizytę";
 }
 
-<h4>@ViewData["Title"]</h4>
+<h2>@ViewData["Title"]</h2>
 
 @if (!Model.Any())
 {
-    <span>Brak wizyt wymagających potwierdzenia.</span>
+    <span class="text_information">Brak wizyt wymagających potwierdzenia.</span>
 }
 else
 {
@@ -16,13 +16,13 @@ else
         @foreach (var item in Model)
         {
             <div class="row">
-                <div class="col-md-5" style="border: 1px solid #CCC; margin: 20px; padding: 20px;">
+                <div class="col-md-5" id="visits_div">
                     <b>Data wizyty:</b> @Html.DisplayFor(modelItem => item.DateOfApp)<br />
                     <b>Godzina:</b> @Html.DisplayFor(modelItem => item.Hour)<br />
                     <b>Pacjent:</b> @Html.DisplayFor(modelItem => item.PatientFirstName) @Html.DisplayFor(modelItem => item.PatientLastName)<br />
                     <b>Lekarz:</b> @Html.DisplayFor(modelItem => item.DoctorFirstName) @Html.DisplayFor(modelItem => item.DoctorLastName)<br />
                     <b>Specjalizacja:</b> @Html.DisplayFor(modelItem => item.Specialization)<br />
-                    <a asp-area="" asp-controller="Clerk" asp-action="AcceptConfirmation" asp-route-id="@item.Id">Potwierdź</a>
+                    <a asp-area="" asp-controller="Clerk" asp-action="AcceptConfirmation" asp-route-id="@item.Id" class="text_format" style="float: right;">Potwierdź</a>
                 </div>
             </div>
         }

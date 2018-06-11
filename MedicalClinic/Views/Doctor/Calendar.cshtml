@@ -10,30 +10,32 @@
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://momentjs.com/downloads/moment.js"></script>
-<div class="container">
+<div class="container" id="comment_div" style="width: 100%;">
     <div class="row">
         <form asp-action="Calendar" class="col-md-4">
-                <div class="form-group" hidden>
-                    <input asp-for="Id" class="form-control" hidden />
+            <div class="form-group" hidden>
+                <input asp-for="Id" class="form-control" hidden />
+            </div>
+            <div class="form-group">
+                <div class="input-group date" id='datetimepicker12'>
+                    <input id="selectedDate" asp-for="SelectedDate" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
-                <div class="form-group">
-                    <div class="input-group date" id='datetimepicker12'>
-                        <input id="selectedDate" asp-for="SelectedDate" class="form-control" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
-                </div>
+                <button type="submit" class="send_button"><span>Wyświetl </span></button>
+            </div>
+            
 
             <script>
                 var daysWithVisits = [];
             </script>
             @foreach (var date in Model.DateOfApp)
-            {
-                <script>
+    {
+        <script>
                         daysWithVisits.push('@date');
-                </script>
-            }
+        </script>
+}
             <script type="text/javascript">
 
                 var enabledDaysWithVisits = [];
@@ -55,16 +57,15 @@
 
                 console.log(temp);
             </script>
-            <input type="submit" value="wyświetl" class="btn btn-default" />
         </form>
         <div class="col-md-6">
             @foreach (var item in Model.Visits)
         {
             <div class="row">
-                <div class="col-md-12" style="border: 1px solid #CCC; margin: 20px; padding: 20px;">
+                <div class="col-md-12" id="visits_div">
                     <b>Data wizyty:</b> @Html.DisplayFor(modelItem => item.DateOfApp)<br />
                     <b>Pacjent:</b> @Html.DisplayFor(modelItem => item.PatientFirstName) @Html.DisplayFor(modelItem => item.PatientLastName)<br />
-                    <a asp-area="" asp-controller="Doctor" asp-action="EditVisit" asp-route-id="@item.Id">Zobacz szczegóły</a>
+                    <a asp-area="" asp-controller="Doctor" asp-action="EditVisit" asp-route-id="@item.Id" class="text_format" style="float: right;">Zobacz szczegóły</a>
                 </div>
             </div>
         }
